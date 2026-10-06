@@ -7,9 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; overflow: hidden; }
+        body { font-family: 'Manrope', sans-serif; background-color: #f4f8fa; color: #142238; overflow: hidden; }
         .toast { transition: opacity 0.3s, transform 0.3s; z-index: 999999; pointer-events: none; }
         .toast > div { pointer-events: auto; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background-color: #e2e8f0; border: 1px solid #e2e8f0; border-radius: 0.5rem; overflow: hidden; }
@@ -42,6 +42,83 @@
 
         .animate-slideUp { animation: slideUp 0.3s ease-out forwards; }
         @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* IAT visual system: industrial contrast, navy/cyan hierarchy */
+        :root {
+            --iat-ink: #142238; --iat-rail: #101d2e; --iat-panel: #204a69;
+            --iat-signal: #15a9c7; --iat-canvas: #f4f8fa;
+            --iat-line: #d8e4eb; --iat-muted: #637788; --iat-white: #ffffff;
+            --iat-soft: #e8f7fa; --iat-success: #167a65; --iat-danger: #b34850;
+        }
+        h1,h2,h3,h4,h5 { font-family: 'Sora', sans-serif; letter-spacing: 0; }
+        #sidebar { background: var(--iat-rail); color: #c5d6df; width: 280px; box-shadow: 4px 0 24px #14223812; }
+        .iat-brand { min-height: 80px; display:flex; align-items:center; gap:13px; padding: 17px 22px; border-bottom:1px solid #ffffff1c; }
+        .iat-brand-mark { width:39px; height:39px; flex:none; display:grid; place-items:center; background:var(--iat-signal); color:var(--iat-ink); border-radius:5px; font-size:18px; }
+        .iat-brand h1 { font-size:16px; font-weight:800; color:var(--iat-white); line-height:1.25; }
+        .iat-brand span:not(.iat-brand-mark) { font-size:9px; font-weight:800; letter-spacing:1.6px; color:#89adbd; }
+        #sidebar > .p-4, #sidebar > .p-4.border-t { background:transparent; border-color:#ffffff1a; }
+        #sidebar nav { padding:18px 12px; }
+        #sidebar nav > div { color:#83a6b5; font-size:10px; letter-spacing:1.25px; margin:20px 10px 8px; }
+        #sidebar nav > div:first-child { margin-top:4px; }
+        #sidebar .nav-link { display:flex; align-items:center; min-height:41px; padding:9px 12px; border-radius:5px; color:#c5d6df; border-left:3px solid transparent; font-size:12px; line-height:1.4; text-decoration:none; }
+        #sidebar .nav-link i { width:23px; flex:none; color:#88aabc; margin-right:6px; }
+        #sidebar .nav-link:hover { background:#204a69; color:var(--iat-white); }
+        #sidebar .nav-link.active, #sidebar .nav-link.bg-indigo-600 { background:var(--iat-panel); border-left-color:var(--iat-signal); color:var(--iat-white); box-shadow:none; }
+        #sidebar .nav-link.active i { color:var(--iat-signal); }
+        #sidebar-username-display { color:#f4f8fa; }
+        #sidebar-username-display i { color:var(--iat-signal); }
+        #btn-kelola-proyek { background:var(--iat-panel); box-shadow:none; border:1px solid #ffffff20; }
+        #btn-kelola-proyek:hover { background:#29627f; }
+        main { background:var(--iat-canvas) !important; }
+        #iat-topbar { min-height:76px; height:auto; padding-block:12px; background:var(--iat-white); box-shadow:none; border-color:var(--iat-line); gap:12px; }
+        #iat-topbar h2 { color:var(--iat-ink); font-size:20px; font-weight:800; }
+        #iat-topbar #header-subtitle { color:var(--iat-muted); letter-spacing:1px; }
+        #iat-topbar button[onclick="toggleSidebar()"] { color:var(--iat-panel); width:35px; height:35px; }
+        #iat-topbar button[onclick="toggleSidebar()"] i { font-size:18px; }
+        #main-scroll-area { background:var(--iat-canvas); }
+        #main-scroll-area > section { max-width:1600px; margin-inline:auto; }
+        #main-scroll-area > section > .bg-white, #main-scroll-area > section > .bg-slate-900 { border-radius:6px; border-color:var(--iat-line); box-shadow:0 2px 10px #1422380a; }
+        .iat-export-center { padding:14px 16px; gap:12px; border:0 !important; border-bottom:1px solid var(--iat-line) !important; border-radius:0 !important; box-shadow:none !important; align-items:center; }
+        .iat-export-center h2 { color:var(--iat-ink); font-size:13px; font-weight:700; }
+        .iat-export-center h2 i { color:var(--iat-signal); }
+        .iat-export-center p { color:var(--iat-muted); font-size:11px; line-height:1.5; }
+        .iat-export-actions { gap:9px; }
+        .iat-export-scope { min-height:34px; max-width:100%; border:1px solid var(--iat-line); border-radius:5px; background:var(--iat-white); color:var(--iat-ink); padding:6px 28px 6px 10px; font:inherit; font-size:11px; }
+        #sidebar-close { margin-left:auto; flex:none; width:28px; height:28px; border-radius:4px; color:var(--iat-white); }
+        #sidebar-close:hover { background:var(--iat-panel); }
+        body > main { min-width:0; transition:margin-left .3s, width .3s; }
+        .iat-format-actions { padding-left:10px; border-left:1px solid var(--iat-line); gap:5px; }
+        .iat-export-center button, .iat-format-actions button, button.iat-import-action { min-height:34px; border-radius:5px; box-shadow:none; font-size:11px; white-space:nowrap; transition:background-color .18s, border-color .18s, transform .18s; }
+        .iat-export-center button:active, .iat-format-actions button:active, button.iat-import-action:active { transform:translateY(1px); }
+        .iat-export-center button[onclick*="'all'"] { background:var(--iat-ink); color:var(--iat-white); border:1px solid var(--iat-ink); }
+        .iat-export-center button[onclick*="'all'"]:hover { background:var(--iat-panel); }
+        .iat-format-actions button { background:var(--iat-white); color:var(--iat-panel); border:1px solid var(--iat-line); padding:7px 10px; }
+        .iat-format-actions button:hover { background:var(--iat-soft); border-color:var(--iat-signal); }
+        .iat-format-actions button i { color:var(--iat-signal); }
+        button.iat-import-action { background:var(--iat-soft); border-color:#a7dce6; color:var(--iat-panel); margin-left:0; }
+        button.iat-import-action:hover { background:#d7f1f6; }
+        #importTaskModal > div { border-radius:6px; border:1px solid var(--iat-line); }
+        #importTaskModal h3 { color:var(--iat-ink); }
+        #importTaskModal .bg-emerald-50 { background:var(--iat-soft); border-color:#a7dce6; }
+        #importTaskModal button[onclick="downloadTaskTemplate()"], #btn-import-task { background:var(--iat-panel); color:var(--iat-white); }
+        #importTaskModal button[onclick="downloadTaskTemplate()"]:hover, #btn-import-task:hover:not(:disabled) { background:var(--iat-ink); }
+        #importTaskModal input[type=file]:focus-visible, #sidebar .nav-link:focus-visible, .iat-export-center button:focus-visible, .iat-format-actions button:focus-visible, button.iat-import-action:focus-visible { outline:2px solid var(--iat-signal); outline-offset:2px; }
+        @media (min-width:1024px) {
+            #sidebar { transform:translateX(0); }
+            body.sidebar-collapsed #sidebar { transform:translateX(-100%); }
+            #sidebar-overlay { display:none !important; }
+            body > main { margin-left:280px; width:calc(100% - 280px); }
+            body.sidebar-collapsed > main { margin-left:0; width:100%; }
+        }
+        @media (max-width:1023px) { #sidebar { width:min(280px,86vw); } }
+        @media (max-width:640px) {
+            #iat-topbar { min-height:68px; }
+            #iat-topbar h2 { font-size:16px; }
+            .iat-export-center { align-items:flex-start; }
+            .iat-export-actions { width:100%; }
+            .iat-format-actions { padding-left:0; border-left:0; padding-top:8px; width:100%; border-top:1px solid var(--iat-line); }
+        }
+        @media (prefers-reduced-motion:reduce) { #sidebar, body > main, .iat-export-center button, .iat-format-actions button, button.iat-import-action { transition:none; } }
     </style>
 </head>
 <body class="flex h-screen w-screen bg-slate-50">
@@ -53,10 +130,11 @@
     <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/50 z-40 hidden transition-opacity duration-300 opacity-0 backdrop-blur-sm"></div>
 
     <!-- Sidebar -->
-    <aside class="fixed inset-y-0 left-0 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 z-50 shadow-2xl -translate-x-full" id="sidebar">
-        <div class="h-16 flex items-center px-6 border-b border-slate-800 bg-slate-950">
-            <i class="fa-solid fa-bolt text-indigo-500 text-xl mr-3"></i>
-            <h1 class="text-white font-bold text-lg tracking-wide truncate">IAT Electrical</h1>
+    <aside class="fixed inset-y-0 left-0 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 z-50 shadow-2xl -translate-x-full" id="sidebar" aria-label="Navigasi utama">
+        <div class="iat-brand">
+            <span class="iat-brand-mark"><i class="fa-solid fa-bolt"></i></span>
+            <div><h1>IAT Electrical</h1><span>PROJECT CONTROL</span></div>
+            <button id="sidebar-close" onclick="toggleSidebar()" aria-label="Sembunyikan sidebar" title="Sembunyikan sidebar"><i class="fa-solid fa-angles-left" aria-hidden="true"></i></button>
         </div>
         
         <div class="p-4 border-b border-slate-800 bg-slate-800/50">
@@ -69,9 +147,9 @@
         </div>
 
         <nav class="flex-grow overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
-            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-2 px-3">Menu Utama</div>
+            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-2 px-3">Ruang Kerja</div>
             <a href="#" onclick="switchView('dashboard')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group active" data-target="dashboard">
-                <i class="fa-solid fa-house w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Beranda / Dashboard
+                <i class="fa-solid fa-house w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Beranda
             </a>
             <a href="#" onclick="switchView('report-form')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="report-form">
                 <i class="fa-solid fa-pen-to-square w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Buat Laporan Harian
@@ -80,29 +158,29 @@
                 <i class="fa-solid fa-file-lines w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Riwayat Laporan
             </a>
             
-            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-3">Manajemen & Data</div>
+            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-3">Proyek & Dokumen</div>
             <a href="#" onclick="switchView('allprojects')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="allprojects">
-                <i class="fa-solid fa-layer-group w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Daftar Semua Proyek
+                <i class="fa-solid fa-layer-group w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Semua Proyek
             </a>
             <a href="#" onclick="switchView('archive')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="archive">
-                <i class="fa-solid fa-box-archive w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Arsip File PDF
+                <i class="fa-solid fa-box-archive w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Arsip PDF
             </a>
 
-            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-3">Jobdesk & Perencanaan</div>
+            <div class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider mb-2 mt-6 px-3">Perencanaan & Tim</div>
             <a href="#" onclick="switchView('timeline')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="timeline">
-                <i class="fa-solid fa-chart-gantt w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Timeline Project (Gantt)
+                <i class="fa-solid fa-chart-gantt w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Timeline Proyek
             </a>
             <a href="#" onclick="switchView('calendar')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="calendar">
-                <i class="fa-solid fa-calendar-days w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Kalender & Tugas Harian
+                <i class="fa-solid fa-calendar-days w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Kalender & Tugas
             </a>
             <a href="#" onclick="switchView('comparison')" class="nav-link admin-only block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="comparison">
-                <i class="fa-solid fa-code-compare w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Komparasi Aktual vs Plan
+                <i class="fa-solid fa-code-compare w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Komparasi Proyek
             </a>
             <a href="#" onclick="switchView('pictasks')" class="nav-link block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="pictasks">
                 <i class="fa-solid fa-user-tag w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Tugas per PIC
             </a>
             <a href="#" onclick="switchView('adminprogress')" class="nav-link admin-only block px-3 py-2.5 rounded-lg text-sm font-medium hover:bg-slate-800 hover:text-white transition group" data-target="adminprogress">
-                <i class="fa-solid fa-sliders w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Editor Progres (Admin)
+                <i class="fa-solid fa-sliders w-6 text-center text-slate-400 group-hover:text-indigo-400"></i> Editor Progres
             </a>
 
         </nav>
@@ -117,9 +195,9 @@
     <!-- Main Content Area -->
     <main class="flex-1 flex flex-col h-full relative bg-slate-50 overflow-hidden w-full">
         
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0 shadow-sm w-full">
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 z-10 flex-shrink-0 shadow-sm w-full" id="iat-topbar">
             <div class="flex items-center gap-3">
-                <button onclick="toggleSidebar()" class="text-slate-600 hover:text-indigo-600 focus:outline-none p-1.5 rounded-lg hover:bg-slate-100 transition flex items-center justify-center">
+                <button id="sidebar-toggle" onclick="toggleSidebar()" aria-label="Tampilkan atau sembunyikan sidebar" aria-controls="sidebar" title="Tampilkan atau sembunyikan sidebar" class="text-slate-600 hover:text-indigo-600 focus:outline-none p-1.5 rounded-lg hover:bg-slate-100 transition flex items-center justify-center">
                     <i class="fa-solid fa-bars text-2xl"></i>
                 </button>
                 <div class="flex flex-col">
@@ -146,15 +224,14 @@
         <div class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar" id="main-scroll-area">
             
             <section id="view-dashboard-content" class="space-y-6">
-                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap justify-between items-center gap-3">
+                <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap justify-between items-center gap-3 iat-export-center">
                     <div>
-                        <h2 class="text-lg font-bold text-slate-800 flex items-center"><i class="fa-solid fa-cloud-arrow-down text-indigo-600 mr-2"></i> Pusat Ekspor Data</h2>
-                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Ambil seluruh data proyek, tugas, jadwal, laporan, PIC & arsip ke Excel / PDF / CSV.</p>
+                        <h2 class="text-lg font-bold text-slate-800 flex items-center"><i class="fa-solid fa-arrow-right-arrow-left mr-2"></i> Impor & Ekspor</h2>
                     </div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <button onclick="exportView('all','excel')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-database mr-1.5"></i> Ekspor Semua (Excel)</button>
-                        <button onclick="exportView('all','pdf')" class="bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> Ekspor Semua (PDF)</button>
-                        <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('dashboard','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('dashboard','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('dashboard','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                    <div class="iat-export-actions flex items-center gap-2 flex-wrap">
+                        <button onclick="openModal('importTaskModal')" class="iat-import-action btn-tambah-tugas hidden border px-3 py-2 flex items-center font-bold" title="Impor tugas dari Excel"><i class="fa-solid fa-file-import mr-1.5"></i> Impor Excel</button>
+                        <select id="export-data-scope" class="iat-export-scope" aria-label="Data yang diekspor"><option value="dashboard">Beranda</option><option value="all">Semua data</option></select>
+                        <div class="iat-format-actions flex items-center flex-wrap"><button onclick="exportView(document.getElementById('export-data-scope').value,'excel')" class="px-3 py-2 flex items-center font-bold" title="Ekspor Excel"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView(document.getElementById('export-data-scope').value,'pdf')" class="px-3 py-2 flex items-center font-bold" title="Ekspor PDF"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView(document.getElementById('export-data-scope').value,'csv')" class="px-3 py-2 flex items-center font-bold" title="Ekspor CSV"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                     </div>
                 </div>
                 <!-- Dashboard Stats (dihapus atas permintaan) -->
@@ -312,7 +389,7 @@
             <section id="view-reports-content" class="hidden space-y-6">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex justify-between items-center">
                     <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-file-lines text-indigo-600 mr-2"></i> Riwayat Laporan</h2>
-<div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('reports','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('reports','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('reports','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+<div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('reports','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('reports','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('reports','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                 </div>
 
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row gap-3">
@@ -352,7 +429,7 @@
 
             <section id="view-allprojects-content" class="hidden space-y-6">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
-                    <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-layer-group text-indigo-600 mr-2"></i> Daftar Semua Proyek</h2>
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-layer-group text-indigo-600 mr-2"></i> Semua Proyek</h2>
                     
                     <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                         <div class="relative w-full sm:w-64">
@@ -365,7 +442,7 @@
                             <option value="hold">Hold (Tertunda)</option>
                             <option value="completed">Selesai (Completed)</option>
                         </select>
-                        <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('projects','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('projects','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('projects','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                        <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('projects','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('projects','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('projects','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="allprojects-container"></div>
@@ -373,12 +450,12 @@
 
             <section id="view-archive-content" class="hidden space-y-6">
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-box-archive text-indigo-600 mr-2"></i> Arsip File PDF</h2>
+                    <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-box-archive text-indigo-600 mr-2"></i> Arsip PDF</h2>
                     <div class="relative w-full sm:w-72">
                         <i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
                         <input type="text" id="search-archive" onkeyup="renderArchivePDF()" placeholder="Cari nama file..." class="pl-9 pr-3 py-2 w-full border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm font-medium transition">
                     </div>
-                    <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('arsip','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('arsip','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('arsip','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                    <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('arsip','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('arsip','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('arsip','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                 </div>
 
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-4 items-end admin-only">
@@ -442,10 +519,11 @@
                             <button onclick="changeGanttMonth(-1)" class="p-2 border border-slate-300 rounded bg-white hover:bg-slate-50 text-slate-600 transition shadow-sm" title="Bulan Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
                             <button onclick="changeGanttMonth(1)" class="p-2 border border-slate-300 rounded bg-white hover:bg-slate-50 text-slate-600 transition shadow-sm" title="Bulan Selanjutnya"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
-                        <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('tasks','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('tasks','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('tasks','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                        <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('tasks','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('tasks','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('tasks','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                         <div class="flex gap-2">
-                            <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tugas</button>
-                            <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF</button>
+                            <button onclick="openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
+                            <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tambah Tugas</button>
+                            <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF Lanjutan</button>
                         </div>
                     </div>
                 </div>
@@ -467,7 +545,7 @@
                                 <button onclick="changeMonth(-1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-100 transition text-slate-600"><i class="fa-solid fa-chevron-left"></i></button>
                                 <button onclick="resetToToday()" class="px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition">Hari Ini</button>
                                 <button onclick="changeMonth(1)" class="p-2 rounded-lg border border-slate-200 hover:bg-slate-100 transition text-slate-600"><i class="fa-solid fa-chevron-right"></i></button>
-                                <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('jadwal','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('jadwal','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('jadwal','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                                <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('jadwal','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('jadwal','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('jadwal','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                             </div>
                         </div>
                         
@@ -500,7 +578,7 @@
             <section id="view-comparison-content" class="hidden space-y-6 flex-col h-full">
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap justify-between items-center gap-4 flex-shrink-0">
                     <div class="flex items-center gap-3">
-                        <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-code-compare text-indigo-600 mr-2"></i> Komparasi Aktual vs Plan</h2>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-code-compare text-indigo-600 mr-2"></i> Komparasi Proyek</h2>
                         <span class="bg-slate-100 text-slate-600 text-[10px] font-bold px-2 py-1 rounded border border-slate-200" id="comp-month-label">Bulan Ini</span>
                     </div>
                     <div class="flex items-center gap-3 flex-wrap">
@@ -526,10 +604,11 @@
                             <button onclick="changeCompMonth(-1)" class="p-2 border border-slate-300 rounded bg-white hover:bg-slate-50 text-slate-600 transition shadow-sm" title="Sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
                             <button onclick="changeCompMonth(1)" class="p-2 border border-slate-300 rounded bg-white hover:bg-slate-50 text-slate-600 transition shadow-sm" title="Selanjutnya"><i class="fa-solid fa-chevron-right"></i></button>
                         </div>
-                        <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('komparasi','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('komparasi','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('komparasi','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                        <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('komparasi','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('komparasi','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('komparasi','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                         <div class="flex gap-2">
-                            <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tugas</button>
-                            <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF</button>
+                            <button onclick="openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
+                            <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tambah Tugas</button>
+                            <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF Lanjutan</button>
                         </div>
                     </div>
                 </div>
@@ -550,7 +629,7 @@
             <section id="view-pictasks-content" class="hidden space-y-4 flex-col h-full">
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap justify-between items-center gap-3 flex-shrink-0">
                     <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-user-tag text-indigo-600 mr-2"></i> Tugas per PIC</h2>
-                    <div class="flex items-center gap-2 flex-wrap"><button onclick="exportView('pic','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('pic','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('pic','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
+                    <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('pic','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('pic','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('pic','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                 </div>
 
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap items-end gap-3 flex-shrink-0">
@@ -611,9 +690,10 @@
             <section id="view-adminprogress-content" class="hidden space-y-4 flex-col h-full">
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3 flex-shrink-0">
                     <div class="flex flex-wrap justify-between items-center gap-3">
-                        <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> Editor Progres (Admin)</h2>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center"><i class="fa-solid fa-sliders text-indigo-600 mr-2"></i> Editor Progres</h2>
                         <div class="flex items-center gap-2 flex-wrap">
                             <button onclick="exportView('adminprogress','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button>
+                            <button onclick="exportView('adminprogress','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button>
                             <button onclick="exportView('adminprogress','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button>
                         </div>
                     </div>
@@ -759,11 +839,19 @@
                         <input type="date" id="taskEnd" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
                 </div>
+                <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">PIC (Penanggung Jawab)</label>
                     <select id="taskPic" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                         <option value="">Pilih PIC...</option>
                     </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Leader Project</label>
+                    <select id="taskLeader" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
+                        <option value="">Pilih Leader...</option>
+                    </select>
+                </div>
                 </div>
                 <div id="editTaskStatusContainer" class="hidden border-t border-slate-100 pt-3 mt-2">
                     <div class="flex gap-3">
@@ -784,6 +872,31 @@
             <div class="p-4 border-t border-slate-100 bg-slate-50 shrink-0 flex justify-end gap-3">
                 <button type="button" onclick="closeModal('taskModal')" class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-200 rounded-lg transition">Batal</button>
                 <button type="button" onclick="saveJobdeskTask()" id="btn-save-task" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition shadow-sm flex items-center">Simpan Tugas</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="importTaskModal" class="fixed inset-0 bg-slate-900/50 z-50 hidden flex justify-center items-center p-4">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 class="font-bold text-slate-800"><i class="fa-solid fa-file-excel text-emerald-600 mr-2"></i>Impor Tugas dari Excel</h3>
+                <button onclick="closeModal('importTaskModal')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-times text-lg"></i></button>
+            </div>
+            <div class="p-5 space-y-4 overflow-y-auto">
+                <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-slate-700">
+                    <p class="font-bold mb-1">1. Unduh contoh format</p>
+                    <p class="text-xs mb-2">Isi satu baris per tugas. Kolom wajib: Project, Kategori, Nama Tugas, Tanggal Mulai, Tanggal Selesai.</p>
+                    <button type="button" onclick="downloadTaskTemplate()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold"><i class="fa-solid fa-download mr-1"></i> Unduh Contoh Format (.xlsx)</button>
+                </div>
+                <div>
+                    <p class="font-bold text-sm text-slate-700 mb-1">2. Pilih file yang sudah diisi</p>
+                    <input type="file" id="importTaskFile" accept=".xlsx" onchange="previewTaskImport(this.files[0])" class="block w-full text-sm border border-slate-300 rounded-lg p-2">
+                </div>
+                <div id="importTaskPreview" class="text-xs"></div>
+            </div>
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex justify-end gap-3">
+                <button type="button" onclick="closeModal('importTaskModal')" class="px-4 py-2 text-slate-600 font-medium hover:bg-slate-200 rounded-lg">Batal</button>
+                <button type="button" id="btn-import-task" onclick="confirmTaskImport()" disabled class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-bold rounded-lg">Impor Tugas</button>
             </div>
         </div>
     </div>
@@ -826,7 +939,7 @@
         <div class="bg-white rounded-xl shadow-xl w-full max-w-xs overflow-hidden p-5 text-center">
             <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl"><i class="fa-solid fa-folder-minus"></i></div>
             <h3 class="font-bold text-slate-800 mb-1">Hapus Proyek?</h3>
-            <p class="text-[10px] text-slate-500 mb-5">Proyek beserta tugas terkaitnya akan dihapus permanen. Lanjutkan?</p>
+            <p class="text-[10px] text-slate-500 mb-5">Proyek beserta tugas dan laporannya akan dihapus permanen. Lanjutkan?</p>
             <input type="hidden" id="deleteProjectName">
             <div class="flex justify-center gap-3">
                 <button onclick="closeModal('deleteProjectModal')" class="px-4 py-2 border border-slate-300 text-slate-600 font-bold rounded-lg hover:bg-slate-50 transition text-sm">Batal</button>
@@ -1014,6 +1127,8 @@
     <!-- Pustaka PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
     
     <script>
         // ================= GLOBAL VARIABLES & CONFIG =================
@@ -1038,6 +1153,30 @@
         }
 
         let WEB_APP_URL = resolveWebAppUrl();
+
+        // FIX #17: token sesi dari server, ikut dikirim di setiap aksi simpan
+        let _authToken = null;
+        try { _authToken = sessionStorage.getItem('iat_token'); } catch(e) {}
+        function _auth(payload) { return Object.assign({}, payload, { token: _authToken }); }
+        function _cekSesi(result) {
+            if (result && result.code === 'AUTH') {
+                try { sessionStorage.removeItem('iat_token'); } catch(e) {}
+                showToast('Sesi habis. Silakan login ulang.', 'error');
+                setTimeout(() => location.reload(), 1500);
+            }
+            return result;
+        }
+        // FIX #3: tanda ada simpanan lokal yang belum terkirim ke server
+        const LS_DIRTY_KEY = 'iat_unsynced_v1';
+        function _setDirty(v) { try { v ? localStorage.setItem(LS_DIRTY_KEY, '1') : localStorage.removeItem(LS_DIRTY_KEY); } catch(e) {} }
+        function _isDirty() { try { return localStorage.getItem(LS_DIRTY_KEY) === '1'; } catch(e) { return false; } }
+        // FIX #13: cocokkan laporan per baris "- [LABEL] Tugas - Sub"
+        function laporanCocok(workDone, tk) {
+            const norm = x => String(x || '').trim().toLowerCase().replace(/\s+/g, ' ');
+            const full = norm(tk.name + (tk.subTask ? ' - ' + tk.subTask : ''));
+            if (!full) return false;
+            return String(workDone || '').split(/\n/).some(line => norm(line.replace(/^\s*-?\s*(\[[^\]]*\]\s*)?/, '')) === full);
+        }
 
         function configureWebAppUrl() {
             const current = WEB_APP_URL;
@@ -1087,99 +1226,185 @@
         function _lsSet(k, val) {
             try { localStorage.setItem(k, JSON.stringify(val)); } catch(e) { console.warn('LS write fail', e); }
         }
-        function getPendingProgress() { return _lsGet(LS_PENDING_KEY, {}); }
-        function setPendingProgress(map) { _lsSet(LS_PENDING_KEY, map || {}); }
-        function queuePendingProgress(taskId, progress, status) {
-            if (!taskId) return;
-            const map = getPendingProgress();
-            map[taskId] = { progress: Number(progress)||0, status: status||null, ts: Date.now() };
-            setPendingProgress(map);
+        // ================= SINKRONISASI BERVERSI (anti saling tindih) =================
+        // "base" = data terakhir dari server (beserta versi tiap data).
+        // Saat simpan, web hanya mengirim PERUBAHAN (selisih base -> data sekarang).
+        // Server menolak perubahan bila data itu sudah diubah orang lain lebih dulu.
+        const SYNC_ENT = {
+            tasks: { key: 'id', f: ['id','projectName','category','name','subTask','startDate','endDate','pic','status','progress','leader'] },
+            reports: { key: 'id', f: ['id','date','project','workers','workDone','issues','photo1','photo2','photo3','photo4','photo5'] },
+            projects: { key: 'name', f: ['name'] },
+            categories: { key: 'name', f: ['name'] },
+            accounts: { key: 'username', f: ['username','password','role'] },
+            arsip: { key: 'url', f: ['tanggal','filename','url'] }
+        };
+        let _baseMaps = null;
+        let _baseVer = {};
+
+        function _isoTgl(v) {
+            if (v === '' || v === null || v === undefined) return '';
+            const d = parseLocalDate(v);
+            return d && !isNaN(d.getTime()) ? formatDateForInput(d) : String(v);
         }
-        function clearPendingProgress(taskIds) {
-            const map = getPendingProgress();
-            (taskIds||[]).forEach(id => { delete map[id]; });
-            setPendingProgress(map);
-        }
-        function applyPendingProgressOverlay() {
-            // Terapkan nilai progres tertunda ke jobdeskTasks agar tidak "kembali ke nol"
-            // ketika server belum menyimpan kolom progress.
-            const map = getPendingProgress();
-            const ids = Object.keys(map);
-            if (!ids.length) return;
-            ids.forEach(id => {
-                const t = jobdeskTasks.find(x => x.id === id);
-                if (t) {
-                    const p = Number(map[id].progress)||0;
-                    // Overlay hanya jika server mengembalikan nilai lebih rendah / kosong
-                    if ((Number(t.progress)||0) < p) t.progress = p;
-                    if (map[id].status && (!t.status || t.status === 'pending')) t.status = map[id].status;
-                }
+        // Normalisasi SAMA PERSIS dengan _normRec di Apps Script.
+        function normRec(ent, r) {
+            r = r || {};
+            const o = {};
+            SYNC_ENT[ent].f.forEach(k => {
+                let v = r[k];
+                if (Array.isArray(v)) v = v.join(', ');
+                o[k] = (v === null || v === undefined) ? '' : String(v).trim();
             });
+            if (ent === 'tasks') {
+                let p = Math.max(0, Math.min(100, Math.round(Number(String(o.progress).replace('%','')) || 0)));
+                let st = String(o.status || 'pending').toLowerCase();
+                if (st === 'completed') p = 100;
+                else if (p >= 100 && st !== 'hold') st = 'completed';
+                else if (p > 0 && st === 'pending') st = 'progress';
+                else if (p === 0 && st === 'progress') st = 'pending';
+                o.progress = p; o.status = st;
+                o.startDate = _isoTgl(o.startDate); o.endDate = _isoTgl(o.endDate);
+            }
+            if (ent === 'reports') o.date = _isoTgl(o.date);
+            if (ent === 'accounts') { o.username = o.username.toLowerCase(); o.role = o.role || 'pic'; }
+            return o;
         }
+        function _recEq(ent, a, b) { return SYNC_ENT[ent].f.every(k => String(a[k]) === String(b[k])); }
+        function _keyOf(ent, rec) { return String(rec[SYNC_ENT[ent].key] || '').trim(); }
+        function _listToMap(ent, list) {
+            const m = {};
+            (list || []).forEach(x => { const n = normRec(ent, x); const k = _keyOf(ent, n); if (k) m[k] = n; });
+            return m;
+        }
+        function _stateMaps() {
+            return {
+                tasks: _listToMap('tasks', jobdeskTasks),
+                reports: _listToMap('reports', reports),
+                projects: _listToMap('projects', (projects || []).map(n => ({ name: n }))),
+                categories: _listToMap('categories', (taskCategories || []).map(n => ({ name: n }))),
+                accounts: _listToMap('accounts', accounts),
+                arsip: _listToMap('arsip', arsipPDF)
+            };
+        }
+        function _diffMaps(from, to) {
+            const ops = [];
+            Object.keys(SYNC_ENT).forEach(ent => {
+                const A = (from && from[ent]) || {}, B = to[ent] || {}, V = _baseVer[ent] || {};
+                Object.keys(B).forEach(k => {
+                    if (!A[k] || !_recEq(ent, A[k], B[k])) ops.push({ ent, op: 'upsert', key: k, baseVer: V[k] || 0, rec: B[k] });
+                });
+                Object.keys(A).forEach(k => { if (!B[k]) ops.push({ ent, op: 'delete', key: k, baseVer: V[k] || 0 }); });
+            });
+            return ops;
+        }
+        function _applyOps(ops, maps) {
+            const out = {};
+            Object.keys(SYNC_ENT).forEach(ent => { out[ent] = Object.assign({}, maps[ent] || {}); });
+            ops.forEach(o => { if (o.op === 'delete') delete out[o.ent][o.key]; else out[o.ent][o.key] = o.rec; });
+            return out;
+        }
+        function _serverToMaps(data) {
+            const E = () => ({ tasks: {}, reports: {}, projects: {}, categories: {}, accounts: {}, arsip: {} });
+            const vers = E(), maps = E();
+            const order = { tasks: [], reports: [], projects: [], categories: [], accounts: [], arsip: [] };
+            const put = (ent, list, verOf) => (list || []).forEach(x => {
+                const n = normRec(ent, x); const k = _keyOf(ent, n); if (!k || maps[ent][k]) return;
+                maps[ent][k] = n; order[ent].push(k); vers[ent][k] = Number(verOf(x, k)) || 1;
+            });
+            const vp = (data.versions && data.versions.projects) || {}, vc = (data.versions && data.versions.categories) || {};
+            put('tasks', data.jobdeskTasks, x => x._v);
+            put('reports', data.reports, x => x._v);
+            put('accounts', data.accounts, x => x._v);
+            put('arsip', data.arsipPDF, x => x._v);
+            put('projects', (data.projects || []).map(n => ({ name: n })), (x, k) => vp[k]);
+            put('categories', (data.taskCategories || []).map(n => ({ name: n })), (x, k) => vc[k]);
+            return { maps, order, vers };
+        }
+        function _mapsToState(maps, order) {
+            const arr = (ent, prependNew) => {
+                const seen = new Set(), res = [];
+                (order[ent] || []).forEach(k => { if (maps[ent][k]) { res.push(maps[ent][k]); seen.add(k); } });
+                const baru = Object.keys(maps[ent]).filter(k => !seen.has(k)).map(k => maps[ent][k]);
+                return prependNew ? baru.concat(res) : res.concat(baru);
+            };
+            jobdeskTasks = arr('tasks').map(t => Object.assign({}, t));
+            reports = arr('reports', true).map(r => Object.assign({}, r, { workers: r.workers ? String(r.workers).split(', ').filter(Boolean) : [] }));
+            projects = arr('projects').map(p => p.name);
+            taskCategories = arr('categories').map(c => c.name);
+            accounts = arr('accounts').map(a => { const o = { username: a.username, role: a.role }; if (a.password) o.password = a.password; return o; });
+            arsipPDF = arr('arsip', true).map(a => Object.assign({}, a));
+            updateWorkersArray();
+        }
+        // Terima data server, lalu terapkan ulang perubahan lokal yang belum terkirim.
+        function _terimaDataServer(data, refMaps) {
+            const srv = _serverToMaps(data);
+            const delta = refMaps ? _diffMaps(refMaps, _stateMaps()) : [];
+            const sig = () => JSON.stringify([projects, taskCategories, (accounts || []).map(a => a.username + a.role)]);
+            const sigLama = sig();
+            _baseMaps = srv.maps; _baseVer = srv.vers;
+            _mapsToState(_applyOps(delta, srv.maps), srv.order);
+            syncJadwalHarian();
+            saveSnapshot();
+            return { delta, pilihanBerubah: sigLama !== sig() };
+        }
+        function adaPerubahanBelumTersimpan() { return _diffMaps(_baseMaps, _stateMaps()).length > 0; }
+
+        function _renderSetelahSinkron(pilihanBerubah) {
+            try {
+                if (pilihanBerubah) initializeGlobalSelectors();
+                updateGlobalHeader(); renderJobdeskCalendar(); renderDailyTasks(selectedDate); renderGantt(); renderDashboard();
+                const vis = id => { const el = document.getElementById(id); return el && !el.classList.contains('hidden'); };
+                if (vis('view-reports-content')) renderReports();
+                if (vis('view-allprojects-content')) renderAllProjects();
+                if (vis('view-archive-content')) renderArchivePDF();
+                if (vis('view-comparison-content')) renderComparison();
+                const mp = document.getElementById('manageProjectModal');
+                if (mp && mp.style.display && mp.style.display !== 'none') renderManageProjectLists();
+            } catch (e) { console.warn(e); }
+        }
+
+        // Kompatibilitas: jalur "pending progress" lama kini cukup lewat saveData (diff).
+        function getPendingProgress() { return {}; }
+        function setPendingProgress() {}
+        function queuePendingProgress() {}
+        function clearPendingProgress() {}
+        function applyPendingProgressOverlay() {}
+
         function saveSnapshot() {
             try {
                 _lsSet(LS_SNAPSHOT_KEY, {
-                    ts: Date.now(),
+                    ts: Date.now(), v: 2,
                     jobdeskTasks, reports, projects, taskCategories, jadwalHarian,
-                    accounts, arsipPDF
+                    accounts: (accounts || []).map(a => ({ username: a.username, role: a.role })), arsipPDF,
+                    baseMaps: _baseMaps, baseVer: _baseVer
                 });
             } catch(e) {}
         }
         function hydrateFromSnapshot() {
             const s = _lsGet(LS_SNAPSHOT_KEY, null);
-            if (!s) return false;
-            if (Array.isArray(s.jobdeskTasks) && s.jobdeskTasks.length) jobdeskTasks = s.jobdeskTasks;
+            if (!s || s.v !== 2) return false;
+            if (Array.isArray(s.jobdeskTasks)) jobdeskTasks = s.jobdeskTasks;
             if (Array.isArray(s.reports)) reports = s.reports;
-            if (Array.isArray(s.projects) && s.projects.length) projects = s.projects;
-            if (Array.isArray(s.taskCategories) && s.taskCategories.length) taskCategories = s.taskCategories;
+            if (Array.isArray(s.projects)) projects = s.projects;
+            if (Array.isArray(s.taskCategories)) taskCategories = s.taskCategories;
             if (Array.isArray(s.jadwalHarian)) jadwalHarian = s.jadwalHarian;
             if (Array.isArray(s.arsipPDF)) arsipPDF = s.arsipPDF;
             if (Array.isArray(s.accounts) && s.accounts.length) { accounts = s.accounts; updateWorkersArray(); }
+            _baseMaps = s.baseMaps || null; _baseVer = s.baseVer || {};
             return true;
         }
+        function mergeSnapshotIntoServerData() {}
 
-        // Gabungkan data lokal yang belum ada di server supaya laporan / arsip / proyek
-        // yang dibuat saat koneksi bermasalah tidak hilang saat data server masuk.
-        function mergeSnapshotIntoServerData() {
-            const s = _lsGet(LS_SNAPSHOT_KEY, null);
-            if (!s) return;
-            const mergeById = (serverArr, localArr) => {
-                if (!Array.isArray(localArr)) return serverArr;
-                const ids = new Set((serverArr || []).map(x => String(x && x.id)));
-                const missing = localArr.filter(x => x && x.id && !ids.has(String(x.id)));
-                return missing.length ? [...(serverArr || []), ...missing] : serverArr;
-            };
-            reports = mergeById(reports, s.reports);
-            jobdeskTasks = mergeById(jobdeskTasks, s.jobdeskTasks);
-            arsipPDF = mergeById(arsipPDF, s.arsipPDF);
-            if (Array.isArray(s.projects)) {
-                s.projects.forEach(p => { if (p && !projects.includes(p)) projects.push(p); });
-            }
-            if (Array.isArray(s.taskCategories)) {
-                s.taskCategories.forEach(c => { if (c && !taskCategories.includes(c)) taskCategories.push(c); });
-            }
-        }
-        // Retry berkala: kirim ulang perubahan tertunda ke Apps Script tiap 30 dtk
+        // Kirim ulang otomatis tiap 30 dtk bila ada perubahan yang belum tersimpan
         function flushPendingToServer() {
-            const map = getPendingProgress();
-            if (!Object.keys(map).length) return;
-            if (isSaving || isSyncing) return;
-            // Pastikan state jobdeskTasks memuat nilai terbaru dari pending
-            applyPendingProgressOverlay();
-            saveData().then(ok => {
-                if (ok) {
-                    // Jangan langsung hapus — biarkan overlay tetap sampai loadData
-                    // berikutnya membuktikan server sudah menyimpan nilai yang sama.
-                    saveSnapshot();
-                }
-            });
+            if (!currentUser || isSaving || isSyncing || _saveInFlight) return;
+            if (adaPerubahanBelumTersimpan()) saveData();
         }
         setInterval(flushPendingToServer, 30000);
         window.addEventListener('beforeunload', (e) => {
-            const map = getPendingProgress();
-            if (Object.keys(map).length) {
+            if (currentUser && adaPerubahanBelumTersimpan()) {
                 e.preventDefault();
-                e.returnValue = 'Masih ada perubahan progres yang belum tersimpan ke server. Tetap keluar?';
+                e.returnValue = 'Masih ada perubahan yang belum tersimpan ke server. Tetap keluar?';
                 return e.returnValue;
             }
         });
@@ -1312,12 +1537,20 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('sidebar-overlay');
+            const toggle = document.getElementById('sidebar-toggle');
+            if (window.matchMedia('(min-width: 1024px)').matches) {
+                const collapsed = document.body.classList.toggle('sidebar-collapsed');
+                toggle.setAttribute('aria-expanded', String(!collapsed));
+                return;
+            }
             if(sidebar.classList.contains('-translate-x-full')) {
                 sidebar.classList.remove('-translate-x-full'); sidebar.classList.add('translate-x-0');
-                overlay.classList.remove('hidden'); setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                overlay.classList.remove('hidden', 'opacity-0');
+                toggle.setAttribute('aria-expanded', 'true');
             } else {
                 sidebar.classList.add('-translate-x-full'); sidebar.classList.remove('translate-x-0');
-                overlay.classList.add('opacity-0'); setTimeout(() => overlay.classList.add('hidden'), 300);
+                overlay.classList.add('opacity-0', 'hidden');
+                toggle.setAttribute('aria-expanded', 'false');
             }
         }
 
@@ -1359,16 +1592,12 @@
 
             };
             
+            if (window.matchMedia('(max-width: 1023px)').matches && document.getElementById('sidebar').classList.contains('translate-x-0')) toggleSidebar();
             if(titles[viewId]) {
                 const _ht = document.getElementById('header-title');
                 const _hs = document.getElementById('header-subtitle');
                 if (_ht) _ht.innerText = titles[viewId].t;
                 if (_hs) _hs.innerText = titles[viewId].s;
-            }
-
-            // Tutup menu otomatis saat layar dipilih
-            if(document.getElementById('sidebar').classList.contains('translate-x-0')) {
-                toggleSidebar();
             }
 
             if(viewId === 'reports') renderReports();
@@ -1386,7 +1615,7 @@
         // ================= LOCKING SYSTEM UNTUK MODAL =================
         function checkAnyModalOpen() {
             let anyOpen = false;
-            ['manageProjectModal', 'taskModal', 'progressModal', 'deleteModal', 'reportDetailModal', 'projectArchiveModal', 'editPdfModal', 'deletePdfModal', 'editProjectModal', 'deleteProjectModal'].forEach(m => {
+            ['manageProjectModal', 'taskModal', 'importTaskModal', 'progressModal', 'deleteModal', 'reportDetailModal', 'projectArchiveModal', 'editPdfModal', 'deletePdfModal', 'editProjectModal', 'deleteProjectModal'].forEach(m => {
                 const el = document.getElementById(m);
                 if (el && !el.classList.contains('hidden') && el.style.display !== 'none') anyOpen = true;
             });
@@ -1454,10 +1683,21 @@
             
             if (!u) return showToast('Masukkan username', 'error');
             
-            let acc = accounts.find(a => a.username.toLowerCase() === u);
-            if (!acc) return showToast('Username tidak ditemukan', 'error');
-            if (acc.password && acc.password !== p) return showToast('Password salah', 'error');
-            
+            const btnL = document.getElementById('btn-login-submit');
+            if (btnL) btnL.disabled = true;
+            fetch(WEB_APP_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', data: { username: u, password: p } }) })
+            .then(res => res.json())
+            .then(res => {
+                if (btnL) btnL.disabled = false;
+                if (res.status !== 'success') return showToast(res.message || 'Login gagal', 'error');
+                _authToken = res.token;
+                try { sessionStorage.setItem('iat_token', res.token); } catch(e) {}
+                _selesaiLogin({ username: res.username, role: res.role });
+            })
+            .catch(() => { if (btnL) btnL.disabled = false; showToast('Tidak bisa terhubung ke server. Periksa internet.', 'error'); });
+        }
+
+        function _selesaiLogin(acc) {
             currentUser = acc.username; currentRole = acc.role;
             document.getElementById('loginModal').style.display = 'none';
             applyRolePermissions();
@@ -1528,52 +1768,17 @@
                     // Blok fetch lama jika ada proses simpan sedang berjalan
                     if (!force && (isSyncing || isSaving || Date.now() < syncLockTime)) return;
 
-                    if (data.projects && Array.isArray(data.projects)) projects = data.projects;
-                    if (data.taskCategories && Array.isArray(data.taskCategories)) taskCategories = data.taskCategories;
-                    if (data.accounts && Array.isArray(data.accounts) && data.accounts.length > 0) { accounts = data.accounts; updateWorkersArray(); }
-                    else if (accounts.length === 0) { accounts = [{username: 'admin', password: 'admin123', role: 'admin'}]; }
-                    
-                    if (data.jobdeskTasks && Array.isArray(data.jobdeskTasks)) {
-                        jobdeskTasks = data.jobdeskTasks.map(t => {
-                            return { id: t.id, projectName: t.projectName, category: t.category, name: t.name, subTask: t.subTask, startDate: t.startDate, endDate: t.endDate, pic: t.pic, status: t.status, progress: t.progress }
-                        }).filter(t => t.id); 
-                    }
-
-                    if (data.jadwalHarian && Array.isArray(data.jadwalHarian)) jadwalHarian = data.jadwalHarian;
-                    if (data.arsipPDF && Array.isArray(data.arsipPDF)) arsipPDF = data.arsipPDF;
-                    if (data.reports && Array.isArray(data.reports)) reports = data.reports;
-
-                    // Pertahankan laporan / tugas / arsip yang dibuat lokal tapi belum
-                    // sempat tersimpan di server, supaya tidak hilang setelah refresh.
-                    mergeSnapshotIntoServerData();
+                    // Data server = base; perubahan lokal yang belum tersimpan diterapkan ulang
+                    _terimaDataServer(data, _baseMaps);
 
                     // Otomatis tangkap project & category baru jika ada yang tidak terdaftar
                     jobdeskTasks.forEach(t => {
                         if (t.projectName && !projects.includes(t.projectName)) projects.push(t.projectName);
                         if (t.category && !taskCategories.includes(t.category)) taskCategories.push(t.category);
                     });
-
                     syncJadwalHarian();
-
-                    // Bandingkan nilai RAW dari server (sebelum overlay) dengan pending.
-                    // Hanya buang pending jika server memang sudah menyimpan angka yang sama —
-                    // jika belum, biarkan pending & overlay tetap menjaga nilai lokal.
-                    try {
-                        const map = getPendingProgress();
-                        const serverProgressById = {};
-                        jobdeskTasks.forEach(t => { serverProgressById[t.id] = Number(t.progress)||0; });
-                        Object.keys(map).forEach(id => {
-                            const sv = serverProgressById[id];
-                            if (sv !== undefined && sv >= Number(map[id].progress)) {
-                                delete map[id];
-                            }
-                        });
-                        setPendingProgress(map);
-                    } catch(e){}
-                    // Terapkan overlay progres yang belum tersimpan ke server sehingga
-                    // nilai terbaru tidak hilang ketika kolom belum tersedia di Sheet.
-                    applyPendingProgressOverlay();
                     saveSnapshot();
+                    if (currentUser && adaPerubahanBelumTersimpan()) saveDataSoon(800);
 
                     if (!isSilent) {
                         if (loginBtn) {
@@ -1609,12 +1814,9 @@
                     // Fallback: jika server belum diset / koneksi gagal, tetap berikan
                     // akun admin default agar pengguna bisa masuk & memakai aplikasi
                     // dalam mode offline (data tersimpan lokal di browser).
-                    if (accounts.length === 0) {
-                        accounts = [{username: 'admin', password: 'admin123', role: 'admin'}];
-                        updateWorkersArray();
-                    }
+                    // FIX #18: tidak ada lagi akun admin cadangan saat offline
                     if (!isSilent) {
-                        showToast('Koneksi Gagal: ' + error.message + ' — Masuk dengan admin / admin123 (mode offline)', 'error');
+                        showToast('Koneksi Gagal: ' + error.message + ' — Periksa internet lalu klik Refresh.', 'error');
                         if (loginBtn) {
                             loginBtn.disabled = false;
                             loginBtn.onclick = processLogin;
@@ -1669,51 +1871,52 @@
         let _lastJadwalSignature = null;
 
         function _postSyncAll() {
-            initializeGlobalSelectors();
-
-            // syncJadwalHarian() adalah bagian terberat. Lewati bila jobdesk tidak
-            // berubah sejak sinkron terakhir supaya simpan jadi jauh lebih cepat.
             const sig = jobdeskTasks.map(t => [t.id, t.startDate, t.endDate, t.status, t.projectName, t.name, t.subTask, t.pic].join('|')).join(';');
-            if (sig !== _lastJadwalSignature || !jadwalHarian.length) {
-                syncJadwalHarian();
-                _lastJadwalSignature = sig;
-            }
+            if (sig !== _lastJadwalSignature || !jadwalHarian.length) { syncJadwalHarian(); _lastJadwalSignature = sig; }
 
-            const payload = { action: "syncAll", data: { projects, taskCategories, accounts, jobdeskTasks, reports, jadwalHarian, arsipPDF } };
+            // Normalkan data lokal (status selesai = 100%, dst.) agar web, sheet & ekspor sama
+            jobdeskTasks.forEach(t => { const n = normRec('tasks', t); t.progress = n.progress; t.status = n.status; });
 
-            // Simpan lokal SEBELUM kirim, supaya data aman walau koneksi gagal / lambat.
+            const sentMaps = _stateMaps();
+            const ops = _diffMaps(_baseMaps, sentMaps);
             saveSnapshot();
+            if (!ops.length) { setSaveStatus('saved'); return Promise.resolve(true); }
 
-            isSyncing = true;
-            isSaving = true;
+            isSyncing = true; isSaving = true;
             syncLockTime = Date.now() + 12000;
             setSaveStatus('saving');
 
             return fetch(WEB_APP_URL, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(_auth({ action: 'simpan', data: { ops } })),
                 keepalive: true
             })
             .then(res => res.text())
             .then(text => { try { return JSON.parse(text); } catch(e) { throw new Error(text); } })
             .then(result => {
                 isSyncing = false; isSaving = false;
-                syncLockTime = Date.now() + 3000;
+                syncLockTime = Date.now() + 1500;
                 if (result.status !== "success") {
+                    _cekSesi(result);
                     setSaveStatus('error');
                     showToast('Error Server: ' + result.message, 'error');
                     return false;
                 }
-                saveSnapshot();
-                setSaveStatus('saved');
+                const h = _terimaDataServer(result.data, sentMaps);
+                _renderSetelahSinkron(h.pilihanBerubah);
+                if (result.conflicts && result.conflicts.length) {
+                    showToast(result.conflicts.map(c => c.message).join('\n'), 'error');
+                }
+                if (h.delta.length) _saveQueued = true;
+                setSaveStatus(result.conflicts && result.conflicts.length ? 'error' : 'saved');
                 return true;
             })
             .catch(() => {
                 isSyncing = false; isSaving = false; syncLockTime = 0;
                 saveSnapshot();
                 setSaveStatus('error');
-                showToast('Koneksi terputus — data disimpan lokal & akan dikirim ulang otomatis', 'error');
+                showToast('Gagal terhubung ke server. Perubahan disimpan di perangkat ini dan dicoba lagi otomatis.', 'error');
                 return false;
             });
         }
@@ -1759,48 +1962,8 @@
         // Jalur simpan khusus progres/status: hanya mengirim task yang berubah.
         // Apps Script memperbarui kolom terkait secara batch tanpa membangun ulang
         // seluruh sheet, sehingga payload dan waktu eksekusi jauh lebih kecil.
-        function saveProgressSoon(delay = 350) {
-            setSaveStatus('pending');
-            return new Promise(resolve => {
-                _progressSaveWaiters.push(resolve);
-                if (_progressSaveTimer) clearTimeout(_progressSaveTimer);
-                _progressSaveTimer = setTimeout(() => {
-                    _progressSaveTimer = null;
-                    const pending = getPendingProgress();
-                    const changes = Object.keys(pending).map(id => ({
-                        id,
-                        progress: Number(pending[id].progress) || 0,
-                        status: pending[id].status || 'pending'
-                    }));
-                    const waiters = _progressSaveWaiters.splice(0);
-                    if (!changes.length) {
-                        waiters.forEach(fn => fn(true));
-                        setSaveStatus('saved');
-                        return;
-                    }
-                    setSaveStatus('saving');
-                    fetch(WEB_APP_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                        body: JSON.stringify({ action: 'updateProgress', data: { changes } }),
-                        keepalive: true
-                    })
-                    .then(res => res.text())
-                    .then(text => { try { return JSON.parse(text); } catch (e) { throw new Error(text); } })
-                    .then(result => {
-                        if (result.status !== 'success') throw new Error(result.message || 'Gagal menyimpan progres');
-                        clearPendingProgress(changes.map(item => item.id));
-                        saveSnapshot();
-                        setSaveStatus('saved');
-                        waiters.forEach(fn => fn(true));
-                    })
-                    .catch(() => {
-                        setSaveStatus('error');
-                        waiters.forEach(fn => fn(false));
-                    });
-                }, delay);
-            });
-        }
+        // Progres/status kini ikut jalur simpan perubahan biasa (hanya data yang berubah dikirim).
+        function saveProgressSoon(delay = 350) { return saveDataSoon(delay); }
 
         // Jika masih ada simpan tertunda saat halaman ditutup, kirim segera.
         window.addEventListener('beforeunload', () => {
@@ -1879,6 +2042,14 @@
                 picSelect.innerHTML = '<option value="">Pilih PIC...</option>';
                 workers.forEach(w => { picSelect.innerHTML += `<option value="${w}">${w}</option>`; });
                 if (currentPic && workers.includes(currentPic)) picSelect.value = currentPic;
+            }
+            const leaderSelect = document.getElementById('taskLeader');
+            if (leaderSelect) {
+                const curL = leaderSelect.value;
+                const names = [...new Set(accounts.map(a => a.username).filter(Boolean))];
+                leaderSelect.innerHTML = '<option value="">Pilih Leader...</option>';
+                names.forEach(w => { leaderSelect.innerHTML += `<option value="${w}">${w}</option>`; });
+                if (curL && names.includes(curL)) leaderSelect.value = curL;
             }
 
             renderManageProjectLists();
@@ -1997,12 +2168,22 @@
             const pIdx = projects.indexOf(oldName);
             if(pIdx !== -1) projects[pIdx] = newName;
 
+            const bTasks = JSON.parse(JSON.stringify(jobdeskTasks)), bReps = JSON.parse(JSON.stringify(reports));
             jobdeskTasks.forEach(t => { if(t.projectName === oldName) t.projectName = newName; });
             reports.forEach(r => { if(r.project === oldName) r.project = newName; });
 
-            saveData();
             closeModal('editProjectModal');
-            showToast('Nama proyek berhasil diperbarui!', 'success');
+            // FIX #16: pesan sukses baru muncul setelah server benar-benar menyimpan
+            saveData().then(ok => {
+                if (ok) showToast('Nama proyek berhasil diperbarui!', 'success');
+                else {
+                    projects[projects.indexOf(newName)] = oldName; jobdeskTasks = bTasks; reports = bReps;
+                    showToast('Gagal mengganti nama proyek di server. Perubahan dibatalkan.', 'error');
+                }
+                initializeGlobalSelectors();
+                renderAllProjects(); renderReports(); renderDashboard();
+                renderJobdeskCalendar(); renderDailyTasks(selectedDate); renderGantt(); renderComparison();
+            });
             
             initializeGlobalSelectors();
             renderAllProjects(); renderReports(); renderDashboard();
@@ -2015,12 +2196,22 @@
         }
         function executeDeleteProject() {
             const pName = document.getElementById('deleteProjectName').value;
+            const bP = [...projects], bT = [...jobdeskTasks], bR = [...reports];
             projects = projects.filter(p => p !== pName);
             jobdeskTasks = jobdeskTasks.filter(t => t.projectName !== pName); 
+            // FIX #15: laporan milik proyek yang dihapus ikut dihapus
+            reports = reports.filter(r => r.project !== pName);
             
-            saveData();
             closeModal('deleteProjectModal');
-            showToast('Proyek berhasil dihapus', 'info');
+            saveData().then(ok => {
+                if (ok) showToast('Proyek berhasil dihapus', 'info');
+                else {
+                    projects = bP; jobdeskTasks = bT; reports = bR;
+                    showToast('Gagal menghapus proyek di server. Dibatalkan.', 'error');
+                    initializeGlobalSelectors(); renderAllProjects(); renderDashboard();
+                    renderJobdeskCalendar(); renderDailyTasks(selectedDate); renderGantt(); renderComparison();
+                }
+            });
             
             initializeGlobalSelectors(); renderAllProjects(); renderDashboard();
             renderJobdeskCalendar(); renderDailyTasks(selectedDate); renderGantt(); renderComparison();
@@ -2918,6 +3109,7 @@
             document.getElementById('taskStart').value = formatDateForInput(selectedDate);
             document.getElementById('taskEnd').value = formatDateForInput(selectedDate);
             document.getElementById('taskPic').value = '';
+            document.getElementById('taskLeader').value = '';
             document.getElementById('editTaskStatusContainer').classList.add('hidden');
             
             document.getElementById('newProjectContainer').classList.add('hidden');
@@ -2950,6 +3142,7 @@
                 document.getElementById('taskStart').value = formatDateForInput(parseLocalDate(t.startDate));
                 document.getElementById('taskEnd').value = formatDateForInput(parseLocalDate(t.endDate));
                 document.getElementById('taskPic').value = t.pic || '';
+                document.getElementById('taskLeader').value = t.leader || '';
                 
                 document.getElementById('taskStatus').value = t.status || 'pending';
                 document.getElementById('taskProgress').value = t.progress || 0;
@@ -2973,6 +3166,7 @@
             const start = document.getElementById('taskStart').value;
             const end = document.getElementById('taskEnd').value;
             const pic = document.getElementById('taskPic').value;
+            const leader = document.getElementById('taskLeader').value;
             
             if(!pName || pName === 'NEW_PROJECT_ACTION') return showToast('Pilih Proyek yang valid', 'error');
             if(!cat || cat === 'NEW_CATEGORY_ACTION') return showToast('Pilih Kategori yang valid', 'error');
@@ -2993,20 +3187,20 @@
                 if(idx !== -1) {
                     jobdeskTasks[idx] = {
                         id: id, projectName: pName, category: cat, name: name, subTask: subTaskValues[0] || '',
-                        startDate: start, endDate: end, pic: pic, status: statusVal, progress: progVal
+                        startDate: start, endDate: end, pic: pic, status: statusVal, progress: progVal, leader: leader
                     };
                 }
             } else {
                 if (subTaskValues.length === 0) {
                     newTasksToAdd.push({
                         id: generateId(), projectName: pName, category: cat, name: name, subTask: '',
-                        startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0
+                        startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader
                     });
                 } else {
                     subTaskValues.forEach(sub => {
                         newTasksToAdd.push({
                             id: generateId(), projectName: pName, category: cat, name: name, subTask: sub,
-                            startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0
+                            startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader
                         });
                     });
                 }
@@ -3339,7 +3533,7 @@
                 const proj = hierarchy[pKey]; let tCount = 1;
                 
                 let allPItems = []; for(let tK in proj.tasks) allPItems = allPItems.concat(proj.tasks[tK].items);
-                let pAvg = Math.round(allPItems.reduce((s,x) => s + (x.progress||0), 0) / (allPItems.length||1));
+                let pAvg = progProyekNama(proj.name);
                 
                 const trP = document.createElement('tr'); trP.className = 'bg-slate-100 font-bold';
                 trP.innerHTML = `<td class="text-center">${pCount}</td><td>${proj.name.toUpperCase()}</td><td></td><td class="text-center">${_ganttPctBar(pAvg)}</td><td colspan="${cols.length}"></td>`;
@@ -3349,7 +3543,7 @@
                     const tGrp = proj.tasks[tKey]; const items = tGrp.items;
                     const isStand = items.length === 1 && !items[0].subTask;
                     
-                    let tAvg = Math.round(items.reduce((s,x) => s + (x.progress||0), 0) / (items.length||1));
+                    let tAvg = progGrupNama(proj.name, tGrp.name);
                     let tMinStr = items.map(x=>x.startDate).sort()[0]; let tMaxStr = items.map(x=>x.endDate).sort().reverse()[0];
 
                     let progHtmlStand = `<td class="text-center">${_ganttPctBar(tAvg)}</td>`;
@@ -3383,7 +3577,7 @@
                             } else { bar.className = 'gantt-bar-task'; }
                             barContainer.appendChild(bar); td.appendChild(barContainer);
                             // Overlay fill progres: bagian dari cell yg berada di dalam porsi "selesai" (0..progress%)
-                            const progVal = isStand ? (items[0].progress||0) : tAvg;
+                            const progVal = isStand ? progEff(items[0]) : tAvg;
                             if (progVal > 0) {
                                 const totalMs = tEnd.getTime() - tStart.getTime();
                                 const progEndMs = tStart.getTime() + totalMs * (Math.min(progVal,100)/100);
@@ -3415,10 +3609,10 @@
                             const trS = document.createElement('tr');
                             trS.className = "bg-white hover:bg-slate-50 transition group";
                             
-                            let progHtmlSub = `<td class="text-center">${_ganttPctBar(task.progress||0)}</td>`;
+                            let progHtmlSub = `<td class="text-center">${_ganttPctBar(progEff(task))}</td>`;
                             const canEditSub = currentRole === 'admin' || (currentRole === 'pic' && (task.pic||'').toLowerCase() === currentUser.toLowerCase());
                             if (canEditSub) {
-                                progHtmlSub = `<td class="text-center">${_ganttPctBar(task.progress||0, {taskId: task.id})}</td>`;
+                                progHtmlSub = `<td class="text-center">${_ganttPctBar(progEff(task), {taskId: task.id})}</td>`;
                             }
 
                             trS.innerHTML = `<td class="text-center text-slate-400 text-[10px]">${pCount}.${tCount}.${sCount}</td>
@@ -3574,7 +3768,7 @@
             return `<div>${bar}${txt}</div>`;
         }
 
-        // Mini progress bar untuk kolom "%" di Gantt agar visual selaras dgn Komparasi Aktual vs Plan.
+        // Mini progress bar untuk kolom "%" di Gantt agar visual selaras dgn Komparasi Proyek.
         function _ganttPctBar(progress, opts) {
             const p = Math.max(0, Math.min(100, Number(progress||0)));
             const color = p >= 100 ? 'background:#10b981' : (p > 0 ? 'background:#6366f1' : 'background:#cbd5e1');
@@ -3817,7 +4011,7 @@
                 }
             });
 
-            const _avg = (arr) => arr.length ? Math.round(arr.reduce((s,x)=>s+Number(x.progress||0),0)/arr.length) : 0;
+            const _avg = (arr) => progGrup(arr);
 
             const checkReport = (tk, projName, cell) => {
                 let noteText = ""; let isReported = false; let reportId = null;
@@ -3827,12 +4021,7 @@
                     return rd >= cell.start && rd <= cell.end;
                 });
                 reps.forEach(rep => {
-                    let match = false;
-                    if (tk.subTask) {
-                        if (rep.workDone.includes(tk.subTask) || rep.workDone.includes(tk.name)) match = true;
-                    } else {
-                        if (rep.workDone.includes(tk.name)) match = true;
-                    }
+                    let match = laporanCocok(rep.workDone, tk);
                     if(match) {
                         isReported = true;
                         reportId = rep.id;
@@ -3852,7 +4041,7 @@
 
             sortedProjects.forEach(proj => {
                 const projTasks = Object.values(proj.tasks).flatMap(g => g.items);
-                const projPct = _avg(projTasks);
+                const projPct = progProyekNama(proj.name);
 
                 let trP = document.createElement('tr');
                 trP.className = "bg-slate-100 font-bold border-y border-slate-300 text-slate-800 text-[11px]";
@@ -4139,7 +4328,7 @@
                     const fname = mime === 'image/jpeg' && !/\.jpe?g$/i.test(file.name) ? file.name.replace(/\.[^.]+$/, '') + '.jpg' : file.name;
                     const payload = { action: "uploadPhoto", data: { fileName: `[${project}] ${fname}`, mimeType: mime, base64: base64Data } };
                     
-                    const p = fetch(WEB_APP_URL, { method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(payload) })
+                    const p = fetch(WEB_APP_URL, { method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(_auth(payload)) })
                         .then(res => res.text())
                         .then(text => { 
                             try { return JSON.parse(text); } catch(e) { throw new Error(text); }
@@ -4181,7 +4370,7 @@
                         for(let i=1; i<=5; i++) removePhoto(i);
                         
                         // Sinkronisasi progres ke seluruh view: Dashboard, Executive Dashboard,
-                        // Gantt Timeline, Komparasi Aktual vs Plan, dan ringkasan proyek — semua
+                        // Gantt Timeline, Komparasi Proyek, dan ringkasan proyek — semua
                         // dihitung ulang dari jobdeskTasks + reports terbaru.
                         try {
                             renderDashboard();
@@ -4543,7 +4732,7 @@
                 };
 
                 fetch(WEB_APP_URL, {
-                    method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload)
+                    method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(_auth(payload))
                 })
                 .then(res => res.json())
                 .then(res => {
@@ -4588,7 +4777,7 @@
                 };
 
                 fetch(WEB_APP_URL, {
-                    method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload)
+                    method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(_auth(payload))
                 })
                 .then(res => res.json())
                 .then(res => {
@@ -4689,7 +4878,7 @@
 
         function uploadPDFToAppsScript(pdfBase64, filename) {
             const payload = { action: "archivePDF", data: { fileName: filename, mimeType: "application/pdf", base64: pdfBase64 } };
-            fetch(WEB_APP_URL, { method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(payload) })
+            fetch(WEB_APP_URL, { method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(_auth(payload)) })
             .then(res => res.json())
             .then(res => {
                 if(res.status === 'success') {
@@ -4926,6 +5115,126 @@
             return typeof v === 'number' && isFinite(v);
         }
 
+        // ================= PERSENTASE: SATU RUMUS UNTUK WEB, SHEET & EKSPOR =================
+        // Tugas = progres (selesai = 100). Grup = rata-rata sub-tugas (dibulatkan).
+        // Proyek = rata-rata kategori, kategori = rata-rata grup tugas (dibulatkan bertingkat).
+        // Keseluruhan = rata-rata progres proyek. Rumus identik ada di Apps Script.
+        function progEff(t) { return t && t.status === 'completed' ? 100 : Math.max(0, Math.min(100, Number(t && t.progress) || 0)); }
+        function progGrup(items) { return items.length ? Math.round(items.reduce((s, t) => s + progEff(t), 0) / items.length) : 0; }
+        function progProyek(tasks) {
+            const cat = {};
+            tasks.forEach(t => { const c = t.category || 'Lain-Lain', m = t.name || 'Tugas Utama'; cat[c] = cat[c] || {}; (cat[c][m] = cat[c][m] || []).push(t); });
+            const cs = Object.keys(cat).map(c => { const mj = Object.keys(cat[c]).map(m => progGrup(cat[c][m])); return Math.round(mj.reduce((a, b) => a + b, 0) / mj.length); });
+            return cs.length ? Math.round(cs.reduce((a, b) => a + b, 0) / cs.length) : 0;
+        }
+        function progKeseluruhan(tasks) {
+            const per = {};
+            tasks.forEach(t => { const p = t.projectName || 'Lain-lain'; (per[p] = per[p] || []).push(t); });
+            const v = Object.keys(per).map(p => progProyek(per[p]));
+            return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : 0;
+        }
+        function progProyekNama(nama) { return progProyek(jobdeskTasks.filter(x => (x.projectName || 'Lain-lain') === nama)); }
+        function progGrupNama(proj, tugas) { return progGrup(jobdeskTasks.filter(x => (x.projectName || 'Lain-lain') === proj && (x.name || 'Tugas') === tugas)); }
+
+        // ================= EKSPOR EXCEL VISUAL (tampilan sama dengan web) =================
+        // Membaca tabel yang sedang tampil di web (Gantt / Komparasi) beserta warnanya,
+        // lalu menulisnya sebagai sheet Excel berwarna.
+        function _cssKeHex(c) {
+            const m = String(c || '').match(/rgba?\(([^)]+)\)/);
+            if (!m) return null;
+            const p = m[1].split(',').map(x => parseFloat(x));
+            if (p.length > 3 && p[3] === 0) return null;
+            return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+        }
+        function _campur(atas, bawah) {
+            if (!atas) return bawah; if (!bawah) bawah = { r: 255, g: 255, b: 255, a: 1 };
+            const a = atas.a;
+            return { r: atas.r * a + bawah.r * (1 - a), g: atas.g * a + bawah.g * (1 - a), b: atas.b * a + bawah.b * (1 - a), a: 1 };
+        }
+        function _hex(c) { if (!c) return null; const h = v => Math.round(v).toString(16).padStart(2, '0'); return ('#' + h(c.r) + h(c.g) + h(c.b)).toUpperCase(); }
+        function _bgSel(el) {
+            let e = el, bg = null;
+            while (e && e.tagName !== 'TABLE' && !bg) { bg = _cssKeHex(getComputedStyle(e).backgroundColor); e = e.parentElement; }
+            let warna = bg || { r: 255, g: 255, b: 255, a: 1 };
+            if (warna.a < 1) warna = _campur(warna, null);
+            const bar = el.querySelector('.gantt-bar-subtask, .gantt-bar-task');
+            if (bar) {
+                let bc = _cssKeHex(bar.style.backgroundColor || getComputedStyle(bar).backgroundColor);
+                if (bc && bar.style.opacity) bc.a = parseFloat(bar.style.opacity);
+                warna = _campur(bc, warna);
+                const fill = el.querySelector('.gantt-bar-progress');
+                if (fill && (fill.style.right === '0px' || fill.style.right === '0' || parseFloat(fill.style.width || '0') >= 50)) {
+                    warna = _campur(_cssKeHex(getComputedStyle(fill).backgroundColor), warna);
+                }
+            }
+            return _hex(warna);
+        }
+        function _tabelKeVisual(table, judul, nama) {
+            if (!table) return null;
+            const rows = [];
+            const pakai = {};
+            Array.from(table.rows).forEach((tr, ri) => {
+                const row = []; let ci = 0;
+                Array.from(tr.cells).forEach(td => {
+                    while (pakai[ri + '|' + ci]) { row.push(null); ci++; }
+                    const cs = td.colSpan || 1, rs = td.rowSpan || 1;
+                    for (let a = 0; a < rs; a++) for (let b = 0; b < cs; b++) if (a || b) pakai[(ri + a) + '|' + (ci + b)] = 1;
+                    const st = getComputedStyle(td);
+                    let teks = (td.innerText || td.textContent || '').replace(/\s+/g, ' ').trim();
+                    const fc = _hex(_cssKeHex((td.querySelector('.lbl') ? getComputedStyle(td.querySelector('.lbl')) : st).color));
+                    const cell = { v: teks, bg: _bgSel(td), fc, bold: parseInt(st.fontWeight, 10) >= 600 || td.tagName === 'TH', span: cs, rspan: rs };
+                    const pm = teks.match(/^(\d{1,3})%$/);
+                    if (pm) { cell.v = Number(pm[1]) / 100; cell.pct = true; }
+                    if (td.title && !teks) cell.v = '';
+                    row.push(cell);
+                    for (let b = 1; b < cs; b++) row.push(null);
+                    ci += cs;
+                });
+                rows.push(row);
+            });
+            return { name: nama, title: judul, visual: rows };
+        }
+        function dsGanttVisual() {
+            try { renderGantt(); } catch (e) {}
+            const lbl = document.getElementById('gantt-month-label');
+            return _tabelKeVisual(document.querySelector('#gantt-container table'), 'Jobdesk Timeline (Gantt) — ' + (lbl ? lbl.innerText : ''), 'Gantt');
+        }
+        function dsKomparasiVisual() {
+            try { renderComparison(); } catch (e) {}
+            const lbl = document.getElementById('comp-month-label');
+            return _tabelKeVisual(document.querySelector('#comparison-container table'), 'Komparasi Proyek — ' + (lbl ? lbl.innerText : ''), 'Komparasi');
+        }
+        function _xmlSheetVisual(sh, gaya) {
+            const nCol = Math.max(0, ...sh.visual.map(r => r.length));
+            let x = '<Table>';
+            for (let c = 0; c < nCol; c++) x += `<Column ss:Width="${c === 1 ? 220 : (c < 5 ? 60 : 26)}"/>`;
+            x += `<Row ss:Height="22"><Cell ss:StyleID="ttl" ss:MergeAcross="${Math.max(0, Math.min(nCol, 20) - 1)}"><Data ss:Type="String">${_expXml(sh.title || sh.name)}</Data></Cell></Row><Row/>`;
+            sh.visual.forEach(r => {
+                x += '<Row>';
+                let idx = 0, lewat = false;
+                r.forEach((c, i) => {
+                    if (!c) { lewat = true; return; }
+                    const kunci = [c.bg || '', c.fc || '', c.bold ? 1 : 0, c.pct ? 1 : 0].join('|');
+                    if (!gaya[kunci]) gaya[kunci] = { id: 'v' + Object.keys(gaya).length, bg: c.bg, fc: c.fc, bold: c.bold, pct: c.pct };
+                    let attr = ` ss:StyleID="${gaya[kunci].id}"`;
+                    if (lewat || i !== idx) attr += ` ss:Index="${i + 1}"`;
+                    if (c.span > 1) attr += ` ss:MergeAcross="${c.span - 1}"`;
+                    if (c.rspan > 1) attr += ` ss:MergeDown="${c.rspan - 1}"`;
+                    const data = typeof c.v === 'number' ? `<Data ss:Type="Number">${c.v}</Data>` : (c.v !== '' ? `<Data ss:Type="String">${_expXml(c.v)}</Data>` : '');
+                    x += `<Cell${attr}>${data}</Cell>`;
+                    idx = i + 1; lewat = false;
+                });
+                x += '</Row>';
+            });
+            return x + '</Table><WorksheetOptions xmlns="urn:schemas-microsoft-com:office:excel"><FreezePanes/><FrozenNoSplit/><SplitHorizontal>4</SplitHorizontal><TopRowBottomPane>4</TopRowBottomPane><SplitVertical>2</SplitVertical><LeftColumnRightPane>2</LeftColumnRightPane><ActivePane>0</ActivePane></WorksheetOptions>';
+        }
+        function _xmlGayaVisual(gaya) {
+            return Object.values(gaya).map(g => `<Style ss:ID="${g.id}"><Font ss:FontName="Calibri" ss:Size="9"${g.bold ? ' ss:Bold="1"' : ''}${g.fc ? ` ss:Color="${g.fc}"` : ''}/>` +
+                `${g.bg ? `<Interior ss:Color="${g.bg}" ss:Pattern="Solid"/>` : ''}<Alignment ss:Vertical="Center" ss:Horizontal="${g.pct ? 'Center' : 'Left'}"/>` +
+                `<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/><Border ss:Position="Right" ss:LineStyle="Continuous" ss:Weight="1" ss:Color="#E2E8F0"/></Borders>` +
+                `${g.pct ? '<NumberFormat ss:Format="0%"/>' : ''}</Style>`).join('');
+        }
+
         // CSV (dipisah ";" + BOM supaya langsung rapi saat dibuka di Excel Indonesia)
         function exportDataCSV(sheet, filename) {
             const esc = v => '"' + _expClean(v).replace(/"/g, '""') + '"';
@@ -4937,8 +5246,11 @@
 
         // Excel multi-sheet (SpreadsheetML .xls — dibuka langsung oleh Excel & Sheets)
         function exportDataExcel(filename, sheets) {
-            const list = (Array.isArray(sheets) ? sheets : [sheets]).filter(sh => sh && sh.headers);
+            const list = (Array.isArray(sheets) ? sheets : [sheets]).filter(sh => sh && (sh.headers || sh.visual));
             if (!list.length) return showToast('Tidak ada data untuk diekspor', 'error');
+            const gayaVisual = {};
+            const isiVisual = {};
+            list.forEach((sh, i) => { if (sh.visual) isiVisual[i] = _xmlSheetVisual(sh, gayaVisual); });
             let xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
                 '<?mso-application progid="Excel.Sheet"?>\n' +
                 '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"' +
@@ -4951,16 +5263,22 @@
                 '<Borders><Border ss:Position="Bottom" ss:LineStyle="Continuous" ss:Weight="1"/></Borders></Style>' +
                 '<Style ss:ID="cel"><Font ss:FontName="Calibri" ss:Size="10"/><Alignment ss:Vertical="Top" ss:WrapText="1"/></Style>' +
                 '<Style ss:ID="ttl"><Font ss:Bold="1" ss:Size="13" ss:FontName="Calibri" ss:Color="#1E293B"/></Style>' +
+                '<Style ss:ID="pct"><Font ss:FontName="Calibri" ss:Size="10"/><Alignment ss:Vertical="Top" ss:Horizontal="Center"/><NumberFormat ss:Format="0%"/></Style>' +
+                _xmlGayaVisual(gayaVisual) +
                 '</Styles>';
             list.forEach((sh, idx) => {
                 const name = _expClean(sh.name || ('Sheet' + (idx + 1))).replace(/[\\\/\?\*\[\]:]/g, '-').slice(0, 30) || ('Sheet' + (idx+1));
+                if (sh.visual) { xml += `<Worksheet ss:Name="${_expXml(name)}">${isiVisual[idx]}</Worksheet>`; return; }
+                const kolPct = sh.headers.map(h => /\(%\)/.test(h));
                 xml += `<Worksheet ss:Name="${_expXml(name)}"><Table>`;
                 sh.headers.forEach(() => { xml += '<Column ss:Width="120"/>'; });
                 xml += `<Row><Cell ss:StyleID="ttl" ss:MergeAcross="${Math.max(0, sh.headers.length-1)}"><Data ss:Type="String">${_expXml(sh.title || name)}</Data></Cell></Row>`;
                 xml += '<Row/>';
                 xml += '<Row ss:Height="20">' + sh.headers.map(h => `<Cell ss:StyleID="hdr"><Data ss:Type="String">${_expXml(h)}</Data></Cell>`).join('') + '</Row>';
                 sh.rows.forEach(r => {
-                    xml += '<Row>' + r.map(v => _expIsNum(v)
+                    xml += '<Row>' + r.map((v, ci) => kolPct[ci] && _expIsNum(v)
+                        ? `<Cell ss:StyleID="pct"><Data ss:Type="Number">${Number(v) / 100}</Data></Cell>`
+                        : _expIsNum(v)
                         ? `<Cell ss:StyleID="cel"><Data ss:Type="Number">${v}</Data></Cell>`
                         : `<Cell ss:StyleID="cel"><Data ss:Type="String">${_expXml(v)}</Data></Cell>`).join('') + '</Row>';
                 });
@@ -5025,7 +5343,7 @@
                 name: 'Tugas', title: title || 'Daftar Tugas / Jobdesk',
                 headers: ['No', 'Proyek', 'Kategori', 'Pekerjaan', 'Sub Task', 'PIC', 'Mulai', 'Selesai', 'Status', 'Progres (%)'],
                 rows: src.map((t, i) => [i + 1, t.projectName || '-', t.category || '-', t.name || '-', t.subTask || '-',
-                    t.pic || '-', t.startDate || '-', t.endDate || '-', _expStatusLabel(t), Number(t.progress || 0)])
+                    t.pic || '-', t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)])
             };
         }
         function dsReports(list) {
@@ -5055,7 +5373,7 @@
                 name: 'Proyek', title: 'Ringkasan Semua Proyek',
                 headers: ['No', 'Proyek', 'Total Tugas', 'Selesai', 'Hold', 'Progres Rata-rata (%)', 'Jumlah Laporan', 'Laporan Berkendala', 'Target Terakhir'],
                 rows: Object.keys(stat).sort().map((p, i) => [i + 1, p, stat[p].total, stat[p].done, stat[p].hold,
-                    stat[p].total ? Math.round(stat[p].prog / stat[p].total) : 0, stat[p].rep, stat[p].kendala, stat[p].end || '-'])
+                    progProyekNama(p), stat[p].rep, stat[p].kendala, stat[p].end || '-'])
             };
         }
         function dsJadwal(list) {
@@ -5069,7 +5387,7 @@
         }
         function dsArsip() {
             return {
-                name: 'Arsip PDF', title: 'Arsip File PDF',
+                name: 'Arsip PDF', title: 'Arsip PDF',
                 headers: ['No', 'Tanggal', 'Nama File', 'Tautan'],
                 rows: (arsipPDF || []).map((a, i) => [i + 1, a.tanggal || '-', a.filename || '-', a.url || '-'])
             };
@@ -5098,7 +5416,7 @@
             Object.keys(byPic).sort((a, b) => a.localeCompare(b)).forEach(name => {
                 byPic[name].slice().sort((a, b) => new Date(a.endDate || 0) - new Date(b.endDate || 0)).forEach(t => {
                     rows.push([++no, name, t.projectName || '-', t.category || '-', t.name || '-', t.subTask || '-',
-                        t.startDate || '-', t.endDate || '-', _expStatusLabel(t), Number(t.progress || 0)]);
+                        t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)]);
                 });
             });
             return {
@@ -5114,7 +5432,7 @@
             const proc = jobdeskTasks.filter(t => _expStatusLabel(t) === 'PROSES').length;
             const pend = jobdeskTasks.filter(t => _expStatusLabel(t) === 'PENDING').length;
             const hold = jobdeskTasks.filter(t => _expStatusLabel(t) === 'HOLD').length;
-            const avg = total ? Math.round(jobdeskTasks.reduce((a, t) => a + Number(t.progress || 0), 0) / total) : 0;
+            const avg = progKeseluruhan(jobdeskTasks);
             return {
                 name: 'Ringkasan', title: 'Ringkasan Dashboard',
                 headers: ['Indikator', 'Nilai'],
@@ -5136,10 +5454,10 @@
                 case 'tasks': return [dsTasks()];
                 case 'jadwal': return [dsJadwal()];
                 case 'pic': return [dsPicTasks()];
-                case 'adminprogress': return [dsTasks(_apFilteredTasks(), 'Editor Progres (Admin)')];
+                case 'adminprogress': return [dsTasks(_apFilteredTasks(), 'Editor Progres')];
 
                 case 'arsip': return [dsArsip()];
-                case 'komparasi': return [dsTasks(null, 'Komparasi Aktual vs Plan'), dsReports()];
+                case 'komparasi': return [dsTasks(null, 'Komparasi Proyek'), dsReports()];
                 case 'all': return [dsDashboard(), dsProjects(), dsTasks(), dsJadwal(), dsReports(), dsPicTasks(), dsArsip(), dsAkun(), dsKategori()];
                 default: return [dsTasks()];
             }
@@ -5343,14 +5661,383 @@
             </table>`;
         }
 
-        function exportView(view, fmt) {
-            const sheets = _expSheets(view);
+        const _EXP_VIEW_CONFIG = {
+            dashboard: { id: 'view-dashboard-content', title: 'Dashboard', render: () => renderDashboard() },
+            projects: { id: 'view-allprojects-content', title: 'Semua Proyek', render: () => renderAllProjects() },
+            reports: { id: 'view-reports-content', title: 'Riwayat Laporan', render: () => renderReports() },
+            tasks: { id: 'view-timeline-content', title: 'Timeline Proyek', key: 'tasks', render: () => renderGantt() },
+            jadwal: { id: 'view-calendar-content', title: 'Kalender & Tugas', render: () => { renderJobdeskCalendar(); renderDailyTasks(selectedDate); } },
+            komparasi: { id: 'view-comparison-content', title: 'Komparasi Proyek', render: () => renderComparison() },
+            pic: { id: 'view-pictasks-content', title: 'Tugas per PIC', render: () => renderPicTasks() },
+            arsip: { id: 'view-archive-content', title: 'Arsip PDF', render: () => renderArchivePDF() },
+            adminprogress: { id: 'view-adminprogress-content', title: 'Editor Progres Admin', render: () => renderAdminProgress() }
+        };
+
+        function _expViews(view) {
+            if (view !== 'all') return [_EXP_VIEW_CONFIG[view]].filter(Boolean);
+            return ['dashboard','projects','reports','tasks','jadwal','komparasi','pic','arsip']
+                .map(k => _EXP_VIEW_CONFIG[k]).filter(Boolean);
+        }
+
+        function _expPrepareClone(root, title, subtitle) {
+            const clone = root.cloneNode(true);
+            clone.classList.remove('hidden');
+            clone.style.display = 'block';
+            clone.style.height = 'auto';
+            clone.style.maxHeight = 'none';
+            clone.style.overflow = 'visible';
+            clone.style.width = 'max-content';
+            clone.style.minWidth = Math.max(root.scrollWidth, root.clientWidth, 1100) + 'px';
+            clone.querySelectorAll('button, textarea, .admin-only, [onclick*="exportView"], [onclick*="openModal(\'exportPdfModal\')"]').forEach(el => el.remove());
+            // Kontrol filter diganti label nilai aktifnya agar hasil ekspor menunjukkan filter seperti di web
+            clone.querySelectorAll('select').forEach(sel => {
+                const chip = document.createElement('span');
+                chip.textContent = sel.options[sel.selectedIndex] ? sel.options[sel.selectedIndex].text : (sel.value || '—');
+                chip.style.cssText = 'display:inline-block;padding:6px 10px;border:1px solid #c7d2fe;border-radius:8px;background:#eef2ff;color:#3730a3;font:700 11px Inter,Arial,sans-serif;';
+                sel.replaceWith(chip);
+            });
+            clone.querySelectorAll('input').forEach(inp => {
+                const chip = document.createElement('span');
+                if (inp.type === 'checkbox') {
+                    chip.textContent = inp.checked ? '✓' : '✗';
+                    chip.style.cssText = 'display:inline-block;margin-right:6px;font:800 12px Inter,Arial,sans-serif;color:' + (inp.checked ? '#059669' : '#94a3b8') + ';';
+                } else {
+                    chip.textContent = inp.value || '—';
+                    chip.style.cssText = 'display:inline-block;padding:4px 8px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#334155;font:600 11px Inter,Arial,sans-serif;';
+                }
+                inp.replaceWith(chip);
+            });
+            clone.querySelectorAll('*').forEach(el => {
+                el.style.maxHeight = 'none';
+                if (getComputedStyle(el).overflowY === 'auto' || getComputedStyle(el).overflowY === 'scroll') el.style.overflowY = 'visible';
+                if (getComputedStyle(el).overflowX === 'auto' || getComputedStyle(el).overflowX === 'scroll') el.style.overflowX = 'visible';
+                if (getComputedStyle(el).position === 'sticky') el.style.position = 'static';
+            });
+            const wrap = document.createElement('div');
+            wrap.setAttribute('data-export-stage', 'true');
+            wrap.style.cssText = 'position:fixed;left:-20000px;top:0;background:#f8fafc;padding:24px;width:max-content;z-index:-1;';
+            const heading = document.createElement('div');
+            heading.style.cssText = 'background:#0f172a;color:white;padding:18px 22px;margin-bottom:16px;border-radius:12px;font:800 22px Inter,Arial,sans-serif;';
+            heading.textContent = 'IAT Electrical — ' + title;
+            if (subtitle) {
+                const sub = document.createElement('div');
+                sub.style.cssText = 'font:600 12px Inter,Arial,sans-serif;color:#94a3b8;margin-top:6px;';
+                sub.textContent = subtitle;
+                heading.appendChild(sub);
+            }
+            const noAnim = document.createElement('style');
+            noAnim.textContent = '[data-export-stage] *, [data-export-stage] *::before, [data-export-stage] *::after { animation: none !important; transition: none !important; } [data-export-stage] [class*="blur-"]:not([class*="backdrop-blur"]) { display: none !important; }';
+            wrap.appendChild(noAnim);
+            wrap.appendChild(heading); wrap.appendChild(clone); document.body.appendChild(wrap);
+            // html2canvas belum mendukung conic-gradient: gambar ulang sebagai gambar
+            clone.querySelectorAll('[style*="conic-gradient"]').forEach(el => {
+                try {
+                    const m = el.getAttribute('style').match(/conic-gradient\((.*)\)\s*;?/);
+                    if (!m) return;
+                    let parts = m[1].split(/,(?![^(]*\))/).map(x => x.trim());
+                    let from = 0;
+                    if (/^from/.test(parts[0])) { from = parseFloat(parts[0].replace('from', '')) || 0; parts.shift(); }
+                    const w = el.offsetWidth, h = el.offsetHeight; if (!w || !h) return;
+                    const cv = document.createElement('canvas'); cv.width = w * 2; cv.height = h * 2;
+                    const ctx = cv.getContext('2d');
+                    const g = ctx.createConicGradient((from - 90) * Math.PI / 180, w, h);
+                    parts.forEach(pt => { const mm = pt.match(/^(.*?)\s+(-?[\d.]+)%$/); if (mm) g.addColorStop(Math.min(1, Math.max(0, parseFloat(mm[2]) / 100)), mm[1] === 'transparent' ? 'rgba(0,0,0,0)' : mm[1]); });
+                    ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height);
+                    el.style.background = 'none';
+                    el.style.backgroundImage = 'url(' + cv.toDataURL() + ')';
+                    el.style.backgroundSize = '100% 100%';
+                } catch (e) {}
+            });
+            // Buka semua area yang masih terpotong (scroll/overflow tersembunyi) agar isi utuh
+            for (let pass = 0; pass < 2; pass++) {
+                clone.querySelectorAll('*').forEach(el => {
+                    if (el.scrollWidth > el.clientWidth + 1 || el.scrollHeight > el.clientHeight + 1) {
+                        const cs = getComputedStyle(el);
+                        const gulir = /(auto|scroll)/.test(cs.overflowX + cs.overflowY);
+                        const potong = cs.overflow === 'hidden' && !el.querySelector('[style*="conic-gradient"]') && cs.position === 'static' && !/rounded-full/.test(el.className);
+                        if (!gulir && !potong) return;
+                        el.style.overflow = 'visible';
+                        if (el.scrollWidth > el.clientWidth + 1 && cs.display !== 'inline' && el.tagName !== 'TD' && el.tagName !== 'TH') { el.style.width = 'max-content'; el.style.minWidth = '100%'; el.style.maxWidth = 'none'; }
+                        if (cs.height !== 'auto' && el.scrollHeight > el.clientHeight + 1) el.style.height = 'auto';
+                    }
+                    if (el.classList.contains('truncate')) { el.style.overflow = 'visible'; el.style.whiteSpace = 'normal'; el.style.textOverflow = 'clip'; }
+                });
+            }
+            return wrap;
+        }
+
+        // Ringkasan filter yang sedang aktif di web (untuk ditampilkan di hasil ekspor)
+        function _expFilterInfo(key) {
+            const parts = [];
+            const sel = id => { const el = document.getElementById(id); return el && el.options[el.selectedIndex] ? el.options[el.selectedIndex].text : ''; };
+            if (key === 'tasks') {
+                const scale = document.getElementById('gantt-time-scale');
+                if (scale) parts.push('Skala: ' + sel('gantt-time-scale'));
+                if (scale && scale.value === 'custom') {
+                    const s = document.getElementById('gantt-start-date')?.value, e = document.getElementById('gantt-end-date')?.value;
+                    if (s || e) parts.push('Tanggal: ' + (s || '…') + ' s/d ' + (e || '…'));
+                    const cs = sel('gantt-custom-scale'); if (cs) parts.push('Skala Kustom: ' + cs);
+                }
+                parts.push('Proyek: ' + (sel('filter-gantt-project') || 'Semua Proyek'));
+                parts.push('Tampilkan Semua: ' + (document.getElementById('ganttShowAllCheckbox')?.checked ? 'Ya' : 'Tidak'));
+                const lbl = document.getElementById('gantt-month-label');
+                if (lbl) parts.push('Periode: ' + lbl.innerText);
+            }
+            return parts.join('  •  ');
+        }
+
+        async function _expCaptureView(cfg) {
+            if (!cfg || !window.html2canvas) throw new Error('Pustaka tampilan ekspor belum siap. Muat ulang halaman.');
+            if (cfg.render) cfg.render();
+            const root = document.getElementById(cfg.id);
+            if (!root) throw new Error('Tampilan ' + cfg.title + ' tidak ditemukan');
+            const stage = _expPrepareClone(root, cfg.title, _expFilterInfo(cfg.key));
+            try {
+                await new Promise(resolve => setTimeout(resolve, 80));
+                return await window.html2canvas(stage, {
+                    backgroundColor: '#f8fafc', scale: 1.35, useCORS: true,
+                    logging: false, width: stage.scrollWidth, height: stage.scrollHeight,
+                    windowWidth: stage.scrollWidth, windowHeight: stage.scrollHeight
+                });
+            } finally { stage.remove(); }
+        }
+
+        function _expPdfSize(canvas) {
+            const max = 14000;
+            const scale = Math.min(1, max / Math.max(canvas.width, canvas.height));
+            return [Math.max(1, Math.round(canvas.width * scale)), Math.max(1, Math.round(canvas.height * scale))];
+        }
+
+        function _expAddCanvasPage(doc, canvas, firstPage) {
+            const size = _expPdfSize(canvas);
+            if (!firstPage) doc.addPage(size, size[0] >= size[1] ? 'landscape' : 'portrait');
+            doc.addImage(canvas.toDataURL('image/jpeg', .95), 'JPEG', 0, 0, size[0], size[1], undefined, 'FAST');
+        }
+
+        async function exportVisualPDF(filename, view) {
+            const views = _expViews(view);
+            if (!views.length) return showToast('Tampilan tidak tersedia untuk diekspor', 'error');
+            showToast('Menyiapkan PDF sesuai tampilan web...', 'info');
+            try {
+                const { jsPDF } = window.jspdf;
+                const canvases = [];
+                for (const cfg of views) canvases.push(await _expCaptureView(cfg));
+                const firstSize = _expPdfSize(canvases[0]);
+                const doc = new jsPDF({ orientation: firstSize[0] >= firstSize[1] ? 'landscape' : 'portrait', unit: 'px', format: firstSize, hotfixes: ['px_scaling'] });
+                canvases.forEach((canvas, index) => _expAddCanvasPage(doc, canvas, index === 0));
+                doc.save((filename || 'Tampilan_IAT') + '_' + _expStamp() + '.pdf');
+                showToast('PDF sesuai tampilan web berhasil dibuat', 'success');
+            } catch (e) { showToast('Gagal membuat PDF: ' + e.message, 'error'); }
+        }
+
+        function _expTableFromElement(table, title, name) {
+            const visual = _tabelKeVisual(table, title, name);
+            if (!visual) return null;
+            visual.visual = visual.visual.filter(row => row.some(cell => cell && _expClean(cell.v)));
+            return visual;
+        }
+
+        function _expVisualSheets(view) {
+            const out = [];
+            const add = (selector, title, name) => {
+                const el = document.querySelector(selector);
+                const sh = _expTableFromElement(el, title, name);
+                if (sh) out.push(sh);
+            };
+            if (view === 'tasks' || view === 'all') { try { renderGantt(); } catch(e){} const sh = _expTableFromElement(document.querySelector('#gantt-container table'), 'Timeline Proyek — ' + (document.getElementById('gantt-month-label')?.innerText || ''), 'Timeline Web'); if (sh) { sh.sub = 'Filter aktif: ' + (_expFilterInfo('tasks') || 'tidak ada'); sh.legend = [['#10b981', 'Progres selesai'], ['#94a3b8', 'Rentang task'], ['#fee2e2', 'Hari ini'], ['#f1f5f9', 'Akhir pekan']]; out.push(sh); } }
+            if (view === 'komparasi' || view === 'all') { try { renderComparison(); } catch(e){} add('#comparison-container table', 'Komparasi Proyek — ' + (document.getElementById('comp-month-label')?.innerText || ''), 'Komparasi Web'); }
+            if (view === 'reports' || view === 'all') { try { renderReports(); } catch(e){} add('#view-reports-content table', 'Riwayat Laporan — sesuai filter web', 'Laporan Web'); }
+            if (view === 'adminprogress') { try { renderAdminProgress(); } catch(e){} add('#ap-table-container table', 'Editor Progres — sesuai filter web', 'Progres Web'); }
+            return out;
+        }
+
+        function _expFilteredProjectsDataset() {
+            const query = (document.getElementById('search-project')?.value || '').toLowerCase().trim();
+            const status = document.getElementById('filter-project-status')?.value || 'all';
+            const base = dsProjects();
+            base.rows = base.rows.filter(r => {
+                if (query && !String(r[1]).toLowerCase().includes(query)) return false;
+                const completed = Number(r[5]) >= 100;
+                const hold = !completed && Number(r[2]) > 0 && Number(r[4]) >= Number(r[2]) - Number(r[3]);
+                return status === 'all' || (status === 'completed' && completed) || (status === 'hold' && hold) || (status === 'active' && !completed && !hold);
+            });
+            return base;
+        }
+
+        function _expFilteredArchiveDataset() {
+            const q = (document.getElementById('search-archive')?.value || '').toLowerCase().trim();
+            const ds = dsArsip();
+            ds.rows = ds.rows.filter(r => !q || String(r[2]).toLowerCase().includes(q));
+            return ds;
+        }
+
+        function _expSheetsForView(view) {
+            if (view === 'projects') return [_expFilteredProjectsDataset(), dsTasks()];
+            if (view === 'arsip') return [_expFilteredArchiveDataset()];
+            return _expSheets(view);
+        }
+
+        async function exportView(view, fmt) {
+            const sheets = _expSheetsForView(view);
             const fname = _EXP_NAMES[view] || 'Data_IAT';
             const isi = sheets.reduce((a, sh) => a + (sh.rows ? sh.rows.length : 0), 0);
-            if (!isi) return showToast('Belum ada data untuk diekspor', 'error');
-            if (fmt === 'pdf') return exportDataPDF(fname, sheets, 'landscape');
+            if (!isi && !_expViews(view).length) return showToast('Belum ada data untuk diekspor', 'error');
+            if (fmt === 'pdf') return exportVisualPDF(fname, view);
             if (fmt === 'csv') return exportDataCSV(sheets[0], fname);
-            return exportDataExcel(fname, sheets);
+            return exportVisualExcel(fname, view, _expVisualSheets(view).concat(sheets));
+        }
+
+        // Excel .xlsx: sampul info, gambar tampilan web, dan tabel berwarna yang bisa diedit
+        async function exportVisualExcel(filename, view, sheets) {
+            if (!window.ExcelJS) return exportDataExcel(filename, sheets);
+            showToast('Menyiapkan Excel sesuai tampilan web...', 'info');
+            try {
+                const wb = new ExcelJS.Workbook();
+                wb.creator = 'Dashboard IAT Electrical';
+                wb.created = new Date();
+                const DARK = 'FF0F172A', INK = 'FF1E293B', MUTED = 'FF64748B', LINE = 'FFE2E8F0', ZEBRA = 'FFF6F8FC', BRAND = 'FF4338CA';
+                const used = {};
+                const nm = n => { let b = _expClean(n || 'Sheet').replace(/[\\\/\?\*\[\]:]/g, '-').slice(0, 28) || 'Sheet'; let x = b, i = 2; while (used[x.toLowerCase()]) x = b.slice(0, 25) + ' ' + (i++); used[x.toLowerCase()] = 1; return x; };
+                const argb = h => h ? 'FF' + h.replace('#', '') : undefined;
+                const thin = { style: 'thin', color: { argb: LINE } };
+                const box = { bottom: thin, right: thin };
+                const waktu = new Date().toLocaleString('id-ID', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                const list = (Array.isArray(sheets) ? sheets : [sheets]).filter(sh => sh && (sh.headers || sh.visual));
+                const judulView = (_EXP_NAMES && _EXP_NAMES[view]) || (view === 'all' ? 'Semua Data' : view);
+                const fillSolid = c => ({ type: 'pattern', pattern: 'solid', fgColor: { argb: c } });
+                const banner = (ws, judul, sub, nCol) => {
+                    const span = Math.max(2, nCol);
+                    ws.mergeCells(1, 1, 1, span);
+                    const t = ws.getCell(1, 1);
+                    t.value = judul;
+                    t.font = { bold: true, size: 13, color: { argb: 'FFFFFFFF' } };
+                    t.alignment = { vertical: 'middle', horizontal: 'left', indent: 1 };
+                    ws.getRow(1).height = 30;
+                    ws.getRow(2).height = 16;
+                    ws.mergeCells(2, 1, 2, span);
+                    const st = ws.getCell(2, 1);
+                    st.value = sub;
+                    st.font = { italic: true, size: 9, color: { argb: MUTED } };
+                    st.alignment = { vertical: 'middle', indent: 1 };
+                    for (let c = 1; c <= span; c++) { ws.getCell(1, c).fill = fillSolid(DARK); ws.getCell(2, c).fill = fillSolid('FFFFFFFF'); }
+                    ws.views = [{ showGridLines: false }];
+                    ws.pageSetup = { orientation: 'landscape', paperSize: 9, fitToPage: true, fitToWidth: 1, fitToHeight: 0 };
+                };
+                // ---- Sampul / daftar isi ----
+                const info = wb.addWorksheet('Info');
+                banner(info, 'IAT ELECTRICAL — SISTEM LAPORAN & JOBDESK', 'Ringkasan Ekspor • ' + judulView, 2);
+                info.getColumn(1).width = 28; info.getColumn(2).width = 58;
+                [['Diekspor', waktu], ['Jenis Ekspor', judulView], ['Nama File', (filename || 'Data_IAT') + '_' + _expStamp() + '.xlsx'], ['Jumlah Sheet', list.length + ' sheet data' + (view === 'all' ? ' + gambar semua tampilan' : ' + gambar tampilan')]].forEach((kv, i) => {
+                    const r = 4 + i, k = info.getCell(r, 1), v = info.getCell(r, 2);
+                    k.value = kv[0]; k.font = { bold: true, size: 10, color: { argb: INK } };
+                    v.value = kv[1]; v.font = { size: 10, color: { argb: MUTED } };
+                    k.alignment = v.alignment = { vertical: 'middle' };
+                    info.getRow(r).height = 18;
+                });
+                info.mergeCells(9, 1, 9, 2);
+                const hd = info.getCell(9, 1);
+                hd.value = 'DAFTAR ISI';
+                hd.font = { bold: true, size: 10, color: { argb: 'FFFFFFFF' } };
+                hd.alignment = { vertical: 'middle', indent: 1 };
+                for (let c = 1; c <= 2; c++) { const cc = info.getCell(9, c); cc.fill = fillSolid(BRAND); cc.border = box; }
+                info.getRow(9).height = 20;
+                list.forEach((sh, i) => {
+                    const r = 10 + i, n = info.getCell(r, 1), d = info.getCell(r, 2);
+                    n.value = sh.name || ('Sheet ' + (i + 1));
+                    n.font = { bold: true, size: 10, color: { argb: INK } };
+                    d.value = (sh.visual ? 'Tabel visual ' : '') + (sh.title || '') + (sh.rows ? ' — ' + sh.rows.length + ' baris' : '');
+                    d.font = { size: 10, color: { argb: MUTED } };
+                    [n, d].forEach(c => { c.border = box; c.alignment = { vertical: 'middle' }; if (i % 2) c.fill = fillSolid(ZEBRA); });
+                });
+                const note = info.getCell(11 + list.length, 1);
+                note.value = 'Sheet "Tampilan ..." berisi gambar persis seperti tampilan web saat diekspor.';
+                note.font = { italic: true, size: 9, color: { argb: MUTED } };
+                // ---- Status & format ----
+                const statusWarna = v => {
+                    const t = String(v || '').toLowerCase();
+                    if (/(terlambat|hold|overdue|cancel|batal|blokir)/.test(t)) return ['FFFEE2E2', 'FF991B1B'];
+                    if (/(pending|rencana|plan|waiting|menunggu|approve)/.test(t)) return ['FFFEF3C7', 'FF92400E'];
+                    if (/(selesai|complete|done|lunas|100)/.test(t)) return ['FFDCFCE7', 'FF166534'];
+                    if (/(berjalan|proses|progress|active|ongoing)/.test(t)) return ['FFE0E7FF', 'FF3730A3'];
+                    return null;
+                };
+                const uang = h => /(rp|harga|budget|nilai|biaya|nominal|anggaran)/i.test(h);
+                const persen = h => /\(%\)/.test(h);
+                // ---- Sheet gambar tampilan web ----
+                for (const cfg of _expViews(view)) {
+                    const canvas = await _expCaptureView(cfg);
+                    const ws = wb.addWorksheet(nm('Tampilan ' + cfg.title));
+                    banner(ws, 'Tampilan Web — ' + cfg.title, 'Gambar sesuai tampilan web saat diekspor • ' + waktu, 20);
+                    const maxW = 1800, k = Math.min(1, maxW / canvas.width);
+                    const img = wb.addImage({ base64: canvas.toDataURL('image/png'), extension: 'png' });
+                    ws.addImage(img, { tl: { col: 0, row: 3 }, ext: { width: Math.round(canvas.width * k), height: Math.round(canvas.height * k) } });
+                }
+                // ---- Sheet tabel ----
+                list.forEach(sh => {
+                    const ws = wb.addWorksheet(nm(sh.name));
+                    if (sh.visual) {
+                        const nCol = Math.max(0, ...sh.visual.map(r => r.length));
+                        banner(ws, sh.title || sh.name, (sh.sub ? sh.sub + '  •  ' : '') + 'Diekspor ' + waktu, nCol);
+                        for (let c = 1; c <= nCol; c++) ws.getColumn(c).width = c === 1 ? 16 : (c === 2 ? 34 : (c < 6 ? 10 : 4.5));
+                        sh.visual.forEach((r, ri) => r.forEach((c, ci) => {
+                            if (!c) return;
+                            const cell = ws.getCell(ri + 3, ci + 1);
+                            cell.value = c.v === '' ? null : c.v;
+                            cell.font = { size: 9, bold: !!c.bold, color: c.fc ? { argb: argb(c.fc) } : undefined };
+                            if (c.bg) cell.fill = fillSolid(argb(c.bg));
+                            cell.alignment = { vertical: 'middle', horizontal: c.pct ? 'center' : 'left', wrapText: true };
+                            cell.border = box;
+                            if (c.pct) cell.numFmt = '0%';
+                            if (c.span > 1 || c.rspan > 1) { try { ws.mergeCells(ri + 3, ci + 1, ri + 3 + (c.rspan || 1) - 1, ci + 1 + (c.span || 1) - 1); } catch (e) {} }
+                        }));
+                        // Legenda warna di bawah tabel (mis. Gantt)
+                        if (Array.isArray(sh.legend) && sh.legend.length) {
+                            const lr = sh.visual.length + 5;
+                            const lt = ws.getCell(lr, 1);
+                            lt.value = 'KETERANGAN WARNA';
+                            lt.font = { bold: true, size: 9, color: { argb: MUTED } };
+                            sh.legend.forEach((lg, i) => {
+                                const sw = ws.getCell(lr + 1 + i, 1), tx = ws.getCell(lr + 1 + i, 2);
+                                sw.fill = fillSolid(argb(lg[0])); sw.border = box;
+                                tx.value = lg[1]; tx.font = { size: 9, color: { argb: INK } };
+                            });
+                        }
+                        ws.views = [{ showGridLines: false, state: 'frozen', xSplit: 2, ySplit: 3 }];
+                        return;
+                    }
+                    const nCol = sh.headers.length;
+                    const stCol = sh.headers.findIndex(h => /status/i.test(h));
+                    banner(ws, sh.title || sh.name, 'Diekspor ' + waktu + ' • ' + sh.rows.length + ' baris data', nCol);
+                    sh.headers.forEach((h, i) => {
+                        const w = Math.min(46, Math.max(12, String(h).length + 4, ...sh.rows.slice(0, 300).map(r => String(r[i] ?? '').length + 2)));
+                        ws.getColumn(i + 1).width = w;
+                        const c = ws.getCell(3, i + 1);
+                        c.value = h;
+                        c.font = { bold: true, size: 10, color: { argb: 'FFFFFFFF' } };
+                        c.fill = fillSolid(BRAND);
+                        c.alignment = { vertical: 'middle', horizontal: persen(h) ? 'center' : 'left' };
+                        c.border = box;
+                    });
+                    ws.getRow(3).height = 22;
+                    sh.rows.forEach((r, ri) => {
+                        const warna = stCol >= 0 ? statusWarna(r[stCol]) : null;
+                        r.forEach((v, ci) => {
+                            const c = ws.getCell(ri + 4, ci + 1);
+                            if (_expIsNum(v)) { c.value = persen(sh.headers[ci]) ? Number(v) / 100 : Number(v); c.numFmt = uang(sh.headers[ci]) ? '"Rp"#,##0' : (persen(sh.headers[ci]) ? '0.0%' : '#,##0'); c.alignment = { vertical: 'top', horizontal: 'right' }; }
+                            else { c.value = v == null ? '' : String(v); c.alignment = { vertical: 'top', wrapText: true }; }
+                            c.font = { size: 10, color: { argb: INK } };
+                            c.border = box;
+                            if (warna && ci === stCol) { c.fill = fillSolid(warna[0]); c.font = { size: 10, bold: true, color: { argb: warna[1] } }; c.alignment = { vertical: 'middle', horizontal: 'center' }; }
+                            else if (ri % 2) c.fill = fillSolid(ZEBRA);
+                        });
+                    });
+                    if (sh.rows.length) ws.autoFilter = { from: { row: 3, column: 1 }, to: { row: 3 + sh.rows.length, column: nCol } };
+                    ws.views = [{ showGridLines: false, state: 'frozen', ySplit: 3 }];
+                });
+                const buf = await wb.xlsx.writeBuffer();
+                _expDownload(new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), (filename || 'Data_IAT') + '_' + _expStamp() + '.xlsx');
+                showToast('Excel sesuai tampilan web berhasil dibuat', 'success');
+            } catch (e) { showToast('Gagal membuat Excel: ' + e.message, 'error'); }
         }
 
         // Kompatibilitas tombol lama
@@ -5362,11 +6049,116 @@
             // saat halaman baru dimuat / offline / server lambat.
             try {
                 if (hydrateFromSnapshot()) {
-                    applyPendingProgressOverlay();
                     try { renderDashboard(); renderGantt(); renderComparison && renderComparison(); renderAllProjects && renderAllProjects(); } catch(e){}
                 }
             } catch(e){}
             loadData(false);
+        }
+
+        // ================= IMPORT TUGAS DARI EXCEL =================
+        const _IMP_COLS = ['Project','Kategori','Nama Tugas','Sub Tugas','Tanggal Mulai','Tanggal Selesai','PIC','Leader','Status','Progres (%)'];
+        let _impRows = [];
+        async function downloadTaskTemplate() {
+            if (typeof ExcelJS === 'undefined') return showToast('Library Excel belum termuat', 'error');
+            const wb = new ExcelJS.Workbook(); const ws = wb.addWorksheet('Tugas');
+            ws.columns = _IMP_COLS.map((h, i) => ({ header: h, key: 'c' + i, width: [24,18,30,26,15,15,18,18,12,12][i] }));
+            const hr = ws.getRow(1); hr.height = 22;
+            hr.eachCell((c, i) => { c.font = { bold: true, color: { argb: 'FFFFFFFF' } }; c.alignment = { vertical: 'middle', horizontal: 'center' };
+                c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: i <= 3 || i === 5 || i === 6 ? 'FF4338CA' : 'FF64748B' } }; });
+            const d = (n) => { const x = new Date(); x.setDate(x.getDate() + n); return new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate())); };
+            const p0 = projects[0] || 'Gedung A', c0 = taskCategories[0] || 'Instalasi', w0 = workers[0] || 'Budi', w1 = workers[1] || 'Andi';
+            [[p0, c0, 'Instalasi Panel Utama', 'Pemasangan MCB', d(0), d(3), w0, w1, 'pending', 0],
+             [p0, c0, 'Instalasi Panel Utama', 'Wiring kabel', d(1), d(5), w0, w1, 'progress', 30],
+             [p0, c0, 'Pengujian Sistem', '', d(6), d(8), w1, w1, '', '']].forEach(r => ws.addRow(r));
+            for (let r = 2; r <= 200; r++) { ['E','F'].forEach(k => ws.getCell(k + r).numFmt = 'dd/mm/yyyy');
+                ws.getCell('I' + r).dataValidation = { type: 'list', allowBlank: true, formulae: ['"pending,progress,hold,completed"'] };
+                ws.getCell('J' + r).dataValidation = { type: 'whole', allowBlank: true, operator: 'between', formulae: [0, 100] }; }
+            ws.views = [{ state: 'frozen', ySplit: 1 }]; ws.autoFilter = 'A1:J1';
+            const g = wb.addWorksheet('Petunjuk'); g.getColumn(1).width = 22; g.getColumn(2).width = 70;
+            g.addRow(['PETUNJUK IMPORT TUGAS']).font = { bold: true, size: 14, color: { argb: 'FF4338CA' } }; g.addRow([]);
+            [['Project *','Nama proyek. Jika belum ada, proyek baru otomatis dibuat.'],['Kategori *','Kategori tugas. Jika belum ada, otomatis dibuat.'],
+             ['Nama Tugas *','Pekerjaan utama.'],['Sub Tugas','Opsional. Satu baris = satu sub tugas.'],
+             ['Tanggal Mulai *','Format tanggal Excel atau teks YYYY-MM-DD / DD/MM/YYYY.'],['Tanggal Selesai *','Tidak boleh sebelum Tanggal Mulai.'],
+             ['PIC','Nama penanggung jawab (pisahkan dengan koma jika lebih dari satu).'],['Leader','Leader project.'],
+             ['Status','pending / progress / hold / completed (kosong = pending).'],['Progres (%)','Angka 0-100 (kosong = 0).'],
+             ['',''],['Catatan','Kolom bertanda * wajib diisi. Hapus baris contoh sebelum import.']].forEach(r => { const row = g.addRow(r); row.getCell(1).font = { bold: true }; });
+            const buf = await wb.xlsx.writeBuffer();
+            _expDownload(new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), 'Contoh_Format_Import_Tugas.xlsx');
+        }
+        function _impVal(v) { if (v && typeof v === 'object') { if (v instanceof Date) return v; if (v.result !== undefined) return v.result; if (v.text) return v.text; if (v.richText) return v.richText.map(t => t.text).join(''); } return v; }
+        function _impDate(v) {
+            v = _impVal(v); if (v === null || v === undefined || v === '') return '';
+            if (v instanceof Date) return v.getUTCFullYear() + '-' + String(v.getUTCMonth() + 1).padStart(2, '0') + '-' + String(v.getUTCDate()).padStart(2, '0');
+            if (typeof v === 'number') return _impDate(new Date(Math.round((v - 25569) * 864e5)));
+            const s = String(v).trim(); let m;
+            if ((m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/))) return m[1] + '-' + m[2].padStart(2, '0') + '-' + m[3].padStart(2, '0');
+            if ((m = s.match(/^(\d{1,2})[\/\-.](\d{1,2})[\/\-.](\d{4})$/))) return m[3] + '-' + m[2].padStart(2, '0') + '-' + m[1].padStart(2, '0');
+            return 'X';
+        }
+        async function previewTaskImport(file) {
+            const box = document.getElementById('importTaskPreview'), btn = document.getElementById('btn-import-task');
+            _impRows = []; btn.disabled = true; box.innerHTML = ''; if (!file) return;
+            try {
+                const wb = new ExcelJS.Workbook(); await wb.xlsx.load(await file.arrayBuffer());
+                const ws = wb.getWorksheet('Tugas') || wb.worksheets[0];
+                const head = {}; ws.getRow(1).eachCell((c, i) => head[String(_impVal(c.value) || '').trim().toLowerCase()] = i);
+                const col = (r, name) => { const i = head[name.toLowerCase()]; return i ? _impVal(r.getCell(i).value) : ''; };
+                if (!head['project'] || !head['nama tugas']) throw new Error('Header tidak sesuai contoh format');
+                const errs = [], dups = [], okStatus = ['pending','progress','hold','completed'];
+                const seen = new Set(jobdeskTasks.map(t => (String(t.projectName||'') + '|' + String(t.name||'') + '|' + String(t.subTask||'')).trim().toLowerCase()));
+                ws.eachRow((r, n) => {
+                    if (n === 1) return;
+                    const t = { projectName: String(col(r,'Project') || '').trim(), category: String(col(r,'Kategori') || '').trim(), name: String(col(r,'Nama Tugas') || '').trim(),
+                        subTask: String(col(r,'Sub Tugas') || '').trim(), startDate: _impDate(col(r,'Tanggal Mulai')), endDate: _impDate(col(r,'Tanggal Selesai')),
+                        pic: String(col(r,'PIC') || '').trim(), leader: String(col(r,'Leader') || '').trim(),
+                        status: String(col(r,'Status') || 'pending').trim().toLowerCase() || 'pending', progress: parseInt(col(r,'Progres (%)')) || 0 };
+                    if (!t.projectName && !t.name && !t.category) return;
+                    const e = [];
+                    if (!t.projectName) e.push('Project kosong'); if (!t.category) e.push('Kategori kosong'); if (!t.name) e.push('Nama Tugas kosong');
+                    if (!t.startDate || t.startDate === 'X') e.push('Tanggal Mulai salah'); if (!t.endDate || t.endDate === 'X') e.push('Tanggal Selesai salah');
+                    if (!e.length && t.endDate < t.startDate) e.push('Selesai sebelum Mulai');
+                    if (!okStatus.includes(t.status)) e.push('Status tidak dikenal');
+                    t.progress = Math.max(0, Math.min(100, t.progress)); if (t.status === 'completed') t.progress = 100;
+                    const key = (t.projectName + '|' + t.name + '|' + t.subTask).trim().toLowerCase();
+                    if (e.length) { errs.push('Baris ' + n + ': ' + e.join(', ')); return; }
+                    if (seen.has(key)) { dups.push('Baris ' + n + ': "' + t.name + '"' + (t.subTask ? ' (' + t.subTask + ')' : '') + ' sudah ada di project ' + t.projectName); return; }
+                    seen.add(key); _impRows.push(t);
+                });
+                const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+                let h = `<p class="font-bold text-emerald-700 mb-2"><i class="fa-solid fa-check-circle mr-1"></i>${_impRows.length} tugas siap diimport${dups.length ? ' • ' + dups.length + ' dilewati (sudah ada)' : ''}</p>`;
+                if (dups.length) h += `<div class="bg-amber-50 border border-amber-200 text-amber-700 rounded p-2 mb-2"><b>${dups.length} baris dilewati — data sudah ada di project:</b><br>${dups.slice(0, 10).map(esc).join('<br>')}${dups.length > 10 ? '<br>…' : ''}</div>`;
+                if (errs.length) h += `<div class="bg-rose-50 border border-rose-200 text-rose-700 rounded p-2 mb-2"><b>${errs.length} baris dilewati:</b><br>${errs.slice(0, 10).map(esc).join('<br>')}${errs.length > 10 ? '<br>…' : ''}</div>`;
+                if (_impRows.length) h += `<div class="max-h-48 overflow-auto border rounded"><table class="w-full"><thead class="bg-slate-100 sticky top-0"><tr><th class="p-1 text-left">Project</th><th class="p-1 text-left">Tugas</th><th class="p-1">Tanggal</th><th class="p-1">PIC</th></tr></thead><tbody>` +
+                    _impRows.map(t => `<tr class="border-t"><td class="p-1">${esc(t.projectName)}</td><td class="p-1">${esc(t.name)}${t.subTask ? ' — ' + esc(t.subTask) : ''}</td><td class="p-1 whitespace-nowrap">${t.startDate} → ${t.endDate}</td><td class="p-1">${esc(t.pic)}</td></tr>`).join('') + '</tbody></table></div>';
+                box.innerHTML = h; btn.disabled = !_impRows.length;
+            } catch (e) { box.innerHTML = `<p class="text-rose-600 font-bold">Gagal membaca file: ${e.message}</p>`; }
+        }
+        function confirmTaskImport() {
+            if (isSaving || !_impRows.length) return;
+            const backT = JSON.parse(JSON.stringify(jobdeskTasks)), backP = projects.slice(), backC = taskCategories.slice();
+            const seen = new Set(jobdeskTasks.map(t => (String(t.projectName||'') + '|' + String(t.name||'') + '|' + String(t.subTask||'')).trim().toLowerCase()));
+            _impRows = _impRows.filter(t => {
+                const key = (String(t.projectName||'') + '|' + String(t.name||'') + '|' + String(t.subTask||'')).trim().toLowerCase();
+                if (seen.has(key)) return false;
+                seen.add(key); return true;
+            });
+            if (!_impRows.length) { showToast('Semua baris sudah ada di project masing-masing', 'error'); return; }
+            _impRows.forEach(t => {
+                if (!projects.includes(t.projectName)) projects.push(t.projectName);
+                if (!taskCategories.includes(t.category)) taskCategories.push(t.category);
+                jobdeskTasks.push({ id: generateId(), ...t });
+            });
+            const btn = document.getElementById('btn-import-task'), orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengimport...'; btn.disabled = true;
+            saveData().then(ok => {
+                btn.innerHTML = orig;
+                if (ok) {
+                    const n = _impRows.length; _impRows = [];
+                    document.getElementById('importTaskFile').value = ''; document.getElementById('importTaskPreview').innerHTML = '';
+                    try { renderJobdeskCalendar(); renderDailyTasks(selectedDate); renderGantt(); renderDashboard(); renderAllProjects(); renderComparison(); if (typeof renderManageProjectLists === 'function') renderManageProjectLists(); } catch (e) {}
+                    closeModal('importTaskModal'); showToast(n + ' tugas berhasil diimport', 'success');
+                } else { jobdeskTasks = backT; projects = backP; taskCategories = backC; btn.disabled = false; showToast('Gagal mengimport. Cek koneksi.', 'error'); }
+            });
         }
     </script>
 </body>
