@@ -1241,9 +1241,8 @@
         // URL backend Apps Script. Bisa ditimpa tanpa mengubah kode:
         //   1. Parameter URL  ->  ?api=https://script.google.com/.../exec
         //   2. localStorage   ->  iat_web_app_url  (diatur lewat tombol di layar login)
-       // const DEFAULT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxTZqM1f07hTMJmJMHiPnxFYoKvXwy5_AWhyU0oKjXreFwzuXfjHI6kk1jJh9mhqp1/exec"; trial ardha
+      //  const DEFAULT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxTZqM1f07hTMJmJMHiPnxFYoKvXwy5_AWhyU0oKjXreFwzuXfjHI6kk1jJh9mhqp1/exec";
         const DEFAULT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjmLWBnzOk-Dz-tO_-og_Jc30_dX3fxihxVR2eAohdbdejLGv2nBRdG10SSNfSEGmZew/exec";
-       
 
 
         function resolveWebAppUrl() {
@@ -1857,7 +1856,7 @@
         // ================= DATA SYNC (FETCH & SAVE) =================
         function loadData(isSilent = false, force = false) {
             // Blokir keras jika sedang simpan data (Kecuali paksa dari tombol Refresh)
-            if (!force && (isSyncing || isSaving || Date.now() < syncLockTime)) {
+            if (_reportSubmitting || (!force && (isSyncing || isSaving || Date.now() < syncLockTime))) {
                 if (!isSilent) showToast('Sistem sedang sibuk. Coba beberapa saat lagi.', 'info');
                 return; 
             }
@@ -1985,6 +1984,7 @@
         let _saveQueued = false;
         let _saveQueuedWaiters = [];
         let _saveDebounceTimer = null;
+        let _saveDebounceWaiters = [];
         let _progressSaveTimer = null;
         let _progressSaveWaiters = [];
 
@@ -2010,7 +2010,7 @@
                 method: "POST",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(_auth({ action: 'simpan', data: { ops } })),
-                keepalive: true
+                keepalive: JSON.stringify(ops).length < 48000
             })
             .then(res => res.text())
             .then(text => { try { return JSON.parse(text); } catch(e) { throw new Error(text); } })
@@ -2030,7 +2030,7 @@
                 }
                 if (h.delta.length) _saveQueued = true;
                 setSaveStatus(result.conflicts && result.conflicts.length ? 'error' : 'saved');
-                return true;
+                return !(result.conflicts && result.conflicts.length);
             })
             .catch(() => {
                 isSyncing = false; isSaving = false; syncLockTime = 0;
@@ -2070,10 +2070,12 @@
         function saveDataSoon(delay = 600) {
             setSaveStatus(_saveInFlight ? 'saving' : 'pending');
             return new Promise(resolve => {
+                _saveDebounceWaiters.push(resolve);
                 if (_saveDebounceTimer) clearTimeout(_saveDebounceTimer);
                 _saveDebounceTimer = setTimeout(() => {
                     _saveDebounceTimer = null;
-                    saveData().then(resolve);
+                    const waiters = _saveDebounceWaiters.splice(0);
+                    saveData().then(ok => waiters.forEach(done => done(ok)), () => waiters.forEach(done => done(false)));
                 }, delay);
             });
 
@@ -4426,24 +4428,30 @@
         }
 
         function handlePhotoUpload(input, index) {
-            const file = input.files[0]; if(!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                photoFiles[index] = { file: file, dataUrl: e.target.result, mimeType: file.type };
-                // Kompresi berjalan di latar belakang; hasilnya menggantikan dataUrl asli.
-                _compressImage(file).then(res => {
-                    if (res && photoFiles[index] && photoFiles[index].file === file) {
-                        photoFiles[index].dataUrl = res.dataUrl;
-                        photoFiles[index].mimeType = res.mimeType;
-                    }
-                });
-                const img = document.getElementById(`photo-preview-${index}`);
-                img.src = e.target.result; img.classList.remove('hidden');
-                document.getElementById(`photo-placeholder-${index}`).classList.add('hidden');
-                document.getElementById(`photo-remove-${index}`).classList.remove('hidden');
-                document.getElementById(`photo-remove-${index}`).style.display = 'flex';
-            };
-            reader.readAsDataURL(file);
+            const file = input.files[0]; if (!file) return;
+            const entry = { file, dataUrl: null, mimeType: file.type, uploadedUrl: null };
+            photoFiles[index] = entry;
+            entry.ready = _compressImage(file).then(async res => {
+                if (!res) {
+                    const dataUrl = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = () => reject(new Error('Foto tidak dapat dibaca'));
+                        reader.readAsDataURL(file);
+                    });
+                    res = { dataUrl, mimeType: file.type };
+                }
+                entry.dataUrl = res.dataUrl; entry.mimeType = res.mimeType;
+                return entry;
+            });
+            entry.ready.catch(() => {});
+            const previewUrl = URL.createObjectURL(file);
+            const img = document.getElementById(`photo-preview-${index}`);
+            img.onload = img.onerror = () => URL.revokeObjectURL(previewUrl);
+            img.src = previewUrl; img.classList.remove('hidden');
+            document.getElementById(`photo-placeholder-${index}`).classList.add('hidden');
+            document.getElementById(`photo-remove-${index}`).classList.remove('hidden');
+            document.getElementById(`photo-remove-${index}`).style.display = 'flex';
         }
         function removePhoto(index) {
             photoFiles[index] = null;
@@ -4524,8 +4532,9 @@
         }
         document.addEventListener('DOMContentLoaded', resetAdditionalRows);
 
+        let _reportSubmitting = false;
         function handleReportSubmit() {
-            if (isSaving) return;
+            if (_reportSubmitting) return;
 
             const date = document.getElementById('form-date').value;
             const project = document.getElementById('form-project').value;
@@ -4586,34 +4595,32 @@
             const originalText = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengirim...'; 
             btn.disabled = true;
-            isSaving = true;
+            _reportSubmitting = true;
 
             const _rDiv = [...new Set([...checkedTasks].map(cb => jobdeskTasks.find(x => x.id === cb.value)).filter(Boolean).map(getDivision))];
             const newReport = { id: generateId(), date, project, workers: selectedWorkers, workDone, issues, division: (_rDiv.length ? _rDiv : [divisionFilter === 'Mekanikal' ? 'Mekanikal' : 'Elektrikal']).join(','), photo1: '', photo2: '', photo3: '', photo4: '', photo5: '' };
             
-            let uploadPromises = [];
+            const uploadPromises = [];
             for (let i = 1; i <= 5; i++) {
-                if (photoFiles[i]) {
-                    const file = photoFiles[i].file; const base64Data = photoFiles[i].dataUrl.split(',')[1];
-                    const mime = photoFiles[i].mimeType || file.type;
+                const entry = photoFiles[i];
+                if (!entry) continue;
+                const p = Promise.resolve(entry.ready).then(() => {
+                    if (entry.uploadedUrl) return entry.uploadedUrl;
+                    const file = entry.file, mime = entry.mimeType || file.type;
                     const fname = mime === 'image/jpeg' && !/\.jpe?g$/i.test(file.name) ? file.name.replace(/\.[^.]+$/, '') + '.jpg' : file.name;
-                    const payload = { action: "uploadPhoto", data: { fileName: `[${project}] ${fname}`, mimeType: mime, base64: base64Data } };
-                    
-                    const p = fetch(WEB_APP_URL, { method: "POST", headers: {"Content-Type": "text/plain;charset=utf-8"}, body: JSON.stringify(_auth(payload)) })
-                        .then(res => res.text())
-                        .then(text => { 
-                            try { return JSON.parse(text); } catch(e) { throw new Error(text); }
-                        })
-                        .then(res => { 
-                            if(res.status === 'success') newReport[`photo${i}`] = res.fileUrl; 
-                            else throw new Error(res.message);
+                    const payload = { action: 'uploadPhoto', data: { fileName: `[${project}] ${fname}`, mimeType: mime, base64: entry.dataUrl.split(',')[1] } };
+                    return fetch(WEB_APP_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(_auth(payload)) })
+                        .then(res => res.json()).then(res => {
+                            if (res.status !== 'success' || !res.fileUrl) { _cekSesi(res); throw new Error(res.message || 'Upload gagal'); }
+                            entry.uploadedUrl = res.fileUrl;
+                            return res.fileUrl;
                         });
-                    uploadPromises.push(p);
-                }
+                }).then(url => { newReport[`photo${i}`] = url; });
+                uploadPromises.push(p);
             }
 
-            Promise.all(uploadPromises).then(() => {
-                const oldTasksState = JSON.parse(JSON.stringify(jobdeskTasks));
+            Promise.allSettled(uploadPromises).then(results => {
+                if (results.some(r => r.status === 'rejected')) throw new Error('Upload foto gagal');
                 reports.unshift(newReport); 
                 
                 checkedTasks.forEach(cb => {
@@ -4629,9 +4636,7 @@
                 if(newAdditionalTasks.length > 0) {
                     jobdeskTasks.push(...newAdditionalTasks);
                 }
-                saveSnapshot();
-
-                saveData().then(success => {
+                return saveData().then(success => {
                     if (success) {
                         document.getElementById('form-project').value = '';
                         document.getElementById('form-issues').value = '';
@@ -4640,35 +4645,27 @@
                         if(currentRole === 'admin') document.querySelectorAll('input[name="worker"]').forEach(cb => cb.checked = false);
                         for(let i=1; i<=5; i++) removePhoto(i);
                         
-                        // Sinkronisasi progres ke seluruh view: Dashboard, Executive Dashboard,
-                        // Gantt Timeline, Komparasi Proyek, dan ringkasan proyek — semua
-                        // dihitung ulang dari jobdeskTasks + reports terbaru.
-                        try {
-                            renderDashboard();
-                            renderAllProjects();
-                            renderGantt();
-                            renderComparison();
-                            renderJobdeskCalendar();
-                            renderDailyTasks(selectedDate);
-                            const execSel = document.getElementById('exec-dashboard-select');
-                            if (execSel && execSel.value) renderExecutiveDashboard(execSel.value);
-                        } catch(e) { console.warn('Refresh view gagal:', e); }
-
                         showToast('Laporan berhasil dikirim dan tersimpan di server!', 'success');
                         switchView('reports');
                     } else {
-                        reports.shift(); 
-                        jobdeskTasks = oldTasksState; 
-                        showToast('Gagal menyimpan ke server. Silakan coba klik Kirim lagi.', 'error');
+                        if (reports.some(r => r.id === newReport.id)) {
+                            document.getElementById('form-project').value = '';
+                            document.getElementById('form-issues').value = '';
+                            resetAdditionalRows(); renderReportChecklist();
+                            for (let i = 1; i <= 5; i++) removePhoto(i);
+                            showToast('Laporan belum tersimpan di server. Data dipertahankan di perangkat dan akan dicoba lagi otomatis.', 'error');
+                        } else showToast('Laporan ditolak server. Periksa pesan kesalahan sebelum mencoba lagi.', 'error');
                     }
                     btn.innerHTML = originalText; btn.disabled = false;
-                    isSaving = false;
+                    _reportSubmitting = false;
                 });
 
             }).catch(err => {
                 showToast('Gagal upload foto: Cek koneksi internet.', 'error');
                 btn.innerHTML = originalText; btn.disabled = false;
-                isSaving = false;
+                _reportSubmitting = false;
+            }).finally(() => {
+                btn.innerHTML = originalText; btn.disabled = false; _reportSubmitting = false;
             });
         }
 
