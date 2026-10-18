@@ -9,6 +9,13 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap">
     <style>
+
+        .div-opt { display:flex; align-items:center; justify-content:center; gap:.4rem; padding:.5rem; border:1.5px solid #cbd5e1; border-radius:.5rem; font-size:.8rem; font-weight:700; color:#64748b; cursor:pointer; transition:all .15s; }
+        .div-opt-mek:has(input:checked) { background:#fff7ed; border-color:#ea580c; color:#c2410c; }
+        .div-opt-ele:has(input:checked) { background:#eff6ff; border-color:#2563eb; color:#1d4ed8; }
+        .div-badge { display:inline-flex; align-items:center; gap:3px; padding:1px 6px; border-radius:999px; font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.03em; white-space:nowrap; }
+        .div-badge.mek { background:#ffedd5; color:#c2410c; }
+        .div-badge.ele { background:#dbeafe; color:#1d4ed8; }
         body { font-family: 'Manrope', sans-serif; background-color: #f4f8fa; color: #142238; overflow: hidden; }
         .toast { transition: opacity 0.3s, transform 0.3s; z-index: 999999; pointer-events: none; }
         .toast > div { pointer-events: auto; }
@@ -28,6 +35,16 @@
         .gantt-bar-subtask { position: absolute; left: 0; right: 0; top: 0.25rem; bottom: 0.25rem; z-index: 5; }
         .gantt-bar-progress { position: absolute; left: 0; top: 0.25rem; bottom: 0.25rem; z-index: 6; background: rgba(16, 185, 129, 0.55); pointer-events: none; }
         .gantt-bar-progress.full { background: rgba(16, 185, 129, 0.75); }
+        .gantt-table th, .gantt-table td { vertical-align: middle; }
+        .gantt-table tbody td { height: 34px; }
+        .gantt-table .g-no { width:56px; min-width:56px; max-width:56px; text-align:center; white-space:nowrap; }
+        .gantt-table .g-name { width:280px; min-width:280px; max-width:280px; text-align:left; }
+        .gantt-table .g-pic { width:84px; min-width:84px; max-width:84px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .gantt-table .g-pct { width:64px; min-width:64px; max-width:64px; }
+        .g-cell { display:flex; align-items:center; gap:6px; min-width:0; line-height:1.25; }
+        .g-cell .g-txt { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; }
+        .g-cell .g-act { flex:0 0 auto; display:inline-flex; gap:6px; opacity:.55; }
+        .gantt-table tr:hover .g-act { opacity:1; }
         .gantt-pct-wrap { display: flex; flex-direction: column; align-items: stretch; gap: 2px; padding: 0 2px; }
         .gantt-pct-wrap .bar { height: 3px; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
         .gantt-pct-wrap .bar > span { display: block; height: 100%; border-radius: 999px; }
@@ -70,6 +87,18 @@
         #btn-kelola-proyek { background:var(--iat-panel); box-shadow:none; border:1px solid #ffffff20; }
         #btn-kelola-proyek:hover { background:#29627f; }
         main { background:var(--iat-canvas) !important; }
+        .ap-cell { width:100%; min-width:90px; padding:3px 6px; font-size:11px; border:1px solid transparent; border-radius:5px; background:transparent; color:#142238; }
+        .ap-cell:hover { border-color:#d8e4eb; background:#fff; }
+        .ap-cell:focus { outline:none; border-color:#15a9c7; background:#fff; box-shadow:0 0 0 2px #15a9c722; }
+        .ap-cell.ap-dirty { background:#fef3c7; border-color:#f59e0b; }
+        details.ap-ms > summary::-webkit-details-marker { display:none; }
+        .ap-table { table-layout:fixed; border-collapse:separate; border-spacing:0; }
+        .ap-table th, .ap-table td { border-bottom:1px solid #eef2f6; border-right:1px solid #f1f5f9; vertical-align:middle; }
+        .ap-table th:last-child, .ap-table td:last-child { border-right:0; }
+        .ap-table thead th { border-bottom:2px solid #cbd5e1; background:#f8fafc; }
+        .ap-table tbody tr:nth-child(even) { background:#fbfcfd; }
+        .ap-table .ap-cell { min-width:0; }
+        .ap-table td { overflow:hidden; }
         #iat-topbar { min-height:76px; height:auto; padding-block:12px; background:var(--iat-white); box-shadow:none; border-color:var(--iat-line); gap:12px; }
         #iat-topbar h2 { color:var(--iat-ink); font-size:20px; font-weight:800; }
         #iat-topbar #header-subtitle { color:var(--iat-muted); letter-spacing:1px; }
@@ -119,6 +148,12 @@
             .iat-format-actions { padding-left:0; border-left:0; padding-top:8px; width:100%; border-top:1px solid var(--iat-line); }
         }
         @media (prefers-reduced-motion:reduce) { #sidebar, body > main, .iat-export-center button, .iat-format-actions button, button.iat-import-action { transition:none; } }
+    
+        .div-filter-btn { color: #64748b; }
+        .div-filter-btn:hover { color: #334155; }
+        .div-filter-btn.div-filter-active[data-div="all"] { background: #4f46e5; color: #fff; box-shadow: 0 1px 3px rgba(79,70,229,.4); }
+        .div-filter-btn.div-filter-active[data-div="Mekanikal"] { background: #ea580c; color: #fff; box-shadow: 0 1px 3px rgba(234,88,12,.4); }
+        .div-filter-btn.div-filter-active[data-div="Elektrikal"] { background: #2563eb; color: #fff; box-shadow: 0 1px 3px rgba(37,99,235,.4); }
     </style>
 </head>
 <body class="flex h-screen w-screen bg-slate-50">
@@ -207,6 +242,11 @@
             </div>
             
             <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center bg-slate-100 border border-slate-200 rounded-lg p-0.5 shadow-sm" id="division-filter" title="Filter tampilan berdasarkan divisi">
+                    <button data-div="all" onclick="setDivisionFilter('all')" class="div-filter-btn div-filter-active px-2.5 py-1 rounded-md text-[11px] font-black tracking-wide transition"><i class="fa-solid fa-layer-group mr-1"></i>SEMUA</button>
+                    <button data-div="Mekanikal" onclick="setDivisionFilter('Mekanikal')" class="div-filter-btn px-2.5 py-1 rounded-md text-[11px] font-black tracking-wide transition"><i class="fa-solid fa-gears mr-1"></i>MEKANIKAL</button>
+                    <button data-div="Elektrikal" onclick="setDivisionFilter('Elektrikal')" class="div-filter-btn px-2.5 py-1 rounded-md text-[11px] font-black tracking-wide transition"><i class="fa-solid fa-bolt mr-1"></i>ELEKTRIKAL</button>
+                </div>
                 <button onclick="loadData(false, true)" class="hidden sm:flex items-center bg-white border border-slate-200 hover:bg-slate-50 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 transition shadow-sm" title="Tarik Data Terbaru dari Sheet">
                     <i class="fa-solid fa-rotate-right text-indigo-500 mr-1.5"></i> Refresh Data
                 </button>
@@ -229,7 +269,7 @@
                         <h2 class="text-lg font-bold text-slate-800 flex items-center"><i class="fa-solid fa-arrow-right-arrow-left mr-2"></i> Impor & Ekspor</h2>
                     </div>
                     <div class="iat-export-actions flex items-center gap-2 flex-wrap">
-                        <button onclick="openModal('importTaskModal')" class="iat-import-action btn-tambah-tugas hidden border px-3 py-2 flex items-center font-bold" title="Impor tugas dari Excel"><i class="fa-solid fa-file-import mr-1.5"></i> Impor Excel</button>
+                        <button onclick="_presetImportDiv(); openModal('importTaskModal')" class="iat-import-action btn-tambah-tugas hidden border px-3 py-2 flex items-center font-bold" title="Impor tugas dari Excel"><i class="fa-solid fa-file-import mr-1.5"></i> Impor Excel</button>
                         <select id="export-data-scope" class="iat-export-scope" aria-label="Data yang diekspor"><option value="dashboard">Beranda</option><option value="all">Semua data</option></select>
                         <div class="iat-format-actions flex items-center flex-wrap"><button onclick="exportView(document.getElementById('export-data-scope').value,'excel')" class="px-3 py-2 flex items-center font-bold" title="Ekspor Excel"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView(document.getElementById('export-data-scope').value,'pdf')" class="px-3 py-2 flex items-center font-bold" title="Ekspor PDF"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView(document.getElementById('export-data-scope').value,'csv')" class="px-3 py-2 flex items-center font-bold" title="Ekspor CSV"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                     </div>
@@ -320,8 +360,9 @@
                             <!-- Pekerjaan Tambahan -->
                             <div class="mt-3">
                                 <label class="block text-xs font-bold text-slate-600 mb-1">Pekerjaan Tambahan (Di luar Jobdesk / Opsional)</label>
-                                <textarea id="form-work-additional" rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition" placeholder="Tuliskan pekerjaan tambahan. Setiap baris baru akan otomatis menjadi Task baru di Gantt Chart yang langsung berstatus 100% selesai..."></textarea>
-                                <p class="text-[9px] text-slate-400 mt-1"><i class="fa-solid fa-magic text-amber-500 mr-1"></i> Pekerjaan ini otomatis masuk ke Gantt Chart.</p>
+                                <div id="form-work-additional-list" class="space-y-2"></div>
+                                <button type="button" onclick="addAdditionalRow()" class="mt-2 text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center"><i class="fa-solid fa-plus mr-1"></i> Tambah Pekerjaan Tambahan</button>
+                                <p class="text-[9px] text-slate-400 mt-1"><i class="fa-solid fa-magic text-amber-500 mr-1"></i> Isi nama pekerjaan &amp; persentase progres. Otomatis masuk ke Gantt Chart, Jadwal Job, dan Laporan.</p>
                             </div>
                         </div>
 
@@ -331,7 +372,7 @@
                         </div>
 
                         <div class="border-t border-slate-200 pt-6">
-                            <label class="block text-sm font-bold text-slate-700 mb-3">Dokumentasi Lapangan (Upload Foto)</label>
+                            <label class="block text-sm font-bold text-slate-700 mb-3">Dokumentasi Lapangan (Upload Foto / Opsional)</label>
                             <div class="grid grid-cols-2 md:grid-cols-5 gap-3" id="photo-upload-container">
                                 <!-- 5 Photo Upload Slots -->
                                 <div class="relative aspect-square bg-slate-50 rounded-xl border-2 border-dashed border-slate-300 hover:border-indigo-400 hover:bg-indigo-50 transition flex flex-col items-center justify-center cursor-pointer group overflow-hidden" onclick="document.getElementById('photo-input-1').click()">
@@ -488,6 +529,11 @@
                     <div class="flex items-center gap-3 flex-wrap">
                         <select id="gantt-time-scale" onchange="handleGanttScaleChange()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer">
                             <option value="daily">Harian (1 Bulan)</option>
+                            <option value="d30">30 Hari</option>
+                            <option value="d45">45 Hari</option>
+                            <option value="d60">60 Hari</option>
+                            <option value="d90">90 Hari</option>
+                            <option value="d180">180 Hari</option>
                             <option value="weekly">Mingguan (3 Bulan)</option>
                             <option value="monthly">Bulanan (1 Tahun)</option>
                             <option value="custom">Kustom Tanggal</option>
@@ -507,7 +553,15 @@
                             </select>
                         </div>
 
-                        <select id="filter-gantt-project" onchange="renderGantt()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer">
+                        <div id="gantt-proj-ms" class="relative">
+                            <button type="button" onclick="ganttToggleProjMenu(event)" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer flex items-center gap-2 min-w-[150px] justify-between"><span id="gantt-proj-ms-label">Semua Proyek</span><i class="fa-solid fa-chevron-down text-[9px]"></i></button>
+                            <div id="gantt-proj-ms-wrap" class="hidden absolute z-50 mt-1 left-0 bg-white border border-slate-200 rounded-lg shadow-lg p-2 min-w-[240px]"><input type="text" placeholder="Cari proyek..." oninput="msSearch(this)" class="w-full mb-1 px-2 py-1 border border-slate-200 rounded text-xs focus:outline-none focus:border-indigo-400"><div id="gantt-proj-ms-menu" class="max-h-72 overflow-auto"></div></div>
+                        </div>
+                        <div id="gantt-task-ms" class="relative">
+                            <button type="button" onclick="ganttToggleTaskMenu(event)" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer flex items-center gap-2 min-w-[150px] max-w-[220px] justify-between"><span id="gantt-task-ms-label" class="truncate">Semua Tugas</span><i class="fa-solid fa-chevron-down text-[9px]"></i></button>
+                            <div id="gantt-task-ms-menu" class="hidden absolute z-50 mt-1 left-0 bg-white border border-slate-200 rounded-lg shadow-lg p-2 min-w-[260px] max-w-[360px]"><input type="text" placeholder="Cari tugas / proyek..." oninput="msSearch(this)" class="w-full mb-1 px-2 py-1 border border-slate-200 rounded text-xs focus:outline-none focus:border-indigo-400"><div id="gantt-task-ms-list" class="max-h-72 overflow-auto"></div></div>
+                        </div>
+                        <select id="filter-gantt-project" onchange="renderGantt()" style="display:none" class="px-2.5 py-1.5 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer">
                             <option value="all">Semua Proyek</option>
                             <!-- Populated by JS -->
                         </select>
@@ -521,7 +575,7 @@
                         </div>
                         <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('tasks','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('tasks','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('tasks','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                         <div class="flex gap-2">
-                            <button onclick="openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
+                            <button onclick="_presetImportDiv(); openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
                             <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tambah Tugas</button>
                             <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF Lanjutan</button>
                         </div>
@@ -570,6 +624,14 @@
                             <button onclick="openTaskModal()" class="btn-tambah-tugas bg-indigo-500 hover:bg-indigo-400 text-white w-8 h-8 rounded-full flex items-center justify-center transition shadow-lg hidden"><i class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
+                    <div class="px-4 py-2 bg-white border-b border-slate-200 flex items-center gap-2 flex-shrink-0">
+                        <i class="fa-solid fa-filter text-slate-400 text-xs"></i>
+                        <select id="filter-daily-type" onchange="renderDailyTasks(selectedDate); renderJobdeskCalendar();" class="flex-grow px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all">Semua Pekerjaan</option>
+                            <option value="main">Jobdesk Utama Saja</option>
+                            <option value="additional">Pekerjaan Tambahan Saja</option>
+                        </select>
+                    </div>
                     <div class="flex-grow overflow-y-auto p-4 bg-slate-50 custom-scrollbar" id="daily-tasks-list">
                     </div>
                 </div>
@@ -606,7 +668,7 @@
                         </div>
                         <div class="iat-format-actions flex items-center gap-2 flex-wrap"><button onclick="exportView('komparasi','excel')" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-excel mr-1.5"></i> Excel</button><button onclick="exportView('komparasi','pdf')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-pdf mr-1.5"></i> PDF</button><button onclick="exportView('komparasi','csv')" class="bg-slate-50 hover:bg-slate-100 text-slate-600 border border-slate-200 px-3 py-2 rounded-lg text-xs font-bold transition shadow-sm flex items-center"><i class="fa-solid fa-file-csv mr-1.5"></i> CSV</button></div>
                         <div class="flex gap-2">
-                            <button onclick="openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
+                            <button onclick="_presetImportDiv(); openModal('importTaskModal')" class="iat-import-action ml-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-emerald-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-file-import mr-2"></i> Impor Excel</button>
                             <button onclick="openTaskModal()" class="ml-1 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 hover:text-indigo-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-indigo-200 shadow-sm btn-tambah-tugas hidden"><i class="fa-solid fa-plus mr-2"></i> Tambah Tugas</button>
                             <button onclick="openModal('exportPdfModal')" class="ml-1 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 px-3 py-2 rounded text-sm font-bold transition flex items-center border border-rose-200 shadow-sm"><i class="fa-solid fa-file-pdf mr-2"></i> PDF Lanjutan</button>
                         </div>
@@ -635,9 +697,13 @@
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-wrap items-end gap-3 flex-shrink-0">
                     <div class="flex flex-col gap-1">
                         <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">Proyek</label>
-                        <select id="filter-pic-project" onchange="renderPicTasks()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm cursor-pointer min-w-[160px]">
-                            <option value="all">Semua Proyek</option>
-                        </select>
+                        <details id="pic-ms-project" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[160px] max-w-[220px] flex justify-between items-center gap-2"><span id="pic-ms-project-lbl" class="truncate">Semua Proyek</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 min-w-[240px] max-w-[360px]"><input type="text" placeholder="Cari..." oninput="msSearch(this)" class="w-full mb-1 px-2 py-1 border border-slate-200 rounded text-xs focus:outline-none focus:border-indigo-400"><div id="pic-ms-project-list" class="max-h-64 overflow-auto"></div></div></details>
+                    </div>
+                    <div class="flex flex-col gap-1 relative">
+                        <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">Tugas</label>
+                        <details id="pic-ms-task" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[160px] max-w-[220px] flex justify-between items-center gap-2"><span id="pic-ms-task-lbl" class="truncate">Semua Tugas</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 min-w-[240px] max-w-[360px]"><input type="text" placeholder="Cari..." oninput="msSearch(this)" class="w-full mb-1 px-2 py-1 border border-slate-200 rounded text-xs focus:outline-none focus:border-indigo-400"><div id="pic-ms-task-list" class="max-h-64 overflow-auto"></div></div></details>
                     </div>
                     <div class="flex flex-col gap-1">
                         <label class="text-[10px] font-extrabold text-slate-500 uppercase tracking-wide">PIC</label>
@@ -698,14 +764,37 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap items-end gap-2">
-                        <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">Proyek</label>
-                            <select id="ap-filter-project" onchange="renderAdminProgress()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[160px]"><option value="all">Semua Proyek</option></select></div>
-                        <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">PIC</label>
-                            <select id="ap-filter-pic" onchange="renderAdminProgress()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[140px]"><option value="all">Semua PIC</option></select></div>
-                        <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">Status</label>
-                            <select id="ap-filter-status" onchange="renderAdminProgress()" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm"><option value="all">Semua Status</option><option value="PENDING">Pending</option><option value="PROSES">Proses</option><option value="HOLD">Hold</option><option value="SELESAI">Selesai</option></select></div>
-                        <div class="flex flex-col flex-1 min-w-[180px]"><label class="text-[10px] font-bold text-slate-500 uppercase">Cari Tugas</label>
-                            <input id="ap-filter-search" oninput="renderAdminProgress()" placeholder="Nama tugas / sub tugas..." class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm"></div>
+                        <div class="flex flex-col relative"><label class="text-[10px] font-bold text-slate-500 uppercase">Proyek</label>
+                            <details id="ap-ms-project" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[150px] flex justify-between items-center gap-2"><span id="ap-ms-project-lbl">Semua Proyek</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div id="ap-ms-project-list" class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 max-h-64 overflow-auto min-w-[200px]"></div></details></div>
+                        <div class="flex flex-col relative"><label class="text-[10px] font-bold text-slate-500 uppercase">Tugas</label>
+                            <details id="ap-ms-task" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[150px] max-w-[220px] flex justify-between items-center gap-2"><span id="ap-ms-task-lbl" class="truncate">Semua Tugas</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 min-w-[240px] max-w-[360px]"><input type="text" placeholder="Cari..." oninput="msSearch(this)" class="w-full mb-1 px-2 py-1 border border-slate-200 rounded text-xs focus:outline-none focus:border-indigo-400"><div id="ap-ms-task-list" class="max-h-64 overflow-auto"></div></div></details></div>
+                        <div class="flex flex-col relative"><label class="text-[10px] font-bold text-slate-500 uppercase">PIC</label>
+                            <details id="ap-ms-pic" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[150px] flex justify-between items-center gap-2"><span id="ap-ms-pic-lbl">Semua PIC</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div id="ap-ms-pic-list" class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 max-h-64 overflow-auto min-w-[200px]"></div></details></div>
+                        <div class="flex flex-col relative"><label class="text-[10px] font-bold text-slate-500 uppercase">Status</label>
+                            <details id="ap-ms-status" class="ap-ms relative"><summary class="list-none cursor-pointer px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[150px] flex justify-between items-center gap-2"><span id="ap-ms-status-lbl">Semua Status</span><i class="fa-solid fa-chevron-down text-[9px]"></i></summary>
+                            <div id="ap-ms-status-list" class="absolute z-30 mt-1 bg-white border border-slate-200 rounded-lg shadow-lg p-2 max-h-64 overflow-auto min-w-[200px]"></div></details></div>
+                         <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">Periode</label>
+                             <select id="ap-filter-datemode" onchange="apSetDateMode(this.value)" class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm min-w-[150px]">
+                                 <option value="all">Semua Tanggal</option>
+                                 <option value="7">7 Hari ke Depan</option>
+                                 <option value="30" >30 Hari ke Depan</option>
+                                 <option value="60">60 Hari ke Depan</option>
+                                 <option value="90">90 Hari ke Depan</option>
+                                 <option value="180">180 Hari ke Depan</option>
+                                 <option value="365">1 Tahun ke Depan</option>
+                                 <option value="custom">Custom (pilih tanggal)</option>
+                             </select></div>
+                         <div id="ap-filter-daterange" class="hidden flex items-end gap-1.5">
+                             <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">Dari</label>
+                                 <input type="date" id="ap-filter-datefrom" onchange="apSetDateRange()" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm"></div>
+                             <div class="flex flex-col"><label class="text-[10px] font-bold text-slate-500 uppercase">Sampai</label>
+                                 <input type="date" id="ap-filter-dateto" onchange="apSetDateRange()" class="px-2 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm"></div>
+                         </div>
+                         <div class="flex flex-col flex-1 min-w-[180px]"><label class="text-[10px] font-bold text-slate-500 uppercase">Cari Tugas</label>
+                             <input id="ap-filter-search" oninput="renderAdminProgress()" placeholder="Nama tugas / sub tugas..." class="px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 bg-white shadow-sm"></div>
                         <button onclick="resetAdminProgressFilter()" class="px-3 py-2 border border-slate-300 text-slate-600 rounded-lg text-xs font-bold hover:bg-slate-50 transition"><i class="fa-solid fa-rotate-left mr-1"></i> Reset</button>
                     </div>
                     <div class="flex flex-wrap items-center gap-2 border-t border-slate-100 pt-3">
@@ -798,6 +887,15 @@
                     </div>
                 </div>
 
+                <!-- DIVISI SELECTION -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Divisi <span class="text-rose-500">*</span></label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="div-opt div-opt-mek"><input type="radio" name="taskDivision" value="Mekanikal" class="sr-only"><i class="fa-solid fa-gears"></i> Mekanikal</label>
+                        <label class="div-opt div-opt-ele"><input type="radio" name="taskDivision" value="Elektrikal" class="sr-only" checked><i class="fa-solid fa-bolt"></i> Elektrikal</label>
+                    </div>
+                </div>
+
                 <!-- CATEGORY SELECTION -->
                 <div>
                     <label class="block text-sm font-semibold text-slate-700 mb-1">Pilih Kategori <span class="text-rose-500">*</span></label>
@@ -885,11 +983,19 @@
             <div class="p-5 space-y-4 overflow-y-auto">
                 <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm text-slate-700">
                     <p class="font-bold mb-1">1. Unduh contoh format</p>
-                    <p class="text-xs mb-2">Isi satu baris per tugas. Kolom wajib: Project, Kategori, Nama Tugas, Tanggal Mulai, Tanggal Selesai.</p>
+                    <p class="text-xs mb-2">Isi satu baris per tugas. Kolom wajib: Proyek, Kategori, Pekerjaan, Mulai, Selesai. File hasil ekspor dapat digunakan langsung; sheet Info dan gambar dilewati.</p>
                     <button type="button" onclick="downloadTaskTemplate()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold"><i class="fa-solid fa-download mr-1"></i> Unduh Contoh Format (.xlsx)</button>
                 </div>
                 <div>
-                    <p class="font-bold text-sm text-slate-700 mb-1">2. Pilih file yang sudah diisi</p>
+                    <p class="font-bold text-sm text-slate-700 mb-1">2. Pilih divisi tugas</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <label class="div-opt div-opt-mek"><input type="radio" name="importDivision" value="Mekanikal" class="sr-only"><i class="fa-solid fa-gears"></i> Mekanikal</label>
+                        <label class="div-opt div-opt-ele"><input type="radio" name="importDivision" value="Elektrikal" class="sr-only" checked><i class="fa-solid fa-bolt"></i> Elektrikal</label>
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-1">Semua tugas di file akan masuk ke divisi ini.</p>
+                </div>
+                <div>
+                    <p class="font-bold text-sm text-slate-700 mb-1">3. Pilih file yang sudah diisi</p>
                     <input type="file" id="importTaskFile" accept=".xlsx" onchange="previewTaskImport(this.files[0])" class="block w-full text-sm border border-slate-300 rounded-lg p-2">
                 </div>
                 <div id="importTaskPreview" class="text-xs"></div>
@@ -1047,8 +1153,8 @@
                         <input type="password" id="loginPassword" class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white font-medium text-slate-700 transition" placeholder="Masukkan password (jika ada)">
                     </div>
                 </div>
-                <button id="btn-login-submit" onclick="processLogin()" class="w-full bg-indigo-400 text-white font-bold py-3.5 rounded-xl transition shadow-lg flex items-center justify-center" disabled>
-                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Menghubungkan ke Server...
+                <button id="btn-login-submit" onclick="processLogin()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg flex items-center justify-center">
+                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Masuk / Login
                 </button>
                 <div class="text-center text-[10px] font-semibold text-slate-400 mt-4 flex items-center justify-center gap-1.5">
                     <i class="fa-solid fa-shield-halved"></i> Secured by IAT Internal System
@@ -1135,8 +1241,8 @@
         // URL backend Apps Script. Bisa ditimpa tanpa mengubah kode:
         //   1. Parameter URL  ->  ?api=https://script.google.com/.../exec
         //   2. localStorage   ->  iat_web_app_url  (diatur lewat tombol di layar login)
-        const DEFAULT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzjmLWBnzOk-Dz-tO_-og_Jc30_dX3fxihxVR2eAohdbdejLGv2nBRdG10SSNfSEGmZew/exec";
-            //"https://script.google.com/macros/s/AKfycbzjmLWBnzOk-Dz-tO_-og_Jc30_dX3fxihxVR2eAohdbdejLGv2nBRdG10SSNfSEGmZew/exec";
+        const DEFAULT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxxTZqM1f07hTMJmJMHiPnxFYoKvXwy5_AWhyU0oKjXreFwzuXfjHI6kk1jJh9mhqp1/exec";
+       
 
 
         function resolveWebAppUrl() {
@@ -1156,11 +1262,11 @@
 
         // FIX #17: token sesi dari server, ikut dikirim di setiap aksi simpan
         let _authToken = null;
-        try { _authToken = sessionStorage.getItem('iat_token'); } catch(e) {}
+        try { _authToken = localStorage.getItem('iat_token') || sessionStorage.getItem('iat_token'); } catch(e) {}
         function _auth(payload) { return Object.assign({}, payload, { token: _authToken }); }
         function _cekSesi(result) {
             if (result && result.code === 'AUTH') {
-                try { sessionStorage.removeItem('iat_token'); } catch(e) {}
+                try { localStorage.removeItem('iat_token'); localStorage.removeItem('iat_user'); sessionStorage.removeItem('iat_token'); } catch(e) {}
                 showToast('Sesi habis. Silakan login ulang.', 'error');
                 setTimeout(() => location.reload(), 1500);
             }
@@ -1199,6 +1305,7 @@
         let accounts = [];
         let workers = [];
         let jobdeskTasks = [];
+        let divisionFilter = (function(){ try { const v = localStorage.getItem('divisionFilter'); return (v === 'Mekanikal' || v === 'Elektrikal') ? v : 'all'; } catch(e) { return 'all'; } })(); // 'all' | 'Mekanikal' | 'Elektrikal'
         let reports = [];
         let jadwalHarian = [];
         let arsipPDF = [];
@@ -1231,8 +1338,8 @@
         // Saat simpan, web hanya mengirim PERUBAHAN (selisih base -> data sekarang).
         // Server menolak perubahan bila data itu sudah diubah orang lain lebih dulu.
         const SYNC_ENT = {
-            tasks: { key: 'id', f: ['id','projectName','category','name','subTask','startDate','endDate','pic','status','progress','leader'] },
-            reports: { key: 'id', f: ['id','date','project','workers','workDone','issues','photo1','photo2','photo3','photo4','photo5'] },
+            tasks: { key: 'id', f: ['id','projectName','category','name','subTask','startDate','endDate','pic','status','progress','leader','division'] },
+            reports: { key: 'id', f: ['id','date','project','workers','workDone','issues','photo1','photo2','photo3','photo4','photo5','division'] },
             projects: { key: 'name', f: ['name'] },
             categories: { key: 'name', f: ['name'] },
             accounts: { key: 'username', f: ['username','password','role'] },
@@ -1684,24 +1791,25 @@
             if (!u) return showToast('Masukkan username', 'error');
             
             const btnL = document.getElementById('btn-login-submit');
-            if (btnL) btnL.disabled = true;
+            if (btnL) { btnL.disabled = true; btnL.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Memeriksa...'; }
+            const _resetBtn = () => { if (btnL) { btnL.disabled = false; btnL.innerHTML = '<i class="fa-solid fa-right-to-bracket mr-2"></i> Masuk / Login'; } };
             fetch(WEB_APP_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'login', data: { username: u, password: p } }) })
             .then(res => res.json())
             .then(res => {
-                if (btnL) btnL.disabled = false;
+                _resetBtn();
                 if (res.status !== 'success') return showToast(res.message || 'Login gagal', 'error');
                 _authToken = res.token;
-                try { sessionStorage.setItem('iat_token', res.token); } catch(e) {}
+                try { localStorage.setItem('iat_token', res.token); localStorage.setItem('iat_user', JSON.stringify({ username: res.username, role: res.role })); } catch(e) {}
                 _selesaiLogin({ username: res.username, role: res.role });
             })
-            .catch(() => { if (btnL) btnL.disabled = false; showToast('Tidak bisa terhubung ke server. Periksa internet.', 'error'); });
+            .catch(() => { _resetBtn(); showToast('Tidak bisa terhubung ke server. Periksa internet.', 'error'); });
         }
 
         function _selesaiLogin(acc) {
             currentUser = acc.username; currentRole = acc.role;
             document.getElementById('loginModal').style.display = 'none';
             applyRolePermissions();
-            showToast(`Selamat datang, ${currentUser.toUpperCase()}`);
+            if (!acc.silent) showToast(`Selamat datang, ${currentUser.toUpperCase()}`);
             
             document.getElementById('form-date').value = formatDateForInput(new Date());
             
@@ -1712,7 +1820,18 @@
             document.getElementById('status-indicator').classList.replace('bg-amber-100', 'bg-slate-100');
         }
 
-        function logout() { location.reload(); }
+        function logout() {
+            try { localStorage.removeItem('iat_token'); localStorage.removeItem('iat_user'); sessionStorage.removeItem('iat_token'); } catch(e) {}
+            location.reload();
+        }
+        // Pulihkan sesi tersimpan: refresh halaman tidak perlu login ulang
+        function _pulihkanSesi() {
+            try {
+                const u = JSON.parse(localStorage.getItem('iat_user') || 'null');
+                if (_authToken && u && u.username) { _selesaiLogin({ username: u.username, role: u.role, silent: true }); return true; }
+            } catch(e) {}
+            return false;
+        }
 
         function applyRolePermissions() {
             const sbUser = document.getElementById('sidebar-username-display');
@@ -1990,8 +2109,8 @@
                     } else {
                         sel.innerHTML = '<option value="all">Semua Proyek</option>';
                     }
-                    projects.forEach(p => { sel.innerHTML += `<option value="${p}">${p}</option>`; });
-                    if(currentVal && (projects.includes(currentVal) || currentVal === 'all')) { sel.value = currentVal; }
+                    visibleProjects().forEach(p => { sel.innerHTML += `<option value="${p}">${p}</option>`; });
+                    if(currentVal && (visibleProjects().includes(currentVal) || currentVal === 'all')) { sel.value = currentVal; }
                 }
             });
 
@@ -2260,14 +2379,15 @@
             document.getElementById('realtime-clock').innerText = `${day} ${month} ${year} • ${h}:${m}`;
         }
         updateGlobalHeader();
-        setInterval(updateGlobalHeader, 10000); 
+        setInterval(updateGlobalHeader, 10000);
+        document.addEventListener('DOMContentLoaded', () => document.querySelectorAll('.div-filter-btn').forEach(b => b.classList.toggle('div-filter-active', b.dataset.div === divisionFilter))); 
 
         function renderDashboard() {
-            document.getElementById('dash-total-projects').innerText = projects.length;
-            document.getElementById('dash-total-reports').innerText = reports.length;
+            document.getElementById('dash-total-projects').innerText = visibleProjects().length;
+            document.getElementById('dash-total-reports').innerText = visibleReports().length;
             
             let cTask = 0, pTask = 0;
-            jobdeskTasks.forEach(t => { if(t.status === 'completed') cTask++; else pTask++; });
+            visibleTasks().forEach(t => { if(t.status === 'completed') cTask++; else pTask++; });
             document.getElementById('dash-completed-tasks').innerText = cTask;
             document.getElementById('dash-progress-tasks').innerText = pTask;
 
@@ -2275,17 +2395,17 @@
             if (execSelect) {
                 const currentVal = execSelect.value;
                 execSelect.innerHTML = '';
-                if (projects.length === 0) {
+                if (visibleProjects().length === 0) {
                     execSelect.innerHTML = '<option value="" disabled selected>Belum ada proyek berjalan</option>';
                     document.getElementById('exec-dashboard-content').innerHTML = '<div class="text-center text-slate-400 py-10">Belum ada proyek yang dapat ditampilkan.</div>';
                 } else {
-                    projects.forEach(p => { execSelect.innerHTML += `<option value="${p}">${p}</option>`; });
-                    if (currentVal && projects.includes(currentVal)) {
+                    visibleProjects().forEach(p => { execSelect.innerHTML += `<option value="${p}">${p}</option>`; });
+                    if (currentVal && visibleProjects().includes(currentVal)) {
                         execSelect.value = currentVal;
                         renderExecutiveDashboard(currentVal);
                     } else {
-                        execSelect.value = projects[0];
-                        renderExecutiveDashboard(projects[0]);
+                        execSelect.value = visibleProjects()[0];
+                        renderExecutiveDashboard(visibleProjects()[0]);
                     }
                 }
             }
@@ -2297,8 +2417,8 @@
 
             const normalizeName = (s) => (s || '').toString().trim().toLowerCase();
             const pKey = normalizeName(pName);
-            const pTasks = jobdeskTasks.filter(t => normalizeName(t.projectName) === pKey);
-            const pReports = reports.filter(r => normalizeName(r.project) === pKey);
+            const pTasks = visibleTasks().filter(t => normalizeName(t.projectName) === pKey);
+            const pReports = visibleReports().filter(r => normalizeName(r.project) === pKey);
 
 
             let minDate = null; let maxDate = null;
@@ -2658,6 +2778,8 @@
 
                         <!-- TENGAH: PROGRESS KATEGORI -->
                         <div class="col-span-1 bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 relative overflow-hidden border border-slate-100 flex flex-col">
+                            ${divisionFilter === 'all' ? `<h4 class="text-xs font-black text-slate-800 uppercase tracking-widest mb-3">Progress Per Divisi</h4>
+                            <div class="grid grid-cols-2 gap-2 mb-5">${divisionSummaryHtml(pTasks)}</div>` : ''}
                             <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest mb-4">Progress Per Kategori</h4>
                             <div class="flex-grow overflow-y-auto pr-2 custom-scrollbar">
                                 ${catAccordionHtml}
@@ -2765,15 +2887,15 @@
             
             container.innerHTML = '';
 
-            if (projects.length === 0) {
+            if (visibleProjects().length === 0) {
                 container.innerHTML = `<div class="col-span-full text-center text-slate-400 py-10 bg-slate-50 rounded-xl border border-dashed border-slate-300">Belum ada proyek terdaftar.</div>`;
                 return;
             }
 
             const projStats = {};
-            projects.forEach(p => { projStats[p] = { totalTasks: 0, completedTasks: 0, holdTasks: 0, totalProgress: 0, reportsCount: 0, deadline: null, catStats: {} }; });
+            visibleProjects().forEach(p => { projStats[p] = { totalTasks: 0, completedTasks: 0, holdTasks: 0, totalProgress: 0, reportsCount: 0, deadline: null, catStats: {} }; });
             
-            jobdeskTasks.forEach(t => {
+            visibleTasks().forEach(t => {
                 const p = t.projectName || 'Lain-lain';
                 const c = t.category || 'Lain-Lain';
                 const mj = t.name || 'Tugas Utama';
@@ -2792,7 +2914,7 @@
                 if (tEnd) { if (!projStats[p].deadline || tEnd > projStats[p].deadline) projStats[p].deadline = tEnd; }
             });
 
-            reports.forEach(r => { const p = r.project; if (projStats[p]) projStats[p].reportsCount++; });
+            visibleReports().forEach(r => { const p = r.project; if (projStats[p]) projStats[p].reportsCount++; });
 
             let renderedCount = 0;
 
@@ -2848,7 +2970,7 @@
                 }
 
                 let tasksHTML = '<div class="mt-2 mb-4 flex-grow space-y-1.5 max-h-32 overflow-y-auto pr-1 custom-scrollbar">';
-                const pTasks = jobdeskTasks.filter(t => t.projectName === pName);
+                const pTasks = visibleTasks().filter(t => t.projectName === pName);
                 if(pTasks.length > 0) {
                     pTasks.forEach(t => {
                         const isC = t.status === 'completed'; const isH = t.status === 'hold';
@@ -2947,8 +3069,10 @@
                 const dateNumClass = `text-sm font-bold ${isToday ? 'text-indigo-600 bg-indigo-100 rounded-full w-6 h-6 flex items-center justify-center' : 'text-slate-700'}`;
                 
                 let indicatorsHTML = '<div class="mt-1 flex flex-col gap-1 w-full max-h-[45px] overflow-hidden">';
-                let tasksOnDay = jobdeskTasks.filter(t => isDateInRange(currentCellDate, t.startDate, t.endDate));
+                let tasksOnDay = visibleTasks().filter(t => isDateInRange(currentCellDate, t.startDate, t.endDate));
                 if (currentRole === 'pic') tasksOnDay = tasksOnDay.filter(t => (t.pic || '').toLowerCase() === currentUser.toLowerCase());
+                const _ftc = document.getElementById('filter-daily-type')?.value || 'all';
+                if (_ftc !== 'all') tasksOnDay = tasksOnDay.filter(t => _ftc === 'additional' ? isAdditionalTask(t) : !isAdditionalTask(t));
                 tasksOnDay.sort((a,b) => (isSameDay(currentCellDate, parseLocalDate(a.endDate)) ? -1 : 1));
                 
                 tasksOnDay.slice(0, 2).forEach(t => {
@@ -2972,6 +3096,8 @@
             const dateStr = formatDateForInput(date);
             let dayTasks = jadwalHarian.filter(j => j.tanggal === dateStr);
             if (currentRole === 'pic') dayTasks = dayTasks.filter(j => (j.namaPekerja || '').toLowerCase() === currentUser.toLowerCase());
+            const _ft = document.getElementById('filter-daily-type')?.value || 'all';
+            if (_ft !== 'all') dayTasks = dayTasks.filter(j => { const a = isAdditionalTask(jobdeskTasks.find(x => x.id === j.id)) || j.mainJob === ADDITIONAL_TASK_NAME; return _ft === 'additional' ? a : !a; });
 
             if (dayTasks.length === 0) {
                 listEl.innerHTML = `<div class="flex flex-col items-center justify-center h-full text-slate-400 py-10"><i class="fa-regular fa-calendar-check text-4xl mb-3 text-slate-300"></i><p class="text-sm font-medium">Tidak ada jadwal tugas untuk hari ini.</p></div>`;
@@ -3024,7 +3150,7 @@
                         projHtml += `
                             <div class="flex justify-between items-start group border-b border-slate-50 pb-2 last:border-0 last:pb-0">
                                 <div class="pr-2 w-full">
-                                    <div class="text-[11px] ${isC ? 'text-slate-400 line-through' : (isH ? 'text-amber-600 font-bold' : 'text-slate-800 font-bold')}">${task.subJob} ${isH ? '<span class="bg-amber-100 text-amber-700 text-[8px] px-1 py-0.5 rounded ml-1">HOLD</span>' : ''}</div>
+                                    <div class="text-[11px] ${isC ? 'text-slate-400 line-through' : (isH ? 'text-amber-600 font-bold' : 'text-slate-800 font-bold')}">${task.subJob} ${isAdditionalTask(parentTask) ? '<span class="bg-amber-100 text-amber-700 text-[8px] px-1 py-0.5 rounded ml-1">TAMBAHAN</span>' : ''} ${isH ? '<span class="bg-amber-100 text-amber-700 text-[8px] px-1 py-0.5 rounded ml-1">HOLD</span>' : ''}</div>
                                     ${jamText ? `<div class="text-[9px] mt-1 text-slate-500 font-bold flex items-center"><i class="fa-regular fa-clock mr-1 text-indigo-400"></i> ${jamText}</div>` : ''}
                                     ${task.keterangan ? `<div class="text-[9px] mt-1 bg-amber-50 text-amber-700 p-1.5 rounded border border-amber-100 italic"><i class="fa-solid fa-circle-info mr-1"></i>${task.keterangan}</div>` : ''}
                                     <div class="text-[9px] mt-1.5 flex items-center">
@@ -3110,6 +3236,7 @@
             document.getElementById('taskEnd').value = formatDateForInput(selectedDate);
             document.getElementById('taskPic').value = '';
             document.getElementById('taskLeader').value = '';
+            _setTaskDivision('Elektrikal');
             document.getElementById('editTaskStatusContainer').classList.add('hidden');
             
             document.getElementById('newProjectContainer').classList.add('hidden');
@@ -3143,6 +3270,7 @@
                 document.getElementById('taskEnd').value = formatDateForInput(parseLocalDate(t.endDate));
                 document.getElementById('taskPic').value = t.pic || '';
                 document.getElementById('taskLeader').value = t.leader || '';
+                _setTaskDivision(getDivision(t));
                 
                 document.getElementById('taskStatus').value = t.status || 'pending';
                 document.getElementById('taskProgress').value = t.progress || 0;
@@ -3156,6 +3284,48 @@
             }
         }
 
+
+        // ===== DIVISI: Mekanikal / Elektrikal =====
+        function getDivision(t) { return (t && t.division === 'Mekanikal') ? 'Mekanikal' : 'Elektrikal'; }
+        function visibleTasks() { return divisionFilter === 'all' ? jobdeskTasks : jobdeskTasks.filter(t => getDivision(t) === divisionFilter); }
+        function visibleProjects() { if (divisionFilter === 'all') return projects; const ks = new Set(visibleTasks().map(t => String(t.projectName||'').trim().toLowerCase())); return projects.filter(p => ks.has(String(p||'').trim().toLowerCase())); }
+        function setDivisionFilter(v) {
+            divisionFilter = (v === 'Mekanikal' || v === 'Elektrikal') ? v : 'all'; try { localStorage.setItem('divisionFilter', divisionFilter); } catch(e) {}
+            document.querySelectorAll('.div-filter-btn').forEach(b => {
+                const active = b.dataset.div === divisionFilter;
+                b.classList.toggle('div-filter-active', active);
+            });
+            const _safe = fn => { try { fn(); } catch(e) { console.warn(e); } };
+            _safe(initializeGlobalSelectors);
+            _safe(renderJobdeskCalendar); _safe(() => renderDailyTasks(selectedDate)); _safe(renderGantt); _safe(renderDashboard);
+            _safe(renderAllProjects); _safe(renderComparison); _safe(renderPicTasks); _safe(renderAdminProgress); _safe(renderReports); _safe(renderReportChecklist);
+        }
+        function _presetImportDiv() { const v = divisionFilter === 'Mekanikal' ? 'Mekanikal' : 'Elektrikal'; document.querySelectorAll('input[name="importDivision"]').forEach(r => r.checked = r.value === v); }
+        function reportDivisions(r) { const normalizeName = (s) => (s || "").toString().trim().toLowerCase();
+            if (r && r.division) return String(r.division).split(/[,|]/).map(x=>x.trim()).filter(Boolean);
+            const key = normalizeName(r.project);
+            const ds = new Set(jobdeskTasks.filter(t => normalizeName(t.projectName) === key && laporanCocok(r.workDone, t)).map(getDivision));
+            return ds.size ? [...ds] : ['Elektrikal'];
+        }
+        function visibleReports() { return divisionFilter === 'all' ? reports : reports.filter(r => reportDivisions(r).includes(divisionFilter)); }
+        function divBadge(t) { const d = getDivision(t); return d === 'Mekanikal'
+            ? '<span class="div-badge mek"><i class="fa-solid fa-gears"></i>MEK</span>'
+            : '<span class="div-badge ele"><i class="fa-solid fa-bolt"></i>ELE</span>'; }
+        function _setTaskDivision(v) { document.querySelectorAll('input[name="taskDivision"]').forEach(r => r.checked = (r.value === (v === 'Mekanikal' ? 'Mekanikal' : 'Elektrikal'))); }
+        function _getTaskDivision() { const r = document.querySelector('input[name="taskDivision"]:checked'); return r ? r.value : 'Elektrikal'; }
+        function divisionSummaryHtml(tasks) {
+            return ['Mekanikal','Elektrikal'].map(d => {
+                const ts = tasks.filter(t => getDivision(t) === d);
+                const p = ts.length ? Math.round(ts.reduce((a,t)=>a+(t.status==='completed'?100:Math.max(0,Math.min(100,Number(t.progress)||0))),0)/ts.length) : 0;
+                const done = ts.filter(t => t.status==='completed' || Number(t.progress)>=100).length;
+                const mek = d==='Mekanikal', col = mek ? '#ea580c' : '#2563eb', bg = mek ? '#fff7ed' : '#eff6ff';
+                return `<div class="rounded-xl p-3 border" style="background:${bg};border-color:${col}33">
+                    <div class="flex items-center justify-between text-[11px] font-black uppercase tracking-wider" style="color:${col}"><span><i class="fa-solid ${mek?'fa-gears':'fa-bolt'} mr-1"></i>${d}</span><span>${p}%</span></div>
+                    <div class="h-1.5 rounded-full bg-white mt-2 overflow-hidden"><div class="h-full rounded-full" style="width:${p}%;background:${col}"></div></div>
+                    <div class="text-[10px] text-slate-500 mt-1.5">${done} / ${ts.length} tugas selesai</div></div>`;
+            }).join('');
+        }
+
         function saveJobdeskTask() {
             if (isSaving) return; // Mencegah klik ganda
 
@@ -3167,6 +3337,7 @@
             const end = document.getElementById('taskEnd').value;
             const pic = document.getElementById('taskPic').value;
             const leader = document.getElementById('taskLeader').value;
+            const division = _getTaskDivision();
             
             if(!pName || pName === 'NEW_PROJECT_ACTION') return showToast('Pilih Proyek yang valid', 'error');
             if(!cat || cat === 'NEW_CATEGORY_ACTION') return showToast('Pilih Kategori yang valid', 'error');
@@ -3187,20 +3358,20 @@
                 if(idx !== -1) {
                     jobdeskTasks[idx] = {
                         id: id, projectName: pName, category: cat, name: name, subTask: subTaskValues[0] || '',
-                        startDate: start, endDate: end, pic: pic, status: statusVal, progress: progVal, leader: leader
+                        startDate: start, endDate: end, pic: pic, status: statusVal, progress: progVal, leader: leader, division: division
                     };
                 }
             } else {
                 if (subTaskValues.length === 0) {
                     newTasksToAdd.push({
                         id: generateId(), projectName: pName, category: cat, name: name, subTask: '',
-                        startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader
+                        startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader, division: division
                     });
                 } else {
                     subTaskValues.forEach(sub => {
                         newTasksToAdd.push({
                             id: generateId(), projectName: pName, category: cat, name: name, subTask: sub,
-                            startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader
+                            startDate: start, endDate: end, pic: pic, status: 'pending', progress: 0, leader: leader, division: division
                         });
                     });
                 }
@@ -3328,7 +3499,8 @@
 
         function changeGanttMonth(offset) { 
             const scale = document.getElementById('gantt-time-scale') ? document.getElementById('gantt-time-scale').value : 'daily';
-            if (scale === 'daily') ganttMonthOffset += offset;
+            if (ganttRollingDays(scale)) ganttMonthOffset += offset;
+            else if (scale === 'daily') ganttMonthOffset += offset;
             else if (scale === 'weekly') ganttMonthOffset += offset * 3;
             else if (scale === 'monthly') ganttMonthOffset += offset * 12;
             renderGantt(); 
@@ -3357,6 +3529,57 @@
             renderGantt();
         }
 
+        let ganttProjSel = new Set();
+        function ganttToggleProjMenu(e) {
+            e.stopPropagation();
+            const m = document.getElementById('gantt-proj-ms-wrap');
+            if (m.classList.contains('hidden')) { ganttBuildProjMenu(); m.classList.remove('hidden'); } else m.classList.add('hidden');
+        }
+        document.addEventListener('click', e => {
+            [['gantt-proj-ms','gantt-proj-ms-wrap'],['gantt-task-ms','gantt-task-ms-menu']].forEach(([wi, mi]) => { const w = document.getElementById(wi); const m = document.getElementById(mi); if (w && m && !w.contains(e.target)) m.classList.add('hidden'); });
+        });
+        let ganttTaskSel = new Set();
+        function ganttToggleTaskMenu(e) {
+            e.stopPropagation();
+            const m = document.getElementById('gantt-task-ms-menu');
+            if (m.classList.contains('hidden')) { ganttBuildTaskMenu(); m.classList.remove('hidden'); } else m.classList.add('hidden');
+        }
+        function _ganttTaskOptions() {
+            let src = visibleTasks();
+            if (ganttProjSel.size) src = src.filter(t => ganttProjSel.has(t.projectName));
+            const map = new Map();
+            src.forEach(t => { const n = t.name || 'Tugas'; const k = (t.projectName || 'Lain-lain') + '||' + n; if (!map.has(k)) map.set(k, { k, n, p: t.projectName || 'Lain-lain' }); });
+            return [...map.values()].sort((a, b) => a.p.localeCompare(b.p) || a.n.localeCompare(b.n));
+        }
+        function ganttBuildTaskMenu() {
+            const box = document.getElementById('gantt-task-ms-list'); if (!box) return;
+            const opts = _ganttTaskOptions();
+            [...ganttTaskSel].forEach(k => { if (!opts.some(o => o.k === k)) ganttTaskSel.delete(k); });
+            let h = `<label class="flex items-center gap-2 px-2 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded cursor-pointer border-b border-slate-100 mb-1"><input type="checkbox" class="accent-indigo-600" ${ganttTaskSel.size===0?'checked':''} onchange="ganttTaskAll()"> Semua Tugas</label>`;
+            opts.forEach(o => { h += `<label class="flex items-start gap-2 px-2 py-1.5 text-xs text-slate-700 hover:bg-slate-50 rounded cursor-pointer"><input type="checkbox" class="accent-indigo-600 mt-0.5" data-k="${ganttEsc(o.k)}" ${ganttTaskSel.has(o.k)?'checked':''} onchange="ganttTaskToggle(this)"><span><span class="font-semibold">${ganttEsc(o.n)}</span><span class="block text-[10px] text-slate-400">${ganttEsc(o.p)}</span></span></label>`; });
+            box.innerHTML = h;
+            const l = document.getElementById('gantt-task-ms-label');
+            if (l) { const a = opts.filter(o => ganttTaskSel.has(o.k)).map(o => o.n); l.textContent = !a.length ? 'Semua Tugas' : (a.length <= 2 ? a.join(', ') : a.length + ' tugas dipilih'); }
+        }
+        function ganttTaskAll() { ganttTaskSel.clear(); ganttBuildTaskMenu(); renderGantt(); }
+        function ganttTaskToggle(cb) { const k = cb.getAttribute('data-k'); if (cb.checked) ganttTaskSel.add(k); else ganttTaskSel.delete(k); ganttBuildTaskMenu(); renderGantt(); }
+        function ganttEsc(v){ return String(v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+        function ganttBuildProjMenu() {
+            const m = document.getElementById('gantt-proj-ms-menu');
+            const list = (typeof projects !== 'undefined' ? projects : []);
+            let h = `<label class="flex items-center gap-2 px-2 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50 rounded cursor-pointer border-b border-slate-100 mb-1"><input type="checkbox" class="accent-indigo-600" ${ganttProjSel.size===0?'checked':''} onchange="ganttProjAll()"> Semua Proyek</label>`;
+            list.forEach((p,i) => { h += `<label class="flex items-center gap-2 px-2 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 rounded cursor-pointer"><input type="checkbox" class="accent-indigo-600" data-proj="${ganttEsc(p)}" ${ganttProjSel.has(p)?'checked':''} onchange="ganttProjToggle(this)"> ${ganttEsc(p)}</label>`; });
+            m.innerHTML = h;
+        }
+        function ganttProjAll() { ganttProjSel.clear(); ganttBuildProjMenu(); ganttUpdateProjLabel(); renderGantt(); }
+        function ganttProjToggle(cb) { const p = cb.getAttribute('data-proj'); if (cb.checked) ganttProjSel.add(p); else ganttProjSel.delete(p); ganttBuildProjMenu(); ganttUpdateProjLabel(); renderGantt(); }
+        function ganttUpdateProjLabel() {
+            const l = document.getElementById('gantt-proj-ms-label'); if (!l) return;
+            const a = [...ganttProjSel];
+            l.textContent = !a.length ? 'Semua Proyek' : (a.length <= 2 ? a.join(', ') : a.length + ' proyek dipilih');
+        }
+        function ganttRollingDays(scale) { const m = /^d(\d+)$/.exec(scale || ''); return m ? parseInt(m[1]) : 0; }
+
         function renderGantt() {
             const container = document.getElementById('gantt-container'); container.innerHTML = '';
             
@@ -3366,9 +3589,15 @@
             let viewStart, viewEnd, cols = [];
 
             // Membangun Skala Kolom secara Dinamis
-            if (scale === 'custom') {
-                const sDate = document.getElementById('gantt-start-date').value;
-                const eDate = document.getElementById('gantt-end-date').value;
+            const rollDays = ganttRollingDays(scale);
+            if (scale === 'custom' || rollDays) {
+                let sDate = document.getElementById('gantt-start-date').value;
+                let eDate = document.getElementById('gantt-end-date').value;
+                if (rollDays) {
+                    const rs = new Date(); rs.setHours(0,0,0,0); rs.setDate(rs.getDate() - 3 + ganttMonthOffset * rollDays);
+                    const re = new Date(rs); re.setDate(re.getDate() + rollDays - 1);
+                    sDate = formatDateForInput(rs); eDate = formatDateForInput(re);
+                }
                 
                 if (sDate && eDate) {
                 viewStart = parseLocalDate(sDate);
@@ -3386,7 +3615,7 @@
             
             const diffDays = Math.ceil((viewEnd - viewStart) / (1000 * 60 * 60 * 24));
             const customScale = document.getElementById('gantt-custom-scale') ? document.getElementById('gantt-custom-scale').value : 'auto';
-            let activeScale = customScale;
+            let activeScale = rollDays ? (rollDays <= 92 ? 'daily' : 'weekly') : customScale;
 
             if (activeScale === 'auto') {
                 if (diffDays <= 60) activeScale = 'daily';
@@ -3489,7 +3718,7 @@
             const thead = document.createElement('thead');
             
             let tr1 = document.createElement('tr');
-            tr1.innerHTML = `<th rowspan="2" class="w-10">No</th><th rowspan="2" class="w-48 text-left">Task / Project Name</th><th rowspan="2" class="w-16">PIC</th><th rowspan="2" class="w-12">%</th>`;
+            tr1.innerHTML = `<th rowspan="2" class="g-no">No</th><th rowspan="2" class="g-name">Task / Project Name</th><th rowspan="2" class="g-pic">PIC</th><th rowspan="2" class="g-pct">%</th>`;
             cols.forEach(c => tr1.innerHTML += `<th class="${c.isToday ? 'bg-indigo-100 text-indigo-700' : ''}">${c.label1}</th>`);
             thead.appendChild(tr1);
             
@@ -3499,9 +3728,13 @@
 
             const tbody = document.createElement('tbody');
             
-            let tasksToRender = jobdeskTasks;
+            let tasksToRender = visibleTasks();
             const selectedProj = document.getElementById('filter-gantt-project') ? document.getElementById('filter-gantt-project').value : 'all';
-            if (selectedProj !== 'all') { tasksToRender = tasksToRender.filter(t => t.projectName === selectedProj); }
+            if (ganttProjSel.size) { tasksToRender = tasksToRender.filter(t => ganttProjSel.has(t.projectName)); }
+            else if (selectedProj !== 'all') { tasksToRender = tasksToRender.filter(t => t.projectName === selectedProj); }
+
+            ganttBuildTaskMenu();
+            if (ganttTaskSel.size) { tasksToRender = tasksToRender.filter(t => ganttTaskSel.has((t.projectName || 'Lain-lain') + '||' + (t.name || 'Tugas'))); }
 
             if (!ganttShowAll) {
                 tasksToRender = tasksToRender.filter(t => {
@@ -3526,7 +3759,7 @@
                 hierarchy[pK].tasks[tK].items.push(t);
             });
 
-            const adminTaskControls = (id) => currentRole === 'admin' ? `<span class="inline-flex items-center ml-2"><i class="fa-solid fa-pen text-slate-300 hover:text-indigo-600 cursor-pointer transition text-[10px] mr-1.5" onclick="editJobdeskTask('${id}')" title="Edit Tugas"></i><i class="fa-solid fa-trash-can text-slate-300 hover:text-rose-600 cursor-pointer transition text-[10px]" onclick="promptDeleteJobdeskTask('${id}')" title="Hapus Tugas"></i></span>` : '';
+            const adminTaskControls = (id) => currentRole === 'admin' ? `<span class="g-act"><i class="fa-solid fa-pen text-slate-400 hover:text-indigo-600 cursor-pointer transition text-[10px]" onclick="editJobdeskTask('${id}')" title="Edit Tugas"></i><i class="fa-solid fa-trash-can text-slate-300 hover:text-rose-600 cursor-pointer transition text-[10px]" onclick="promptDeleteJobdeskTask('${id}')" title="Hapus Tugas"></i></span>` : '';
 
             let pCount = 1;
             for(let pKey in hierarchy) {
@@ -3536,7 +3769,7 @@
                 let pAvg = progProyekNama(proj.name);
                 
                 const trP = document.createElement('tr'); trP.className = 'bg-slate-100 font-bold';
-                trP.innerHTML = `<td class="text-center">${pCount}</td><td>${proj.name.toUpperCase()}</td><td></td><td class="text-center">${_ganttPctBar(pAvg)}</td><td colspan="${cols.length}"></td>`;
+                trP.innerHTML = `<td class="g-no">${pCount}</td><td class="g-name">${proj.name.toUpperCase()}</td><td class="g-pic"></td><td class="g-pct text-center">${_ganttPctBar(pAvg)}</td><td colspan="${cols.length}"></td>`;
                 tbody.appendChild(trP);
 
                 for(let tKey in proj.tasks) {
@@ -3546,19 +3779,19 @@
                     let tAvg = progGrupNama(proj.name, tGrp.name);
                     let tMinStr = items.map(x=>x.startDate).sort()[0]; let tMaxStr = items.map(x=>x.endDate).sort().reverse()[0];
 
-                    let progHtmlStand = `<td class="text-center">${_ganttPctBar(tAvg)}</td>`;
+                    let progHtmlStand = `<td class="g-pct text-center">${_ganttPctBar(tAvg)}</td>`;
                     if (isStand) {
                         const canEditStand = currentRole === 'admin' || (currentRole === 'pic' && (items[0].pic||'').toLowerCase() === currentUser.toLowerCase());
                         if (canEditStand) {
-                            progHtmlStand = `<td class="text-center">${_ganttPctBar(tAvg, {taskId: items[0].id})}</td>`;
+                            progHtmlStand = `<td class="g-pct text-center">${_ganttPctBar(tAvg, {taskId: items[0].id})}</td>`;
                         }
                     }
 
                     const trT = document.createElement('tr');
                     trT.className = "bg-white hover:bg-slate-50 transition group";
-                    trT.innerHTML = `<td class="text-center text-slate-500">${pCount}.${tCount}</td>
-                                     <td class="${isStand ? 'text-slate-800 flex items-center' : 'font-bold text-slate-700 flex items-center'}">${tGrp.name} ${isStand ? adminTaskControls(items[0].id) : ''}</td>
-                                     <td class="text-center font-bold" style="color: ${isStand ? getPICColor(items[0].pic) : ''};">${isStand ? (items[0].pic||'') : ''}</td>
+                    trT.innerHTML = `<td class="g-no text-slate-500">${pCount}.${tCount}</td>
+                                     <td class="g-name ${isStand ? 'text-slate-800' : 'font-bold text-slate-700'}"><div class="g-cell"><span class="g-txt">${tGrp.name}</span>${isStand ? adminTaskControls(items[0].id) : ''}</div></td>
+                                     <td class="g-pic font-bold" style="color: ${isStand ? getPICColor(items[0].pic) : ''};">${isStand ? (items[0].pic||'') : ''}</td>
                                      ${progHtmlStand}`;
                     
                     let tStart = parseLocalDate(tMinStr); let tEnd = parseLocalDate(tMaxStr);
@@ -3609,15 +3842,15 @@
                             const trS = document.createElement('tr');
                             trS.className = "bg-white hover:bg-slate-50 transition group";
                             
-                            let progHtmlSub = `<td class="text-center">${_ganttPctBar(progEff(task))}</td>`;
+                            let progHtmlSub = `<td class="g-pct text-center">${_ganttPctBar(progEff(task))}</td>`;
                             const canEditSub = currentRole === 'admin' || (currentRole === 'pic' && (task.pic||'').toLowerCase() === currentUser.toLowerCase());
                             if (canEditSub) {
-                                progHtmlSub = `<td class="text-center">${_ganttPctBar(progEff(task), {taskId: task.id})}</td>`;
+                                progHtmlSub = `<td class="g-pct text-center">${_ganttPctBar(progEff(task), {taskId: task.id})}</td>`;
                             }
 
-                            trS.innerHTML = `<td class="text-center text-slate-400 text-[10px]">${pCount}.${tCount}.${sCount}</td>
-                                             <td class="text-slate-600 pl-4 text-xs flex items-center"><i class="fa-solid fa-arrow-turn-up fa-rotate-90 text-slate-300 mr-1.5"></i> ${task.subTask} ${adminTaskControls(task.id)}</td>
-                                             <td class="text-center font-bold text-xs" style="color: ${getPICColor(task.pic)};">${task.pic||''}</td>
+                            trS.innerHTML = `<td class="g-no text-slate-400 text-[10px]">${pCount}.${tCount}.${sCount}</td>
+                                             <td class="g-name text-slate-600 text-xs" style="padding-left:14px"><div class="g-cell"><i class="fa-solid fa-arrow-turn-up fa-rotate-90 text-slate-300 flex-shrink-0"></i><span class="g-txt">${task.subTask}</span>${adminTaskControls(task.id)}</div></td>
+                                             <td class="g-pic font-bold text-xs" style="color: ${getPICColor(task.pic)};">${task.pic||''}</td>
                                              ${progHtmlSub}`;
                             
                             let tkStart = parseLocalDate(task.startDate); let tkEnd = parseLocalDate(task.endDate);
@@ -3812,9 +4045,23 @@
             if (eEl) eEl.value = fmt(b);
             renderPicTasks();
         }
+        let _picSel = { project: new Set(), task: new Set() };
+        const _PIC_ALL = { project: 'Semua Proyek', task: 'Semua Tugas' };
+        function picToggleFilter(key, val, on) { if (on) _picSel[key].add(val); else _picSel[key].delete(val); renderPicTasks(); }
+        function picClearFilter(key) { _picSel[key].clear(); renderPicTasks(); }
+        function _picRenderMs(key, opts) {
+            const box = document.getElementById('pic-ms-' + key + '-list'); if (!box) return;
+            [..._picSel[key]].forEach(v => { if (!opts.some(o => o.v === v)) _picSel[key].delete(v); });
+            const esc = v => String(v).replace(/\\/g,'\\\\').replace(/'/g, "\\'").replace(/"/g,'&quot;');
+            box.innerHTML = `<button type="button" onclick="picClearFilter('${key}')" class="w-full text-left px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-indigo-50 rounded">${_PIC_ALL[key]}</button>` +
+                opts.map(o => `<label class="flex items-center gap-2 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50 rounded cursor-pointer whitespace-nowrap"><input type="checkbox" class="accent-indigo-600" ${_picSel[key].has(o.v) ? 'checked' : ''} onchange="picToggleFilter('${key}', '${esc(o.v)}', this.checked)"> ${o.l}</label>`).join('');
+            const lbl = document.getElementById('pic-ms-' + key + '-lbl');
+            if (lbl) { const sel = opts.filter(o => _picSel[key].has(o.v)).map(o => o.l); lbl.textContent = !sel.length ? _PIC_ALL[key] : (sel.length <= 2 ? sel.join(', ') : sel.length + ' dipilih'); }
+        }
         function resetPicFilter() {
+            _picSel = { project: new Set(), task: new Set() };
             ['filter-pic-start','filter-pic-end'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
-            ['filter-pic-project','filter-pic-name','filter-pic-status'].forEach(id => { const el = document.getElementById(id); if (el) el.value = 'all'; });
+            ['filter-pic-name','filter-pic-status'].forEach(id => { const el = document.getElementById(id); if (el) el.value = 'all'; });
             renderPicTasks();
         }
         // Tugas dianggap masuk rentang bila periode tugas bersinggungan dengan rentang filter
@@ -3828,20 +4075,18 @@
         }
 
         function renderPicTasks() {
-            const sel = document.getElementById('filter-pic-project');
-            if(!sel) return;
+            if(!document.getElementById('pic-ms-project-list')) return;
 
-            // Opsi Proyek
-            const cur = sel.value || 'all';
-            sel.innerHTML = ['<option value="all">Semua Proyek</option>']
-                .concat(projects.map(p => `<option value="${p}">${p}</option>`)).join('');
-            sel.value = (projects.includes(cur) || cur === 'all') ? cur : 'all';
+            // Opsi Proyek & Tugas (multi pilih / centang)
+            _picRenderMs('project', visibleProjects().map(p => ({ v: p, l: p })));
+            const _picTaskNames = Array.from(new Set(visibleTasks().filter(t => !_picSel.project.size || _picSel.project.has(t.projectName)).map(t => t.name || t.subTask || '-'))).sort((a,b) => a.localeCompare(b));
+            _picRenderMs('task', _picTaskNames.map(n => ({ v: n, l: n })));
 
             // Opsi PIC (gabungan dari akun PIC + nama PIC di tugas)
             const picSel = document.getElementById('filter-pic-name');
             const allPicNames = Array.from(new Set([
                 ...(workers || []),
-                ...jobdeskTasks.flatMap(t => _picList(t.pic))
+                ...visibleTasks().flatMap(t => _picList(t.pic))
             ].filter(Boolean))).sort((a,b) => a.localeCompare(b));
             let curPic = picSel ? (picSel.value || 'all') : 'all';
             if (picSel) {
@@ -3859,14 +4104,14 @@
                 }
             }
 
-            const filterProj = sel.value;
+            const selProj = [..._picSel.project], selTask = [..._picSel.task];
             const fromVal = (document.getElementById('filter-pic-start') || {}).value || '';
             const toVal = (document.getElementById('filter-pic-end') || {}).value || '';
             const statusVal = (document.getElementById('filter-pic-status') || {}).value || 'all';
             const from = fromVal ? parseLocalDate(fromVal) : null;
             const to = toVal ? parseLocalDate(toVal) : null;
 
-            let tasks = jobdeskTasks.filter(t => filterProj === 'all' || t.projectName === filterProj);
+            let tasks = visibleTasks().filter(t => (!_picSel.project.size || _picSel.project.has(t.projectName)) && (!_picSel.task.size || _picSel.task.has(t.name || t.subTask || '-')));
             if (currentRole === 'pic') {
                 const me = (currentUser || '').toLowerCase();
                 tasks = tasks.filter(t => _picList(t.pic).some(n => n.toLowerCase() === me));
@@ -3878,7 +4123,8 @@
 
             _picFilteredTasks = tasks;
             const parts = [];
-            parts.push(filterProj === 'all' ? 'Semua Proyek' : filterProj);
+            parts.push(!selProj.length ? 'Semua Proyek' : 'Proyek: ' + selProj.join(', '));
+            if (selTask.length) parts.push('Tugas: ' + (selTask.length <= 3 ? selTask.join(', ') : selTask.length + ' dipilih'));
             parts.push(curPic === 'all' ? 'Semua PIC' : 'PIC: ' + curPic);
             if (fromVal || toVal) parts.push(`Periode: ${fromVal ? _fmtDate(fromVal) : '...'} → ${toVal ? _fmtDate(toVal) : '...'}`);
             if (statusVal !== 'all') parts.push('Status: ' + statusVal);
@@ -3904,17 +4150,16 @@
                 container.innerHTML = picNames.map(name => {
                     const list = byPic[name].slice().sort((a,b)=> new Date(a.endDate||0) - new Date(b.endDate||0));
                     const done = list.filter(t => Number(t.progress||0) >= 100).length;
-                    const rows = list.map(t => `
-                        <div class="flex items-start gap-2 p-2 rounded-lg hover:bg-slate-50 border border-slate-100">
-                            <div class="flex-grow min-w-0">
-                                <div class="text-xs font-bold text-slate-800 truncate">${t.name || t.subTask || '-'}${t.subTask && t.name!==t.subTask ? ` <span class="text-slate-400 font-normal">— ${t.subTask}</span>`:''}</div>
-                                <div class="text-[11px] text-slate-500 flex flex-wrap gap-x-3 gap-y-0.5 mt-0.5">
-                                    <span><i class="fa-solid fa-diagram-project mr-1"></i>${t.projectName||'-'}</span>
-                                    <span><i class="fa-regular fa-calendar mr-1"></i>${_fmtDate(t.startDate)} → ${_fmtDate(t.endDate)}</span>
-                                </div>
-                            </div>
-                            <div class="flex-shrink-0">${_picStatusBadge(t)}</div>
-                        </div>`).join('');
+                    const rows = list.map((t, i) => `
+                        <tr class="hover:bg-indigo-50/40">
+                            <td class="px-3 py-2 text-center text-slate-400 font-bold">${i + 1}</td>
+                            <td class="px-3 py-2 font-bold text-slate-800 break-words">${t.name || t.subTask || '-'}</td>
+                            <td class="px-3 py-2 text-slate-600 break-words">${t.subTask && t.name !== t.subTask ? t.subTask : '-'}</td>
+                            <td class="px-3 py-2 text-slate-600 break-words">${t.projectName || '-'}</td>
+                            <td class="px-3 py-2">${divBadge(t) || '-'}</td>
+                            <td class="px-3 py-2 text-slate-600 whitespace-nowrap">${_fmtDate(t.startDate)} → ${_fmtDate(t.endDate)}</td>
+                            <td class="px-3 py-2 text-center">${_picStatusBadge(t)}</td>
+                        </tr>`).join('');
                     return `
                         <div class="border border-slate-200 rounded-xl overflow-hidden">
                             <div class="flex justify-between items-center bg-slate-50 px-4 py-2 border-b border-slate-200">
@@ -3927,7 +4172,11 @@
                                 </div>
                                 <span class="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-1 rounded-full">${Math.round(done/list.length*100)}%</span>
                             </div>
-                            <div class="p-2 space-y-1">${rows}</div>
+                            <div class="overflow-x-auto"><table class="ap-table w-full min-w-[860px] text-xs">
+                                <colgroup><col style="width:44px"><col style="width:24%"><col style="width:20%"><col style="width:18%"><col style="width:100px"><col style="width:190px"><col style="width:100px"></colgroup>
+                                <thead><tr class="text-[10px] font-black uppercase tracking-wider text-slate-500">
+                                    <th class="px-3 py-2 text-center">No</th><th class="px-3 py-2 text-left">Tugas</th><th class="px-3 py-2 text-left">Sub Tugas</th><th class="px-3 py-2 text-left">Proyek</th><th class="px-3 py-2 text-left">Divisi</th><th class="px-3 py-2 text-left">Periode</th><th class="px-3 py-2 text-center">Status</th>
+                                </tr></thead><tbody>${rows}</tbody></table></div>
                         </div>`;
                 }).join('');
             }
@@ -3941,7 +4190,7 @@
                 return items.map(t => `
                     <div class="flex items-center gap-2 p-1.5 rounded border border-slate-100 hover:bg-slate-50">
                         <div class="flex-grow min-w-0">
-                            <div class="font-semibold text-slate-800 truncate">${t.name||t.subTask||'-'}</div>
+                            <div class="font-semibold text-slate-800 truncate">${divBadge(t)} ${t.name||t.subTask||'-'}</div>
                             <div class="text-[10px] text-slate-500 truncate"><i class="fa-solid fa-user mr-1"></i>${t.pic||'-'} · ${t.projectName||'-'}</div>
                         </div>
                         ${_picStatusBadge(t)}
@@ -3980,7 +4229,7 @@
 
             let tbody = document.createElement('tbody');
 
-            let tasksToRender = jobdeskTasks;
+            let tasksToRender = visibleTasks();
             const selectedProj = document.getElementById('filter-comp-project') ? document.getElementById('filter-comp-project').value : 'all';
             if (selectedProj !== 'all') tasksToRender = tasksToRender.filter(t => t.projectName === selectedProj);
 
@@ -4015,7 +4264,7 @@
 
             const checkReport = (tk, projName, cell) => {
                 let noteText = ""; let isReported = false; let reportId = null;
-                let reps = reports.filter(r => {
+                let reps = visibleReports().filter(r => {
                     if (r.project !== projName) return false;
                     const rd = parseLocalDate(r.date); if(!rd) return false;
                     return rd >= cell.start && rd <= cell.end;
@@ -4221,7 +4470,7 @@
 
             if(!projName) { container.innerHTML = '<div class="text-center text-slate-400 py-4 italic text-sm">Silakan pilih nama proyek terlebih dahulu.</div>'; return; }
 
-            const pTasks = jobdeskTasks.filter(t => t.projectName === projName && t.progress < 100);
+            const pTasks = visibleTasks().filter(t => t.projectName === projName && t.progress < 100);
             if(pTasks.length === 0) { container.innerHTML = '<div class="text-center text-slate-400 py-4 italic text-sm">Tidak ada tugas tersisa untuk proyek ini.</div>'; return; }
 
             pTasks.sort((a,b) => parseLocalDate(a.startDate) - parseLocalDate(b.startDate)).forEach(t => {
@@ -4253,13 +4502,37 @@
             if (cb) cb.checked = parseInt(value) > 0;
         }
 
+        const ADDITIONAL_TASK_NAME = "Pekerjaan Tambahan (Opsional)";
+        function isAdditionalTask(t) { return !!t && (t.name === ADDITIONAL_TASK_NAME || t.category === 'Pekerjaan Tambahan'); }
+        function addAdditionalRow(text = '', pct = 100) {
+            const list = document.getElementById('form-work-additional-list');
+            if (!list) return;
+            const row = document.createElement('div');
+            row.className = 'additional-row flex items-center gap-2';
+            row.innerHTML = `<input type="text" class="add-name flex-grow px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nama pekerjaan tambahan...">
+                <div class="flex items-center gap-1 flex-shrink-0"><input type="number" min="0" max="100" class="add-pct w-16 px-2 py-2 border border-slate-300 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-indigo-500"><span class="text-xs font-bold text-slate-500">%</span></div>
+                <button type="button" class="text-rose-500 hover:bg-rose-50 p-2 rounded" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>`;
+            row.querySelector('.add-name').value = text;
+            row.querySelector('.add-pct').value = pct;
+            row.querySelector('button').onclick = () => row.remove();
+            list.appendChild(row);
+        }
+        function resetAdditionalRows() {
+            const list = document.getElementById('form-work-additional-list');
+            if (list) { list.innerHTML = ''; addAdditionalRow(); }
+        }
+        document.addEventListener('DOMContentLoaded', resetAdditionalRows);
+
         function handleReportSubmit() {
             if (isSaving) return;
 
             const date = document.getElementById('form-date').value;
             const project = document.getElementById('form-project').value;
             const issues = document.getElementById('form-issues').value;
-            const additional = document.getElementById('form-work-additional').value.trim();
+            const additionalItems = Array.from(document.querySelectorAll('#form-work-additional-list .additional-row')).map(r => ({
+                text: r.querySelector('.add-name').value.trim(),
+                pct: Math.min(100, Math.max(0, parseInt(r.querySelector('.add-pct').value) || 0))
+            })).filter(x => x.text);
             
             if (!date || !project) return showToast('Harap lengkapi Tanggal dan Nama Proyek', 'error');
 
@@ -4286,31 +4559,27 @@
             });
             
             let newAdditionalTasks = [];
-            if(additional) {
-                const addLines = additional.split('\n').filter(line => line.trim() !== '');
-                addLines.forEach(line => {
-                    workDoneArr.push(`- [TAMBAHAN] ${line.trim()}`);
-                    newAdditionalTasks.push({
-                        id: generateId(),
-                        projectName: project,
-                        category: "Lain-Lain",
-                        name: "Pekerjaan Tambahan (Opsional)",
-                        subTask: line.trim(),
-                        startDate: date,
-                        endDate: date,
-                        pic: selectedWorkers[0],
-                        status: 'completed',
-                        progress: 100
-                    });
+            additionalItems.forEach(item => {
+                const label = item.pct === 100 ? 'TAMBAHAN - SELESAI' : `TAMBAHAN - PROGRES ${item.pct}%`;
+                workDoneArr.push(`- [${label}] ${item.text}`);
+                newAdditionalTasks.push({
+                    id: generateId(),
+                    projectName: project,
+                    category: "Lain-Lain",
+                    name: ADDITIONAL_TASK_NAME,
+                    subTask: item.text,
+                    startDate: date,
+                    endDate: date,
+                    pic: selectedWorkers[0],
+                    status: item.pct === 100 ? 'completed' : 'in-progress',
+                    progress: item.pct
                 });
-            }
-            
+            });
             if(workDoneArr.length === 0) return showToast('Harap pilih tugas dari checklist atau isi pekerjaan tambahan.', 'error');
             const workDone = workDoneArr.join('\n');
 
             let photosUploaded = 0;
             for(let i=1; i<=5; i++) { if(photoFiles[i]) photosUploaded++; }
-            if (photosUploaded === 0) return showToast('Wajib melampirkan minimal 1 foto dokumentasi', 'error');
 
             const btn = document.getElementById('btn-submit-report');
             const originalText = btn.innerHTML;
@@ -4318,7 +4587,8 @@
             btn.disabled = true;
             isSaving = true;
 
-            const newReport = { id: generateId(), date, project, workers: selectedWorkers, workDone, issues, photo1: '', photo2: '', photo3: '', photo4: '', photo5: '' };
+            const _rDiv = [...new Set([...checkedTasks].map(cb => jobdeskTasks.find(x => x.id === cb.value)).filter(Boolean).map(getDivision))];
+            const newReport = { id: generateId(), date, project, workers: selectedWorkers, workDone, issues, division: (_rDiv.length ? _rDiv : [divisionFilter === 'Mekanikal' ? 'Mekanikal' : 'Elektrikal']).join(','), photo1: '', photo2: '', photo3: '', photo4: '', photo5: '' };
             
             let uploadPromises = [];
             for (let i = 1; i <= 5; i++) {
@@ -4364,7 +4634,7 @@
                     if (success) {
                         document.getElementById('form-project').value = '';
                         document.getElementById('form-issues').value = '';
-                        document.getElementById('form-work-additional').value = '';
+                        resetAdditionalRows();
                         renderReportChecklist(); 
                         if(currentRole === 'admin') document.querySelectorAll('input[name="worker"]').forEach(cb => cb.checked = false);
                         for(let i=1; i<=5; i++) removePhoto(i);
@@ -4411,10 +4681,10 @@
 
         function renderReports() {
             const tbody = document.getElementById('reports-table-body'); tbody.innerHTML = '';
-            let list = reports;
+            let list = visibleReports();
             if (currentRole === 'pic') {
                 const me = (currentUser || '').toLowerCase();
-                list = reports.filter(r => (r.workers || []).some(w => (w || '').toLowerCase() === me));
+                list = list.filter(r => (r.workers || []).some(w => (w || '').toLowerCase() === me));
             }
 
             // Pencarian berdasarkan nama proyek & PIC/pekerja
@@ -4459,7 +4729,7 @@
             const normalize = (s) => (s || '').toString().trim().toLowerCase();
             const pKey = normalize(projectName);
             const tKey = normalize(taskName);
-            const projReports = reports.filter(r => normalize(r.project) === pKey);
+            const projReports = visibleReports().filter(r => normalize(r.project) === pKey);
             let matches = projReports;
             if (tKey) {
                 const filtered = projReports.filter(r => normalize(r.workDone).includes(tKey));
@@ -4491,8 +4761,8 @@
 
             const normalizeName = (s) => (s || '').toString().trim().toLowerCase();
             const pKey = normalizeName(pName);
-            const pTasks = jobdeskTasks.filter(t => normalizeName(t.projectName) === pKey);
-            const pReports = reports.filter(r => normalizeName(r.project) === pKey);
+            const pTasks = visibleTasks().filter(t => normalizeName(t.projectName) === pKey);
+            const pReports = visibleReports().filter(r => normalizeName(r.project) === pKey);
 
             const esc = (s) => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
@@ -4642,29 +4912,88 @@
             openModal('reportDetailModal');
         }
 
-        function shareReportWA() {
-            if(!currentViewReport) return;
-            const r = currentViewReport;
+        function _reportWAText(r, withLinks) {
             let msg = `*LAPORAN HARIAN LAPANGAN IAT*\n\n`;
             msg += `🏢 *Proyek:* ${r.project}\n`;
             msg += `📅 *Tanggal:* ${r.date}\n`;
-            msg += `👷 *Pekerja:* ${r.workers.join(', ')}\n\n`;
+            msg += `👷 *Pekerja:* ${(r.workers||[]).join(', ')}\n\n`;
             msg += `*✅ PEKERJAAN SELESAI:*\n${r.workDone}\n\n`;
-            
             if(r.issues) msg += `*⚠️ KENDALA / ISU:*\n${r.issues}\n\n`;
-            
-            msg += `*📷 LINK DOKUMENTASI/FOTO:*\n`;
-            let photoFound = false;
+            return msg.trim();
+        }
+
+        function _waShareButton(files, text) {
+            // Tombol konfirmasi: browser butuh klik baru setelah foto selesai diunduh
+            const old = document.getElementById('waShareOverlay'); if(old) old.remove();
+            const ov = document.createElement('div');
+            ov.id = 'waShareOverlay';
+            ov.className = 'fixed inset-0 z-[9999] bg-black/50 flex items-center justify-center p-4';
+            ov.innerHTML = `<div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl">
+                <i class="fa-brands fa-whatsapp text-5xl text-[#25D366] mb-3"></i>
+                <div class="font-bold text-slate-800 mb-1">${files.length} foto siap dikirim</div>
+                <div class="text-xs text-slate-500 mb-4">Pilih WhatsApp pada menu bagikan.</div>
+                <button id="waShareGo" class="w-full bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-2.5 rounded-xl mb-2">Bagikan ke WhatsApp</button>
+                <button id="waShareCancel" class="w-full text-slate-500 text-sm py-2">Batal</button></div>`;
+            document.body.appendChild(ov);
+            ov.querySelector('#waShareCancel').onclick = () => ov.remove();
+            ov.querySelector('#waShareGo').onclick = async () => {
+                try { await navigator.share({ files, text }); }
+                catch(err) { if(err && err.name !== 'AbortError') _waFallback(files, text); }
+                ov.remove();
+            };
+        }
+
+        function _waFallback(files, text) {
+            // Perangkat tanpa fitur bagikan file (mis. laptop): unduh foto, lalu buka WA
+            files.forEach(f => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(f); a.download = f.name;
+                document.body.appendChild(a); a.click(); a.remove();
+            });
+            if(files.length) showToast('Foto diunduh. Lampirkan file foto di chat WhatsApp.', 'success');
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        async function shareReportWA() {
+            if(!currentViewReport) return;
+            const r = currentViewReport;
+            const text = _reportWAText(r);
+            const ids = [];
             for(let i=1; i<=5; i++) {
-                if(r[`photo${i}`]) {
-                    photoFound = true;
-                    msg += `- Foto ${i}: ${r[`photo${i}`]}\n`;
-                }
+                const u = r[`photo${i}`]; if(!u) continue;
+                const m = u.match(/\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                if(m) ids.push(m[1]);
             }
-            if(!photoFound) msg += `- Tidak ada lampiran\n`;
-            
-            const url = `https://wa.me/?text=${encodeURIComponent(msg.trim())}`;
-            window.open(url, '_blank');
+            if(!ids.length) { window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank'); return; }
+
+            const btn = document.getElementById('btnShareReportWA');
+            const orig = btn ? btn.innerHTML : '';
+            if(btn) { btn.disabled = true; btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Menyiapkan foto...'; }
+            try {
+                const res = await fetch(WEB_APP_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(_auth({ action: "getPhotoFiles", data: { ids } })) });
+                const json = await res.json();
+                if(json.status !== 'success') throw new Error(json.message || 'Gagal mengambil foto');
+                const safe = (r.project||'laporan').replace(/[^a-zA-Z0-9_-]+/g,'_');
+                const files = (json.files||[]).map((f, i) => {
+                    const bin = atob(f.base64); const arr = new Uint8Array(bin.length);
+                    for(let k=0; k<bin.length; k++) arr[k] = bin.charCodeAt(k);
+                    const ext = (f.mimeType.split('/')[1] || 'jpg').replace('jpeg','jpg');
+                    return new File([arr], `${safe}_${(r.date||'').replace(/[^0-9]/g,'')}_foto${i+1}.${ext}`, { type: f.mimeType });
+                });
+                if(navigator.canShare && files.length && navigator.canShare({ files })) {
+                    try { await navigator.share({ files, text }); }
+                    catch(err) {
+                        if(err && err.name === 'NotAllowedError') _waShareButton(files, text);
+                        else if(err && err.name !== 'AbortError') _waFallback(files, text);
+                    }
+                } else {
+                    _waFallback(files, text);
+                }
+            } catch(err) {
+                showToast('Gagal menyiapkan foto: ' + err.message, 'error');
+            } finally {
+                if(btn) { btn.disabled = false; btn.innerHTML = orig; }
+            }
         }
 
         // ================= PDF ARSIP =================
@@ -5057,7 +5386,7 @@
             doc.setFontSize(16); doc.text(`Timeline Proyek (Gantt Chart) - ${mName} ${yr}`, 14, 15);
             
             let bodyData = [];
-            jobdeskTasks.forEach(t => { bodyData.push([t.projectName, t.category, t.name, t.subTask || '-', t.pic || '-', `${t.progress}%`, t.startDate, t.endDate, t.status]); });
+            visibleTasks().forEach(t => { bodyData.push([t.projectName, t.category, t.name, t.subTask || '-', t.pic || '-', `${t.progress}%`, t.startDate, t.endDate, t.status]); });
             
             doc.autoTable({
                 startY: 25, head: [['Proyek', 'Kategori', 'Tugas', 'Sub Tugas', 'PIC', 'Prog', 'Mulai', 'Selesai', 'Status']],
@@ -5133,8 +5462,8 @@
             const v = Object.keys(per).map(p => progProyek(per[p]));
             return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : 0;
         }
-        function progProyekNama(nama) { return progProyek(jobdeskTasks.filter(x => (x.projectName || 'Lain-lain') === nama)); }
-        function progGrupNama(proj, tugas) { return progGrup(jobdeskTasks.filter(x => (x.projectName || 'Lain-lain') === proj && (x.name || 'Tugas') === tugas)); }
+        function progProyekNama(nama) { return progProyek(visibleTasks().filter(x => (x.projectName || 'Lain-lain') === nama)); }
+        function progGrupNama(proj, tugas) { return progGrup(visibleTasks().filter(x => (x.projectName || 'Lain-lain') === proj && (x.name || 'Tugas') === tugas)); }
 
         // ================= EKSPOR EXCEL VISUAL (tampilan sama dengan web) =================
         // Membaca tabel yang sedang tampil di web (Gantt / Komparasi) beserta warnanya,
@@ -5338,12 +5667,12 @@
             return 'PENDING';
         }
         function dsTasks(list, title) {
-            const src = list || jobdeskTasks;
+            const src = list || visibleTasks();
             return {
                 name: 'Tugas', title: title || 'Daftar Tugas / Jobdesk',
-                headers: ['No', 'Proyek', 'Kategori', 'Pekerjaan', 'Sub Task', 'PIC', 'Mulai', 'Selesai', 'Status', 'Progres (%)'],
+                headers: ['No', 'Proyek', 'Kategori', 'Pekerjaan', 'Sub Task', 'PIC', 'Leader Project', 'Mulai', 'Selesai', 'Status', 'Progres (%)'],
                 rows: src.map((t, i) => [i + 1, t.projectName || '-', t.category || '-', t.name || '-', t.subTask || '-',
-                    t.pic || '-', t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)])
+                    t.pic || '-', t.leader || '-', t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)])
             };
         }
         function dsReports(list) {
@@ -5359,8 +5688,8 @@
         }
         function dsProjects() {
             const stat = {};
-            projects.forEach(p => stat[p] = { total: 0, done: 0, hold: 0, prog: 0, rep: 0, kendala: 0, end: '' });
-            jobdeskTasks.forEach(t => {
+            visibleProjects().forEach(p => stat[p] = { total: 0, done: 0, hold: 0, prog: 0, rep: 0, kendala: 0, end: '' });
+            visibleTasks().forEach(t => {
                 const p = t.projectName || 'Lain-lain';
                 if (!stat[p]) stat[p] = { total: 0, done: 0, hold: 0, prog: 0, rep: 0, kendala: 0, end: '' };
                 stat[p].total++; stat[p].prog += Number(t.progress || 0);
@@ -5368,7 +5697,7 @@
                 if (t.status === 'hold') stat[p].hold++;
                 if (t.endDate && (!stat[p].end || t.endDate > stat[p].end)) stat[p].end = t.endDate;
             });
-            reports.forEach(r => { if (stat[r.project]) { stat[r.project].rep++; if (r.issues) stat[r.project].kendala++; } });
+            visibleReports().forEach(r => { if (stat[r.project]) { stat[r.project].rep++; if (r.issues) stat[r.project].kendala++; } });
             return {
                 name: 'Proyek', title: 'Ringkasan Semua Proyek',
                 headers: ['No', 'Proyek', 'Total Tugas', 'Selesai', 'Hold', 'Progres Rata-rata (%)', 'Jumlah Laporan', 'Laporan Berkendala', 'Target Terakhir'],
@@ -5408,7 +5737,7 @@
         }
         function dsPicTasks() {
             const src = (typeof _picFilteredTasks !== 'undefined' && _picFilteredTasks && _picFilteredTasks.length)
-                ? _picFilteredTasks : jobdeskTasks;
+                ? _picFilteredTasks : visibleTasks();
             const rows = [];
             let no = 0;
             const byPic = {};
@@ -5416,31 +5745,31 @@
             Object.keys(byPic).sort((a, b) => a.localeCompare(b)).forEach(name => {
                 byPic[name].slice().sort((a, b) => new Date(a.endDate || 0) - new Date(b.endDate || 0)).forEach(t => {
                     rows.push([++no, name, t.projectName || '-', t.category || '-', t.name || '-', t.subTask || '-',
-                        t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)]);
+                        t.leader || '-', t.startDate || '-', t.endDate || '-', _expStatusLabel(t), progEff(t)]);
                 });
             });
             return {
                 name: 'Tugas per PIC', title: 'Tugas per PIC',
                 subtitle: (typeof _picFilterLabel !== 'undefined' ? _picFilterLabel : ''),
-                headers: ['No', 'PIC', 'Proyek', 'Kategori', 'Pekerjaan', 'Sub Task', 'Mulai', 'Selesai', 'Status', 'Progres (%)'],
+                headers: ['No', 'PIC', 'Proyek', 'Kategori', 'Pekerjaan', 'Sub Task', 'Leader Project', 'Mulai', 'Selesai', 'Status', 'Progres (%)'],
                 rows
             };
         }
         function dsDashboard() {
-            const total = jobdeskTasks.length;
-            const done = jobdeskTasks.filter(t => _expStatusLabel(t) === 'SELESAI').length;
-            const proc = jobdeskTasks.filter(t => _expStatusLabel(t) === 'PROSES').length;
-            const pend = jobdeskTasks.filter(t => _expStatusLabel(t) === 'PENDING').length;
-            const hold = jobdeskTasks.filter(t => _expStatusLabel(t) === 'HOLD').length;
-            const avg = progKeseluruhan(jobdeskTasks);
+            const total = visibleTasks().length;
+            const done = visibleTasks().filter(t => _expStatusLabel(t) === 'SELESAI').length;
+            const proc = visibleTasks().filter(t => _expStatusLabel(t) === 'PROSES').length;
+            const pend = visibleTasks().filter(t => _expStatusLabel(t) === 'PENDING').length;
+            const hold = visibleTasks().filter(t => _expStatusLabel(t) === 'HOLD').length;
+            const avg = progKeseluruhan(visibleTasks());
             return {
                 name: 'Ringkasan', title: 'Ringkasan Dashboard',
                 headers: ['Indikator', 'Nilai'],
                 rows: [
-                    ['Total Proyek', projects.length], ['Total Tugas', total],
+                    ['Total Proyek', visibleProjects().length], ['Total Tugas', total],
                     ['Tugas Selesai', done], ['Tugas Proses', proc], ['Tugas Pending', pend], ['Tugas Hold', hold],
-                    ['Progres Rata-rata (%)', avg], ['Total Laporan', reports.length],
-                    ['Laporan Berkendala', reports.filter(r => r.issues).length],
+                    ['Progres Rata-rata (%)', avg], ['Total Laporan', visibleReports().length],
+                    ['Laporan Berkendala', visibleReports().filter(r => r.issues).length],
                     ['Total Akun', accounts.length], ['Total Arsip PDF', (arsipPDF || []).length]
                 ]
             };
@@ -5467,7 +5796,7 @@
             const cIn = document.getElementById('search-report-pic');
             const pq = pIn ? pIn.value.toLowerCase().trim() : '';
             const cq = cIn ? cIn.value.toLowerCase().trim() : '';
-            return reports.filter(r => {
+            return visibleReports().filter(r => {
                 const okP = !pq || (r.project || '').toLowerCase().includes(pq);
                 const okC = !cq || (Array.isArray(r.workers) ? r.workers.join(', ') : String(r.workers || '')).toLowerCase().includes(cq);
                 return okP && okC;
@@ -5486,31 +5815,84 @@
         let _apDraft = {};
 
         function _apVal(id) { const el = document.getElementById(id); return el ? el.value : 'all'; }
+        // Filter multi-pilih (kosong = semua)
+        let _apSel = { project: new Set(), task: new Set(), pic: new Set(), status: new Set() };
+        const _AP_ALL = { project: 'Semua Proyek', task: 'Semua Tugas', pic: 'Semua PIC', status: 'Semua Status' };
+        function msSearch(inp) { const q = inp.value.toLowerCase().trim(); const box = inp.nextElementSibling; if (!box) return; box.querySelectorAll('label').forEach(l => { l.style.display = !q || l.textContent.toLowerCase().includes(q) ? '' : 'none'; }); }
+        function _apEff(t) { return Object.assign({}, t, _apDraft[t.id] || {}); }
+        function apToggleFilter(key, val, on) { if (on) _apSel[key].add(val); else _apSel[key].delete(val); renderAdminProgress(); }
+        function apClearFilter(key) { _apSel[key].clear(); renderAdminProgress(); }
+        function _apRenderMs(key, opts) {
+            const box = document.getElementById('ap-ms-' + key + '-list'); if (!box) return;
+            [..._apSel[key]].forEach(v => { if (!opts.some(o => o.v === v)) _apSel[key].delete(v); });
+            const esc = v => String(v).replace(/\\/g,'\\\\').replace(/'/g, "\\'").replace(/"/g,'&quot;');
+            box.innerHTML = `<button type="button" onclick="apClearFilter('${key}')" class="w-full text-left px-2 py-1 text-[11px] font-bold text-indigo-600 hover:bg-indigo-50 rounded">${_AP_ALL[key]}</button>` +
+                opts.map(o => `<label class="flex items-center gap-2 px-2 py-1 text-xs text-slate-700 hover:bg-slate-50 rounded cursor-pointer whitespace-nowrap"><input type="checkbox" class="accent-indigo-600" ${_apSel[key].has(o.v) ? 'checked' : ''} onchange="apToggleFilter('${key}', '${esc(o.v)}', this.checked)"> ${o.l}</label>`).join('');
+            const lbl = document.getElementById('ap-ms-' + key + '-lbl');
+            if (lbl) { const sel = opts.filter(o => _apSel[key].has(o.v)).map(o => o.l); lbl.textContent = !sel.length ? _AP_ALL[key] : (sel.length <= 2 ? sel.join(', ') : sel.length + ' dipilih'); }
+        }
+        document.addEventListener('click', e => { document.querySelectorAll('details.ap-ms[open]').forEach(d => { if (!d.contains(e.target)) d.removeAttribute('open'); }); });
+
+        // Filter periode / tanggal: preset cepat (7/30/60/90/180/365 hari) atau rentang custom
+        let _apDate = { mode: 'all', from: '', to: '' };
+        function _apIso(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+        function apSetDateMode(mode) {
+            _apDate.mode = mode;
+            const range = document.getElementById('ap-filter-daterange');
+            if (range) range.classList.toggle('hidden', mode !== 'custom');
+            if (mode !== 'custom' && mode !== 'all') {
+                const days = parseInt(mode, 10);
+                const now = new Date(); const end = new Date(); end.setDate(end.getDate() + days);
+                _apDate.from = _apIso(now); _apDate.to = _apIso(end);
+            } else if (mode === 'all') { _apDate.from = ''; _apDate.to = ''; }
+            else {
+                _apDate.from = (document.getElementById('ap-filter-datefrom') || {}).value || '';
+                _apDate.to = (document.getElementById('ap-filter-dateto') || {}).value || '';
+            }
+            renderAdminProgress();
+        }
+        function apSetDateRange() {
+            _apDate.from = (document.getElementById('ap-filter-datefrom') || {}).value || '';
+            _apDate.to = (document.getElementById('ap-filter-dateto') || {}).value || '';
+            renderAdminProgress();
+        }
+        function _apDateMatch(t) {
+            if (_apDate.mode === 'all' || (!_apDate.from && !_apDate.to)) return true;
+            const s = t.startDate || '', e = t.endDate || t.startDate || '';
+            if (!s && !e) return false;
+            if (_apDate.from && (e || s) < _apDate.from) return false;
+            if (_apDate.to && (s || e) > _apDate.to) return false;
+            return true;
+        }
 
         function _apFilteredTasks() {
-            const proj = _apVal('ap-filter-project');
-            const pic = _apVal('ap-filter-pic');
-            const st = _apVal('ap-filter-status');
+
             const qEl = document.getElementById('ap-filter-search');
             const q = qEl ? qEl.value.toLowerCase().trim() : '';
-            return jobdeskTasks.filter(t => {
-                if (proj !== 'all' && t.projectName !== proj) return false;
-                if (pic !== 'all' && !_picList(t.pic).some(n => n.toLowerCase() === pic.toLowerCase())) return false;
-                if (st !== 'all' && _apStatusLabel(t) !== st) return false;
+            const fp = _apSel.project, ft = _apSel.task, fc = new Set([..._apSel.pic].map(x => x.toLowerCase())), fs = _apSel.status;
+            return visibleTasks().filter(t0 => {
+                const t = _apEff(t0);
+                if (fp.size && !fp.has(t.projectName)) return false;
+                if (ft.size && !ft.has(t.name || t.subTask || '-')) return false;
+                if (fc.size && !_picList(t.pic).some(n => fc.has(n.toLowerCase()))) return false;
+                if (fs.size && !fs.has(_apStatusLabel(t0))) return false;
+                if (!_apDateMatch(t)) return false;
                 if (q) {
                     const hay = `${t.name || ''} ${t.subTask || ''} ${t.category || ''} ${t.projectName || ''}`.toLowerCase();
                     if (!hay.includes(q)) return false;
                 }
                 return true;
-            });
+            }).map(t0 => t0);
         }
 
         // Label status memperhitungkan draft yang belum disimpan
         function _apStatusLabel(t) {
             const d = _apDraft[t.id];
-            const eff = d ? { status: d.status, progress: d.progress } : t;
+            const eff = d ? { status: d.status ?? t.status, progress: d.progress ?? t.progress } : t;
             return _expStatusLabel(eff);
         }
+
+        function _apAttr(v) { return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 
         function _apStatusFromProgress(p, oldStatus) {
             if (p >= 100) return 'completed';
@@ -5522,20 +5904,34 @@
             const t = jobdeskTasks.find(x => x.id === id);
             if (!t) return;
             let p = Math.max(0, Math.min(100, Math.round(Number(value) || 0)));
-            const cur = _apDraft[id] || { progress: Number(t.progress) || 0, status: t.status || 'pending' };
-            _apDraft[id] = { progress: p, status: _apStatusFromProgress(p, cur.status) };
+            const cur = _apEff(t);
+            _apDraft[id] = Object.assign({}, _apDraft[id], { progress: p, status: _apStatusFromProgress(p, cur.status || 'pending') });
             renderAdminProgress();
         }
 
         function apSetStatus(id, status) {
             const t = jobdeskTasks.find(x => x.id === id);
             if (!t) return;
-            const cur = _apDraft[id] || { progress: Number(t.progress) || 0, status: t.status || 'pending' };
-            let p = cur.progress;
+            const cur = _apEff(t);
+            let p = Number(cur.progress) || 0;
             if (status === 'completed') p = 100;
             else if (status === 'pending') p = 0;
             else if (status === 'progress' && p >= 100) p = 90;
-            _apDraft[id] = { progress: p, status: status };
+            _apDraft[id] = Object.assign({}, _apDraft[id], { progress: p, status: status });
+            renderAdminProgress();
+        }
+
+        // Edit satu per satu: Proyek, Kategori, Tugas, Sub Tugas, PIC, Periode
+        function apSetField(id, field, value) {
+            if (currentRole !== 'admin') return showToast('Hanya Admin', 'error');
+            const t = jobdeskTasks.find(x => x.id === id); if (!t) return;
+            value = String(value == null ? '' : value).trim();
+            if ((field === 'name' || field === 'projectName') && !value) { showToast('Tidak boleh kosong', 'error'); return renderAdminProgress(); }
+            const d = Object.assign({}, _apDraft[id] || {});
+            if (value === String(t[field] ?? '')) delete d[field]; else d[field] = value;
+            const eff = Object.assign({}, t, d);
+            if (eff.startDate && eff.endDate && eff.startDate > eff.endDate) { showToast('Tanggal mulai melewati tanggal selesai', 'error'); return renderAdminProgress(); }
+            if (Object.keys(d).length) _apDraft[id] = d; else delete _apDraft[id];
             renderAdminProgress();
         }
 
@@ -5546,8 +5942,8 @@
             const list = _apFilteredTasks();
             if (!list.length) return showToast('Tidak ada tugas pada filter ini', 'error');
             list.forEach(t => {
-                const cur = _apDraft[t.id] || { status: t.status || 'pending' };
-                _apDraft[t.id] = { progress: p, status: _apStatusFromProgress(p, cur.status) };
+                const cur = _apEff(t);
+                _apDraft[t.id] = Object.assign({}, _apDraft[t.id], { progress: p, status: _apStatusFromProgress(p, cur.status || 'pending') });
             });
             renderAdminProgress();
             showToast(`${list.length} tugas disetel ke ${p}% (belum disimpan)`, 'info');
@@ -5563,15 +5959,27 @@
             if (currentRole !== 'admin') return showToast('Hanya Admin yang dapat mengubah progres', 'error');
             const ids = Object.keys(_apDraft);
             if (!ids.length) return showToast('Tidak ada perubahan untuk disimpan', 'info');
-            let n = 0;
+            let n = 0, fieldEdit = false;
+            const FIELDS = ['projectName','category','name','subTask','pic','startDate','endDate'];
             ids.forEach(id => {
                 const t = jobdeskTasks.find(x => x.id === id);
                 if (!t) return;
-                t.progress = _apDraft[id].progress;
-                t.status = _apDraft[id].status;
+                const d = _apDraft[id];
+                FIELDS.forEach(f => { if (d[f] !== undefined) { t[f] = d[f]; fieldEdit = true; } });
+                if (d.projectName && Array.isArray(projects) && !projects.includes(d.projectName)) projects.push(d.projectName);
+                if (d.progress !== undefined) t.progress = d.progress;
+                if (d.status !== undefined) t.status = d.status;
                 queuePendingProgress(id, t.progress, t.status);
                 n++;
             });
+            if (fieldEdit) {
+                _apDraft = {};
+                saveSnapshot && saveSnapshot();
+                renderAdminProgress();
+                try { renderDashboard(); renderGantt(); renderAllProjects(); renderComparison(); renderPicTasks(); renderJobdeskCalendar(); renderDailyTasks(selectedDate); } catch (e) {}
+                saveData().then(ok => showToast(ok ? `${n} tugas berhasil disimpan` : 'Gagal menyimpan ke server. Cek koneksi.', ok ? 'success' : 'error'));
+                return;
+            }
             _apDraft = {};
             saveSnapshot();
             renderAdminProgress();
@@ -5583,8 +5991,13 @@
         }
 
         function resetAdminProgressFilter() {
-            ['ap-filter-project', 'ap-filter-pic', 'ap-filter-status'].forEach(id => { const el = document.getElementById(id); if (el) el.value = 'all'; });
+            _apSel = { project: new Set(), task: new Set(), pic: new Set(), status: new Set() };
+            _apDate = { mode: 'all', from: '', to: '' };
             const s = document.getElementById('ap-filter-search'); if (s) s.value = '';
+            const dm = document.getElementById('ap-filter-datemode'); if (dm) dm.value = 'all';
+            const df = document.getElementById('ap-filter-datefrom'); if (df) df.value = '';
+            const dt = document.getElementById('ap-filter-dateto'); if (dt) dt.value = '';
+            const rg = document.getElementById('ap-filter-daterange'); if (rg) rg.classList.add('hidden');
             renderAdminProgress();
         }
 
@@ -5593,20 +6006,16 @@
             if (!cont) return;
             if (currentRole !== 'admin') { cont.innerHTML = '<div class="p-6 text-center text-sm text-slate-500">Halaman ini hanya untuk Admin.</div>'; return; }
 
-            // isi opsi filter
-            const pSel = document.getElementById('ap-filter-project');
-            if (pSel) {
-                const cur = pSel.value || 'all';
-                pSel.innerHTML = ['<option value="all">Semua Proyek</option>'].concat(projects.map(p => `<option value="${p}">${p}</option>`)).join('');
-                pSel.value = (cur === 'all' || projects.includes(cur)) ? cur : 'all';
-            }
-            const picSel = document.getElementById('ap-filter-pic');
-            if (picSel) {
-                const names = Array.from(new Set([...(workers || []), ...jobdeskTasks.flatMap(t => _picList(t.pic))].filter(Boolean))).sort((a, b) => a.localeCompare(b));
-                const cur = picSel.value || 'all';
-                picSel.innerHTML = ['<option value="all">Semua PIC</option>'].concat(names.map(n => `<option value="${n}">${n}</option>`)).join('');
-                picSel.value = names.includes(cur) ? cur : 'all';
-            }
+            // isi opsi filter (multi pilih)
+            const projNames = Array.from(new Set([...visibleProjects(), ...(divisionFilter==='all'?visibleTasks():[]).map(t => _apEff(t).projectName)].filter(Boolean)));
+            _apRenderMs('project', projNames.map(p => ({ v: p, l: p })));
+            const _apTaskNames = Array.from(new Set(visibleTasks().filter(t => !_apSel.project.size || _apSel.project.has(_apEff(t).projectName)).map(t => _apEff(t).name || _apEff(t).subTask || '-'))).sort((a, b) => a.localeCompare(b));
+            _apRenderMs('task', _apTaskNames.map(n => ({ v: n, l: n })));
+            const names = Array.from(new Set([...(workers || []), ...visibleTasks().flatMap(t => _picList(_apEff(t).pic))].filter(Boolean))).sort((a, b) => a.localeCompare(b));
+            _apRenderMs('pic', names.map(n => ({ v: n, l: n })));
+            _apRenderMs('status', [['PENDING','Pending'],['PROSES','Proses'],['HOLD','Hold'],['SELESAI','Selesai']].map(([v,l]) => ({ v, l })));
+            const _cats = Array.from(new Set(visibleTasks().map(t => _apEff(t).category).filter(Boolean)));
+            const dl = `<datalist id="ap-dl-proj">${projNames.map(p=>`<option value="${_apAttr(p)}">`).join('')}</datalist><datalist id="ap-dl-cat">${_cats.map(p=>`<option value="${_apAttr(p)}">`).join('')}</datalist><datalist id="ap-dl-pic">${names.map(p=>`<option value="${_apAttr(p)}">`).join('')}</datalist>`;
 
             const list = _apFilteredTasks();
             const draftCount = Object.keys(_apDraft).length;
@@ -5618,43 +6027,46 @@
             if (!list.length) { cont.innerHTML = '<div class="p-8 text-center text-sm text-slate-500">Tidak ada tugas sesuai filter.</div>'; return; }
 
             const badge = { 'SELESAI': 'bg-emerald-100 text-emerald-700', 'PROSES': 'bg-amber-100 text-amber-700', 'HOLD': 'bg-slate-200 text-slate-600', 'PENDING': 'bg-rose-100 text-rose-700' };
-            const rows = list.map(t => {
+            const rows = list.map(t0 => {
+                const t = _apEff(t0);
                 const d = _apDraft[t.id];
-                const prog = d ? d.progress : (Number(t.progress) || 0);
-                const stat = d ? d.status : (t.status || 'pending');
-                const lbl = _apStatusLabel(t);
+                const prog = Number(t.progress) || 0;
+                const stat = t.status || 'pending';
+                const lbl = _apStatusLabel(t0);
+                const inp = (f, v, extra='') => `<input value="${_apAttr(v)}" ${extra} onchange="apSetField('${t.id}','${f}',this.value)" class="ap-cell ${d && d[f] !== undefined ? 'ap-dirty' : ''}">`;
                 const dirty = !!d;
                 return `<tr class="${dirty ? 'bg-amber-50/70' : 'hover:bg-slate-50'} border-b border-slate-100 align-middle">
-                    <td class="px-3 py-2 text-xs font-bold text-slate-700 whitespace-nowrap">${t.projectName || '-'}</td>
-                    <td class="px-3 py-2 text-[11px] text-slate-500 whitespace-nowrap">${t.category || '-'}</td>
-                    <td class="px-3 py-2 text-xs text-slate-800">${t.name || '-'}${t.subTask ? `<div class="text-[10px] text-slate-400">↳ ${t.subTask}</div>` : ''}</td>
-                    <td class="px-3 py-2 text-[11px] text-slate-600 whitespace-nowrap">${t.pic || '-'}</td>
-                    <td class="px-3 py-2 text-[10px] text-slate-500 whitespace-nowrap">${_fmtDate(t.startDate)} → ${_fmtDate(t.endDate)}</td>
-                    <td class="px-3 py-2 w-56">
+                    <td class="px-2 py-1.5 font-bold">${inp('projectName', t.projectName, 'list="ap-dl-proj"')}</td>
+                    <td class="px-2 py-1.5">${inp('category', t.category, 'list="ap-dl-cat"')}</td>
+                    <td class="px-2 py-1.5">${inp('name', t.name, 'placeholder="Tugas"')}<div class="flex items-center gap-1 mt-0.5"><span class="text-[10px] text-slate-400">↳</span>${inp('subTask', t.subTask, 'placeholder="Sub tugas" style="font-size:10px"')}</div></td>
+                    <td class="px-2 py-1.5">${inp('pic', t.pic, 'list="ap-dl-pic"')}</td>
+                    <td class="px-2 py-1.5 whitespace-nowrap"><div class="flex flex-col gap-0.5">${inp('startDate', t.startDate, 'type="date"')}${inp('endDate', t.endDate, 'type="date"')}</div></td>
+                    <td class="px-2 py-1.5">
                         <div class="flex items-center gap-2">
-                            <input type="range" min="0" max="100" step="5" value="${prog}" oninput="this.nextElementSibling.value=this.value" onchange="apSetProgress('${t.id}', this.value)" class="flex-1 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
-                            <input type="number" min="0" max="100" value="${prog}" onchange="apSetProgress('${t.id}', this.value)" class="w-16 px-1.5 py-1 border border-slate-300 rounded text-xs font-bold text-center text-slate-700">
+                            <input type="range" min="0" max="100" step="5" value="${prog}" oninput="this.nextElementSibling.value=this.value" onchange="apSetProgress('${t.id}', this.value)" class="flex-1 min-w-0 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                            <input type="number" min="0" max="100" value="${prog}" onchange="apSetProgress('${t.id}', this.value)" class="w-14 flex-shrink-0 px-1  py-1 border border-slate-300 rounded text-xs font-bold text-center text-slate-700">
                         </div>
                     </td>
-                    <td class="px-3 py-2">
-                        <select onchange="apSetStatus('${t.id}', this.value)" class="px-2 py-1 border border-slate-300 rounded text-[11px] font-bold text-slate-700 bg-white">
+                    <td class="px-2 py-1.5">
+                        <select onchange="apSetStatus('${t.id}', this.value)" class="px-2 py-1 border border-slate-300 rounded text-[11px] font-bold text-slate-700 bg-white w-full">
                             <option value="pending" ${stat === 'pending' ? 'selected' : ''}>Pending</option>
                             <option value="progress" ${stat === 'progress' ? 'selected' : ''}>Proses</option>
                             <option value="hold" ${stat === 'hold' ? 'selected' : ''}>Hold</option>
                             <option value="completed" ${stat === 'completed' ? 'selected' : ''}>Selesai</option>
                         </select>
                     </td>
-                    <td class="px-3 py-2"><span class="px-2 py-0.5 rounded-full text-[10px] font-black ${badge[lbl] || 'bg-slate-100 text-slate-600'}">${lbl}</span></td>
+                    <td class="px-2 py-1.5 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-black ${badge[lbl] || 'bg-slate-100 text-slate-600'}">${lbl}</span></td>
                 </tr>`;
             }).join('');
 
-            cont.innerHTML = `<table class="w-full min-w-[900px]">
-                <thead class="bg-slate-50 sticky top-0 z-10">
+            cont.innerHTML = dl + `<table class="ap-table w-full min-w-[1180px] text-xs">
+                <colgroup><col style="width:15%"><col style="width:11%"><col style="width:22%"><col style="width:11%"><col style="width:120px"><col style="width:190px"><col style="width:110px"><col style="width:90px"></colgroup>
+                <thead class="sticky top-0 z-10">
                     <tr class="text-[10px] font-black uppercase tracking-wider text-slate-500">
-                        <th class="px-3 py-2 text-left">Proyek</th><th class="px-3 py-2 text-left">Kategori</th>
-                        <th class="px-3 py-2 text-left">Tugas</th><th class="px-3 py-2 text-left">PIC</th>
-                        <th class="px-3 py-2 text-left">Periode</th><th class="px-3 py-2 text-left">Progres</th>
-                        <th class="px-3 py-2 text-left">Status</th><th class="px-3 py-2 text-left">Info</th>
+                        <th class="px-3 py-2.5 text-left">Proyek</th><th class="px-3 py-2.5 text-left">Kategori</th>
+                        <th class="px-3 py-2.5 text-left">Tugas / Sub Tugas</th><th class="px-3 py-2.5 text-left">PIC</th>
+                        <th class="px-3 py-2.5 text-left">Periode</th><th class="px-3 py-2.5 text-left">Progres</th>
+                        <th class="px-3 py-2.5 text-left">Status</th><th class="px-3 py-2.5 text-center">Info</th>
                     </tr>
                 </thead>
                 <tbody>${rows}</tbody>
@@ -5778,7 +6190,7 @@
                     if (s || e) parts.push('Tanggal: ' + (s || '…') + ' s/d ' + (e || '…'));
                     const cs = sel('gantt-custom-scale'); if (cs) parts.push('Skala Kustom: ' + cs);
                 }
-                parts.push('Proyek: ' + (sel('filter-gantt-project') || 'Semua Proyek'));
+                parts.push('Proyek: ' + (ganttProjSel.size ? [...ganttProjSel].join(', ') : 'Semua Proyek'));
                 parts.push('Tampilkan Semua: ' + (document.getElementById('ganttShowAllCheckbox')?.checked ? 'Ya' : 'Tidak'));
                 const lbl = document.getElementById('gantt-month-label');
                 if (lbl) parts.push('Periode: ' + lbl.innerText);
@@ -6052,36 +6464,48 @@
                     try { renderDashboard(); renderGantt(); renderComparison && renderComparison(); renderAllProjects && renderAllProjects(); } catch(e){}
                 }
             } catch(e){}
+            _pulihkanSesi();
             loadData(false);
         }
 
         // ================= IMPORT TUGAS DARI EXCEL =================
-        const _IMP_COLS = ['Project','Kategori','Nama Tugas','Sub Tugas','Tanggal Mulai','Tanggal Selesai','PIC','Leader','Status','Progres (%)'];
+        const _IMP_COLS = dsTasks([]).headers;
         let _impRows = [];
         async function downloadTaskTemplate() {
             if (typeof ExcelJS === 'undefined') return showToast('Library Excel belum termuat', 'error');
-            const wb = new ExcelJS.Workbook(); const ws = wb.addWorksheet('Tugas');
-            ws.columns = _IMP_COLS.map((h, i) => ({ header: h, key: 'c' + i, width: [24,18,30,26,15,15,18,18,12,12][i] }));
-            const hr = ws.getRow(1); hr.height = 22;
-            hr.eachCell((c, i) => { c.font = { bold: true, color: { argb: 'FFFFFFFF' } }; c.alignment = { vertical: 'middle', horizontal: 'center' };
-                c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: i <= 3 || i === 5 || i === 6 ? 'FF4338CA' : 'FF64748B' } }; });
-            const d = (n) => { const x = new Date(); x.setDate(x.getDate() + n); return new Date(Date.UTC(x.getFullYear(), x.getMonth(), x.getDate())); };
-            const p0 = projects[0] || 'Gedung A', c0 = taskCategories[0] || 'Instalasi', w0 = workers[0] || 'Budi', w1 = workers[1] || 'Andi';
-            [[p0, c0, 'Instalasi Panel Utama', 'Pemasangan MCB', d(0), d(3), w0, w1, 'pending', 0],
-             [p0, c0, 'Instalasi Panel Utama', 'Wiring kabel', d(1), d(5), w0, w1, 'progress', 30],
-             [p0, c0, 'Pengujian Sistem', '', d(6), d(8), w1, w1, '', '']].forEach(r => ws.addRow(r));
-            for (let r = 2; r <= 200; r++) { ['E','F'].forEach(k => ws.getCell(k + r).numFmt = 'dd/mm/yyyy');
-                ws.getCell('I' + r).dataValidation = { type: 'list', allowBlank: true, formulae: ['"pending,progress,hold,completed"'] };
-                ws.getCell('J' + r).dataValidation = { type: 'whole', allowBlank: true, operator: 'between', formulae: [0, 100] }; }
-            ws.views = [{ state: 'frozen', ySplit: 1 }]; ws.autoFilter = 'A1:J1';
-            const g = wb.addWorksheet('Petunjuk'); g.getColumn(1).width = 22; g.getColumn(2).width = 70;
-            g.addRow(['PETUNJUK IMPORT TUGAS']).font = { bold: true, size: 14, color: { argb: 'FF4338CA' } }; g.addRow([]);
-            [['Project *','Nama proyek. Jika belum ada, proyek baru otomatis dibuat.'],['Kategori *','Kategori tugas. Jika belum ada, otomatis dibuat.'],
-             ['Nama Tugas *','Pekerjaan utama.'],['Sub Tugas','Opsional. Satu baris = satu sub tugas.'],
-             ['Tanggal Mulai *','Format tanggal Excel atau teks YYYY-MM-DD / DD/MM/YYYY.'],['Tanggal Selesai *','Tidak boleh sebelum Tanggal Mulai.'],
-             ['PIC','Nama penanggung jawab (pisahkan dengan koma jika lebih dari satu).'],['Leader','Leader project.'],
-             ['Status','pending / progress / hold / completed (kosong = pending).'],['Progres (%)','Angka 0-100 (kosong = 0).'],
-             ['',''],['Catatan','Kolom bertanda * wajib diisi. Hapus baris contoh sebelum import.']].forEach(r => { const row = g.addRow(r); row.getCell(1).font = { bold: true }; });
+            const wb = new ExcelJS.Workbook(), ws = wb.addWorksheet('Tugas');
+            ws.mergeCells('A1:K1'); ws.getCell('A1').value = 'Daftar Tugas / Jobdesk';
+            ws.getCell('A1').font = { bold: true, size: 13, color: { argb: 'FFFFFFFF' } };
+            ws.getCell('A1').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F172A' } }; ws.getRow(1).height = 30;
+            ws.mergeCells('A2:K2'); ws.getCell('A2').value = 'Contoh format sesuai ekspor — hapus baris contoh sebelum impor';
+            ws.getCell('A2').font = { italic: true, size: 9, color: { argb: 'FF64748B' } };
+            ws.addRow(_IMP_COLS); ws.getRow(3).height = 22;
+            _IMP_COLS.forEach((h, i) => {
+                ws.getColumn(i + 1).width = [8,24,18,30,26,22,22,15,15,14,14][i];
+                const c = ws.getCell(3, i + 1); c.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                c.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF4338CA' } };
+                c.alignment = { vertical: 'middle', horizontal: 'left' };
+            });
+            const d = n => { const x = new Date(); x.setDate(x.getDate() + n); return formatDateForInput(x); };
+            const p0 = projects[0] || 'Gedung A', c0 = taskCategories[0] || 'Instalasi', w0 = workers[0] || 'Budi';
+            [[1,p0,c0,'Instalasi Panel Utama','Pemasangan MCB',w0,w0,d(0),d(3),'PENDING',0],
+             [2,p0,c0,'Instalasi Panel Utama','Wiring kabel',w0,w0,d(1),d(5),'PROSES',0.3],
+             [3,p0,c0,'Pengujian Sistem','-',w0,w0,d(6),d(8),'SELESAI',1]].forEach(r => ws.addRow(r));
+            for (let r = 4; r <= 203; r++) {
+                ws.getCell('J' + r).dataValidation = { type: 'list', allowBlank: true, formulae: ['"PENDING,PROSES,HOLD,SELESAI"'] };
+                ws.getCell('K' + r).numFmt = '0.0%';
+                ws.getCell('K' + r).dataValidation = { type: 'decimal', allowBlank: true, operator: 'between', formulae: [0,1] };
+            }
+            ws.views = [{ showGridLines: false, state: 'frozen', ySplit: 3 }]; ws.autoFilter = 'A3:K6';
+            const g = wb.addWorksheet('Petunjuk'); g.getColumn(1).width = 22; g.getColumn(2).width = 85;
+            [['PETUNJUK IMPOR TUGAS',''],['Proyek *','Nama proyek; proyek baru otomatis dibuat.'],['Kategori *','Kategori tugas; kategori baru otomatis dibuat.'],
+             ['Pekerjaan *','Nama pekerjaan utama.'],['Sub Task','Opsional. Tanda - dianggap kosong.'],['PIC','Pisahkan nama dengan koma jika lebih dari satu.'],['Leader Project','Nama leader / penanggung jawab proyek.']
+             ['Mulai / Selesai *','Tanggal YYYY-MM-DD, DD/MM/YYYY, atau tanggal Excel. Selesai tidak boleh sebelum Mulai.'],
+             ['Status','PENDING / PROSES / HOLD / SELESAI. Format lama pending / progress / hold / completed tetap diterima.'],
+             ['Progres (%)','Isi persentase, misalnya 30%. Angka 0–100 tanpa format persen juga diterima.'],
+             ['No','Nomor urut tidak digunakan saat impor.'],['Catatan','Susunan kolom dan baris judul sama dengan ekspor. Hapus baris contoh. Tugas yang sudah ada dilewati.']].forEach(r => {
+                const row = g.addRow(r); row.font = { name: 'Arial', size: 10 }; row.getCell(1).font = { name: 'Arial', bold: true }; row.getCell(2).alignment = { wrapText: true };
+            });
             const buf = await wb.xlsx.writeBuffer();
             _expDownload(new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }), 'Contoh_Format_Import_Tugas.xlsx');
         }
@@ -6100,30 +6524,58 @@
             _impRows = []; btn.disabled = true; box.innerHTML = ''; if (!file) return;
             try {
                 const wb = new ExcelJS.Workbook(); await wb.xlsx.load(await file.arrayBuffer());
-                const ws = wb.getWorksheet('Tugas') || wb.worksheets[0];
-                const head = {}; ws.getRow(1).eachCell((c, i) => head[String(_impVal(c.value) || '').trim().toLowerCase()] = i);
-                const col = (r, name) => { const i = head[name.toLowerCase()]; return i ? _impVal(r.getCell(i).value) : ''; };
-                if (!head['project'] || !head['nama tugas']) throw new Error('Header tidak sesuai contoh format');
-                const errs = [], dups = [], okStatus = ['pending','progress','hold','completed'];
+                const aliases = {
+                    projectName: ['proyek','project'], category: ['kategori'], name: ['pekerjaan','nama tugas'],
+                    subTask: ['sub task','sub tugas'], startDate: ['mulai','tanggal mulai'], endDate: ['selesai','tanggal selesai'],
+                    pic: ['pic'], leader: ['leader project','leader proyek','leader'], status: ['status'], progress: ['progres (%)','progress (%)']
+                };
+                const norm = v => String(_impVal(v) ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+                const candidates = [];
+                for (const sheet of wb.worksheets) {
+                    if (/^(info|petunjuk|tampilan\b)/i.test(sheet.name)) continue;
+                    for (let n = 1; n <= Math.min(sheet.rowCount, 30); n++) {
+                        const head = {}; sheet.getRow(n).eachCell((c, i) => { head[norm(c.value)] = i; });
+                        const cols = {};
+                        Object.entries(aliases).forEach(([key, names]) => { const h = names.find(x => head[x]); if (h) cols[key] = head[h]; });
+                        if (['projectName','category','name','startDate','endDate'].every(k => cols[k])) {
+                            candidates.push({ ws: sheet, headerRow: n, cols }); break;
+                        }
+                    }
+                }
+                if (!candidates.length) throw new Error('Tidak ditemukan tabel tugas. Gunakan sheet Tugas dengan kolom Proyek, Kategori, Pekerjaan, Mulai, Selesai.');
+                // Ekspor semua data juga berisi Tugas per PIC; gunakan tabel Tugas utama agar tidak ganda.
+                const main = candidates.find(x => x.ws.name.toLowerCase() === 'tugas');
+                const tables = main ? [main] : candidates;
+                const errs = [], dups = [];
+                const statusMap = { pending:'pending', progress:'progress', proses:'progress', hold:'hold', completed:'completed', selesai:'completed' };
                 const seen = new Set(jobdeskTasks.map(t => (String(t.projectName||'') + '|' + String(t.name||'') + '|' + String(t.subTask||'')).trim().toLowerCase()));
-                ws.eachRow((r, n) => {
-                    if (n === 1) return;
-                    const t = { projectName: String(col(r,'Project') || '').trim(), category: String(col(r,'Kategori') || '').trim(), name: String(col(r,'Nama Tugas') || '').trim(),
-                        subTask: String(col(r,'Sub Tugas') || '').trim(), startDate: _impDate(col(r,'Tanggal Mulai')), endDate: _impDate(col(r,'Tanggal Selesai')),
-                        pic: String(col(r,'PIC') || '').trim(), leader: String(col(r,'Leader') || '').trim(),
-                        status: String(col(r,'Status') || 'pending').trim().toLowerCase() || 'pending', progress: parseInt(col(r,'Progres (%)')) || 0 };
-                    if (!t.projectName && !t.name && !t.category) return;
-                    const e = [];
-                    if (!t.projectName) e.push('Project kosong'); if (!t.category) e.push('Kategori kosong'); if (!t.name) e.push('Nama Tugas kosong');
-                    if (!t.startDate || t.startDate === 'X') e.push('Tanggal Mulai salah'); if (!t.endDate || t.endDate === 'X') e.push('Tanggal Selesai salah');
+                tables.forEach(({ ws, headerRow, cols }) => ws.eachRow((r, n) => {
+                    if (n <= headerRow) return;
+                    const cell = key => cols[key] ? r.getCell(cols[key]) : null;
+                    const val = key => _impVal(cell(key)?.value);
+                    const text = key => { const v = String(val(key) ?? '').trim(); return v === '-' ? '' : v; };
+                    if (!Object.keys(cols).some(k => text(k))) return;
+                    const raw = val('progress');
+                    const percentFormat = String(cell('progress')?.numFmt || '').replace(/"[^"]*"/g, '').includes('%');
+                    const percentText = typeof raw === 'string' && raw.trim().endsWith('%');
+                    let progress = raw == null || raw === '' || raw === '-' ? 0 : Number(String(raw).replace('%','').replace(',','.').trim());
+                    if (percentFormat && !percentText) progress *= 100;
+                    const status = text('status').toLowerCase() || 'pending';
+                    const t = { projectName: text('projectName'), category: text('category'), name: text('name'), subTask: text('subTask'),
+                        startDate: _impDate(val('startDate')), endDate: _impDate(val('endDate')), pic: text('pic'), leader: text('leader'),
+                        status: statusMap[status] || status, progress };
+                    const e = [], label = ws.name + ' — Baris ' + n;
+                    if (!t.projectName) e.push('Proyek kosong'); if (!t.category) e.push('Kategori kosong'); if (!t.name) e.push('Pekerjaan kosong');
+                    if (!t.startDate || t.startDate === 'X') e.push('Mulai salah'); if (!t.endDate || t.endDate === 'X') e.push('Selesai salah');
                     if (!e.length && t.endDate < t.startDate) e.push('Selesai sebelum Mulai');
-                    if (!okStatus.includes(t.status)) e.push('Status tidak dikenal');
-                    t.progress = Math.max(0, Math.min(100, t.progress)); if (t.status === 'completed') t.progress = 100;
+                    if (!Object.values(statusMap).includes(t.status)) e.push('Status tidak dikenal');
+                    if (!Number.isFinite(t.progress) || t.progress < 0 || t.progress > 100) e.push('Progres harus 0–100%');
+                    if (t.status === 'completed') t.progress = 100;
                     const key = (t.projectName + '|' + t.name + '|' + t.subTask).trim().toLowerCase();
-                    if (e.length) { errs.push('Baris ' + n + ': ' + e.join(', ')); return; }
-                    if (seen.has(key)) { dups.push('Baris ' + n + ': "' + t.name + '"' + (t.subTask ? ' (' + t.subTask + ')' : '') + ' sudah ada di project ' + t.projectName); return; }
+                    if (e.length) { errs.push(label + ': ' + e.join(', ')); return; }
+                    if (seen.has(key)) { dups.push(label + ': "' + t.name + '"' + (t.subTask ? ' (' + t.subTask + ')' : '') + ' sudah ada di project ' + t.projectName); return; }
                     seen.add(key); _impRows.push(t);
-                });
+                }));
                 const esc = s => String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
                 let h = `<p class="font-bold text-emerald-700 mb-2"><i class="fa-solid fa-check-circle mr-1"></i>${_impRows.length} tugas siap diimport${dups.length ? ' • ' + dups.length + ' dilewati (sudah ada)' : ''}</p>`;
                 if (dups.length) h += `<div class="bg-amber-50 border border-amber-200 text-amber-700 rounded p-2 mb-2"><b>${dups.length} baris dilewati — data sudah ada di project:</b><br>${dups.slice(0, 10).map(esc).join('<br>')}${dups.length > 10 ? '<br>…' : ''}</div>`;
@@ -6131,7 +6583,7 @@
                 if (_impRows.length) h += `<div class="max-h-48 overflow-auto border rounded"><table class="w-full"><thead class="bg-slate-100 sticky top-0"><tr><th class="p-1 text-left">Project</th><th class="p-1 text-left">Tugas</th><th class="p-1">Tanggal</th><th class="p-1">PIC</th></tr></thead><tbody>` +
                     _impRows.map(t => `<tr class="border-t"><td class="p-1">${esc(t.projectName)}</td><td class="p-1">${esc(t.name)}${t.subTask ? ' — ' + esc(t.subTask) : ''}</td><td class="p-1 whitespace-nowrap">${t.startDate} → ${t.endDate}</td><td class="p-1">${esc(t.pic)}</td></tr>`).join('') + '</tbody></table></div>';
                 box.innerHTML = h; btn.disabled = !_impRows.length;
-            } catch (e) { box.innerHTML = `<p class="text-rose-600 font-bold">Gagal membaca file: ${e.message}</p>`; }
+            } catch (e) { _impRows = []; btn.disabled = true; box.textContent = 'Gagal membaca file: ' + e.message; }
         }
         function confirmTaskImport() {
             if (isSaving || !_impRows.length) return;
@@ -6146,7 +6598,8 @@
             _impRows.forEach(t => {
                 if (!projects.includes(t.projectName)) projects.push(t.projectName);
                 if (!taskCategories.includes(t.category)) taskCategories.push(t.category);
-                jobdeskTasks.push({ id: generateId(), ...t });
+                const _impDivEl = document.querySelector('input[name="importDivision"]:checked');
+                jobdeskTasks.push({ id: generateId(), ...t, division: _impDivEl ? _impDivEl.value : 'Elektrikal' });
             });
             const btn = document.getElementById('btn-import-task'), orig = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Mengimport...'; btn.disabled = true;
