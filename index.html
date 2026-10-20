@@ -351,18 +351,24 @@
                         <!-- Checklist Pekerjaan -->
                         <div class="border-t border-slate-200 pt-6">
                             <label class="block text-sm font-bold text-slate-700 mb-2">Pekerjaan Yang Diselesaikan Hari Ini</label>
+                            <div class="grid grid-cols-2 gap-2 mb-3 bg-slate-100 p-1 rounded-lg" id="report-mode-toggle">
+                                <button type="button" data-mode="jobdesk" onclick="setReportMode('jobdesk')" class="report-mode-btn py-2 rounded-md text-xs font-bold transition"><i class="fa-solid fa-list-check mr-1"></i> Dari Jobdesk</button>
+                                <button type="button" data-mode="manual" onclick="setReportMode('manual')" class="report-mode-btn py-2 rounded-md text-xs font-bold transition"><i class="fa-solid fa-pen mr-1"></i> Isi Sendiri</button>
+                            </div>
+                            <div id="report-mode-jobdesk">
                             <p class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-circle-info mr-1"></i> Pilih proyek di atas untuk memunculkan daftar tugas/jobdesk yang tersedia.</p>
                             
                             <div id="report-checklist-container" class="bg-slate-50 border border-slate-200 rounded-lg p-4 max-h-[300px] overflow-y-auto space-y-2">
                                 <div class="text-center text-slate-400 py-4 italic text-sm">Silakan pilih nama proyek terlebih dahulu.</div>
                             </div>
                             
-                            <!-- Pekerjaan Tambahan -->
-                            <div class="mt-3">
-                                <label class="block text-xs font-bold text-slate-600 mb-1">Pekerjaan Tambahan (Di luar Jobdesk / Opsional)</label>
+                            </div>
+                            <!-- Pekerjaan Tambahan / Isi Sendiri -->
+                            <div class="mt-3" id="report-mode-manual">
+                                <label class="block text-xs font-bold text-slate-600 mb-1">Pekerjaan yang dikerjakan (isi sendiri)</label>
                                 <div id="form-work-additional-list" class="space-y-2"></div>
-                                <button type="button" onclick="addAdditionalRow()" class="mt-2 text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center"><i class="fa-solid fa-plus mr-1"></i> Tambah Pekerjaan Tambahan</button>
-                                <p class="text-[9px] text-slate-400 mt-1"><i class="fa-solid fa-magic text-amber-500 mr-1"></i> Isi nama pekerjaan &amp; persentase progres. Otomatis masuk ke Gantt Chart, Jadwal Job, dan Laporan.</p>
+                                <button type="button" onclick="addAdditionalRow()" class="mt-2 text-xs font-bold text-indigo-600 hover:text-indigo-800 flex items-center"><i class="fa-solid fa-plus mr-1"></i> Tambah Pekerjaan</button>
+                                <p class="text-[9px] text-slate-400 mt-1"><i class="fa-solid fa-magic text-amber-500 mr-1"></i> Isi nama pekerjaan &amp; persentase progres. Tercatat di laporan.</p>
                             </div>
                         </div>
 
@@ -1477,7 +1483,14 @@
         function clearPendingProgress() {}
         function applyPendingProgressOverlay() {}
 
+        let _snapTimer = null;
         function saveSnapshot() {
+            if (_snapTimer) return;
+            const run = () => { _snapTimer = null; _saveSnapshotNow(); };
+            _snapTimer = (window.requestIdleCallback ? requestIdleCallback(run, { timeout: 1500 }) : setTimeout(run, 300));
+        }
+        window.addEventListener('pagehide', () => _saveSnapshotNow());
+        function _saveSnapshotNow() {
             try {
                 _lsSet(LS_SNAPSHOT_KEY, {
                     ts: Date.now(), v: 2,
@@ -4486,29 +4499,31 @@
                 const nameStr = t.name + (t.subTask ? ` - ${t.subTask}` : '');
                 const saved = existing[t.id] || {};
                 const progressVal = saved.progress !== undefined ? saved.progress : (t.progress || 0);
-                const isChecked = (saved.checked || progressVal > 0) ? 'checked' : '';
+                const isChecked = saved.checked === true ? 'checked' : '';
                 container.innerHTML += `
-                    <label class="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 cursor-pointer hover:bg-indigo-50 transition group">
-                        <input type="checkbox" name="report_checklist" value="${t.id}" class="mt-1 form-checkbox text-indigo-600 rounded" ${isChecked}>
+                    <div class="flex items-start gap-3 p-3 bg-white rounded-lg border border-slate-200 hover:bg-indigo-50 transition group">
+                        <input type="checkbox" name="report_checklist" value="${t.id}" aria-label="Pilih pekerjaan" class="mt-1 form-checkbox text-indigo-600 rounded" ${isChecked}>
                         <div class="flex-grow">
                             <div class="text-sm font-bold text-slate-700 group-hover:text-indigo-700 transition">${nameStr}</div>
                             <div class="text-[10px] text-slate-500 font-medium mt-0.5"><i class="fa-solid fa-user-helmet mr-1 text-slate-400"></i>PIC: ${t.pic||'-'}</div>
                             <div class="mt-2 flex items-center gap-2">
                                 <span class="text-[10px] font-semibold text-slate-500 whitespace-nowrap">Progres:</span>
                                 <input type="range" id="progress-${t.id}" name="report_progress" min="0" max="100" value="${progressVal}" class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600" oninput="updateTaskProgressReport('${t.id}', this.value)">
-                                <span id="progress-label-${t.id}" class="text-[10px] font-bold text-indigo-600 w-8 text-right">${progressVal}%</span>
+                                <input type="number" id="progress-number-${t.id}" aria-label="Persentase pekerjaan" min="0" max="100" step="1" value="${progressVal}" class="w-16 shrink-0 px-2 py-1 border border-slate-300 rounded-lg text-xs text-center focus:outline-none focus:ring-2 focus:ring-indigo-500" oninput="updateTaskProgressReport('${t.id}', this.value)">
+                                <span class="text-xs font-bold text-slate-500">%</span>
                             </div>
                         </div>
-                    </label>
+                    </div>
                 `;
             });
         }
 
         function updateTaskProgressReport(id, value) {
-            const label = document.getElementById('progress-label-' + id);
-            if (label) label.innerText = value + '%';
-            const cb = document.querySelector('input[name="report_checklist"][value="' + id + '"]');
-            if (cb) cb.checked = parseInt(value) > 0;
+            const progress = Math.min(100, Math.max(0, parseInt(value, 10) || 0));
+            const slider = document.getElementById('progress-' + id);
+            const number = document.getElementById('progress-number-' + id);
+            if (slider) slider.value = progress;
+            if (number) number.value = progress;
         }
 
         const ADDITIONAL_TASK_NAME = "Pekerjaan Tambahan (Opsional)";
@@ -4517,12 +4532,19 @@
             const list = document.getElementById('form-work-additional-list');
             if (!list) return;
             const row = document.createElement('div');
-            row.className = 'additional-row flex items-center gap-2';
-            row.innerHTML = `<input type="text" class="add-name flex-grow px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nama pekerjaan tambahan...">
-                <div class="flex items-center gap-1 flex-shrink-0"><input type="number" min="0" max="100" class="add-pct w-16 px-2 py-2 border border-slate-300 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-indigo-500"><span class="text-xs font-bold text-slate-500">%</span></div>
+            row.className = 'additional-row flex flex-wrap items-start gap-2';
+            row.innerHTML = `<div class="flex-1 min-w-0 space-y-2"><input type="text" aria-label="Nama pekerjaan isi sendiri" class="add-name w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Nama pekerjaan...">
+                <div class="flex items-center gap-2"><input type="range" aria-label="Geser persentase isi sendiri" min="0" max="100" step="1" class="add-slider flex-1 min-w-0 h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-indigo-600"><input type="number" aria-label="Persentase isi sendiri" min="0" max="100" step="1" class="add-pct w-16 shrink-0 px-2 py-1 border border-slate-300 rounded-lg text-sm text-center focus:outline-none focus:ring-2 focus:ring-indigo-500"><span class="text-xs font-bold text-slate-500">%</span></div></div>
                 <button type="button" class="text-rose-500 hover:bg-rose-50 p-2 rounded" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>`;
             row.querySelector('.add-name').value = text;
-            row.querySelector('.add-pct').value = pct;
+            const slider = row.querySelector('.add-slider'), number = row.querySelector('.add-pct');
+            const syncProgress = value => {
+                const progress = Math.min(100, Math.max(0, parseInt(value, 10) || 0));
+                slider.value = progress; number.value = progress;
+            };
+            slider.oninput = () => syncProgress(slider.value);
+            number.oninput = () => syncProgress(number.value);
+            syncProgress(pct);
             row.querySelector('button').onclick = () => row.remove();
             list.appendChild(row);
         }
@@ -4531,6 +4553,20 @@
             if (list) { list.innerHTML = ''; addAdditionalRow(); }
         }
         document.addEventListener('DOMContentLoaded', resetAdditionalRows);
+
+        let reportMode = 'jobdesk';
+        function setReportMode(mode) {
+            reportMode = mode === 'manual' ? 'manual' : 'jobdesk';
+            const j = document.getElementById('report-mode-jobdesk'), m = document.getElementById('report-mode-manual');
+            if (j) j.classList.toggle('hidden', reportMode !== 'jobdesk');
+            if (m) m.classList.remove('hidden');
+            document.querySelectorAll('.report-mode-btn').forEach(b => {
+                const on = b.dataset.mode === reportMode;
+                b.classList.toggle('bg-white', on); b.classList.toggle('text-indigo-700', on); b.classList.toggle('shadow-sm', on);
+                b.classList.toggle('text-slate-500', !on);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => setReportMode('jobdesk'));
 
         let _reportSubmitting = false;
         function handleReportSubmit() {
@@ -4554,7 +4590,7 @@
             
             if (selectedWorkers.length === 0) return showToast('Pilih minimal 1 pekerja', 'error');
 
-            const checkedTasks = document.querySelectorAll('input[name="report_checklist"]:checked');
+            const checkedTasks = reportMode === 'jobdesk' ? document.querySelectorAll('input[name="report_checklist"]:checked') : [];
             let workDoneArr = [];
             const taskProgressMap = {};
             checkedTasks.forEach(cb => {
@@ -4585,7 +4621,7 @@
                     progress: item.pct
                 });
             });
-            if(workDoneArr.length === 0) return showToast('Harap pilih tugas dari checklist atau isi pekerjaan tambahan.', 'error');
+            if(workDoneArr.length === 0) return showToast(reportMode === 'manual' ? 'Harap isi nama pekerjaan.' : 'Harap centang tugas Jobdesk atau isi nama pekerjaan sendiri.', 'error');
             const workDone = workDoneArr.join('\n');
 
             let photosUploaded = 0;
@@ -4633,33 +4669,27 @@
                     }
                 });
 
-                if(newAdditionalTasks.length > 0) {
+                // Server hanya mengizinkan admin membuat tugas baru. Untuk PIC,
+                // pekerjaan tambahan cukup tercatat di isi laporan (workDone)
+                // supaya laporan tidak ditolak server.
+                if(newAdditionalTasks.length > 0 && currentRole === 'admin') {
                     jobdeskTasks.push(...newAdditionalTasks);
                 }
-                return saveData().then(success => {
-                    if (success) {
-                        document.getElementById('form-project').value = '';
-                        document.getElementById('form-issues').value = '';
-                        resetAdditionalRows();
-                        renderReportChecklist(); 
-                        if(currentRole === 'admin') document.querySelectorAll('input[name="worker"]').forEach(cb => cb.checked = false);
-                        for(let i=1; i<=5; i++) removePhoto(i);
-                        
-                        showToast('Laporan berhasil dikirim dan tersimpan di server!', 'success');
-                        switchView('reports');
-                    } else {
-                        if (reports.some(r => r.id === newReport.id)) {
-                            document.getElementById('form-project').value = '';
-                            document.getElementById('form-issues').value = '';
-                            resetAdditionalRows(); renderReportChecklist();
-                            for (let i = 1; i <= 5; i++) removePhoto(i);
-                            showToast('Laporan belum tersimpan di server. Data dipertahankan di perangkat dan akan dicoba lagi otomatis.', 'error');
-                        } else showToast('Laporan ditolak server. Periksa pesan kesalahan sebelum mencoba lagi.', 'error');
-                    }
-                    btn.innerHTML = originalText; btn.disabled = false;
-                    _reportSubmitting = false;
+                // Simpan cepat: form langsung dibersihkan & laporan langsung tampil,
+                // pengiriman ke server berjalan di latar belakang.
+                document.getElementById('form-project').value = '';
+                document.getElementById('form-issues').value = '';
+                resetAdditionalRows(); renderReportChecklist();
+                if(currentRole === 'admin') document.querySelectorAll('input[name="worker"]').forEach(cb => cb.checked = false);
+                for(let i=1; i<=5; i++) removePhoto(i);
+                btn.innerHTML = originalText; btn.disabled = false; _reportSubmitting = false;
+                showToast('Laporan tersimpan. Sinkron ke server di latar belakang...', 'success');
+                switchView('reports');
+                saveData().then(success => {
+                    if (success) showToast('Laporan berhasil tersimpan di server!', 'success');
+                    else if (reports.some(r => r.id === newReport.id)) showToast('Laporan belum tersimpan di server. Data aman di perangkat dan akan dicoba lagi otomatis.', 'error');
+                    else showToast('Laporan ditolak server. Periksa pesan kesalahan sebelum mencoba lagi.', 'error');
                 });
-
             }).catch(err => {
                 showToast('Gagal upload foto: Cek koneksi internet.', 'error');
                 btn.innerHTML = originalText; btn.disabled = false;
